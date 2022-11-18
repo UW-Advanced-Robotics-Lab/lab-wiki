@@ -6,13 +6,19 @@ function markdown-toc(){
     declare -a TOC
     CODE_BLOCK=0
     CODE_BLOCK_REGEX='^```'
-    HEADING_REGEX='^#{1,}'
+    CODE_BLOCK_REGEX_PAIR='^```.*```$'
+    HEADING_REGEX='\#{1,}'
     
     while read -r LINE; do
         # Treat code blocks
         if [[ "${LINE}" =~ $CODE_BLOCK_REGEX ]]; then
             # Ignore things until we see code block ending
             CODE_BLOCK=$((CODE_BLOCK + 1))
+            # Skip in-line code block
+            if [[ "${LINE}" =~ $CODE_BLOCK_REGEX_PAIR ]]; then
+                echo "inline code block"
+                CODE_BLOCK=0
+            fi
             if [[ "${CODE_BLOCK}" -eq 2 ]]; then
                 # We hit the closing code block
                 CODE_BLOCK=0
@@ -33,24 +39,6 @@ function markdown-toc(){
     TOC_TEXT+="# Table of Contents\n"
     TOC_TEXT+="[*Last generated: $(date)*]\n"
     for LINE in "${TOC[@]}"; do
-        case "${LINE}" in
-            '#####'*)
-                TOC_TEXT+="        - "
-                ;;
-            '####'*)
-                TOC_TEXT+="      - "
-                ;;
-            '###'*)
-                TOC_TEXT+="    - "
-                ;;
-            '##'*)
-                TOC_TEXT+="  - "
-                ;;
-            '#'*)
-                TOC_TEXT+="- "
-                ;;
-        esac
-    
         LINK=${LINE}
         # Detect markdown links in heading and remove link part from them
         if grep -qE "\[.*\]\(.*\)" <<< "${LINK}"; then
@@ -65,12 +53,29 @@ function markdown-toc(){
         LINK=$(tr -s "-" <<< "${LINK}")
     
         # Print in format [Very Special Heading](#very-special-heading)
-        TOC_TEXT+="[${LINE#\#* }](#${LINK})\n"
-    done
-    TOC_TEXT+="</toc>\n"
+        case "${LINE}" in
+            '#####'*)
+                TOC_TEXT+="        - [${LINE#\#* }](#${LINK})\n"
+                ;;
+            '####'*)
+                TOC_TEXT+="      - [${LINE#\#* }](#${LINK})\n"
+                ;;
+            '###'*)
+                TOC_TEXT+="    - [${LINE#\#* }](#${LINK})\n"
+                ;;
+            '##'*)
+                TOC_TEXT+="  - [${LINE#\#* }](#${LINK})\n"
+                ;;
+            '#'*)
+                TOC_TEXT+="- [**${LINE#\#* }**](#${LINK})\n"
+                ;;
+        esac
     
-    # { echo -en "${TOC_TEXT}"; cat $FILE; } > $FILE.new
-    # mv $FILE{.new,}
+    done
+    TOC_TEXT+="\n\n</toc>\n"
+    
+    { echo -en "${TOC_TEXT}"; cat $FILE; } > $FILE.new
+    mv $FILE{.new,}
     echo "    - [x] Generated table of contents"
 }
 
@@ -85,7 +90,11 @@ for file in *.md; do
     else
         if [[ $(<$file) = *"<toc>"*"</toc>"* ]]; then
         # if [[ $(<$file) = *"# Table of Contents"* ]]; then
-            echo "    - [!] Already has a ToC"
+            echo "    - [!] Already has a ToC, deleting the old ToC ..."
+            sed '/<toc>/,/<\/toc>/d' $file > $file.new
+            mv $file{.new,}
+            
+            markdown-toc $file
             continue # skip if already has a toc
         else
             markdown-toc $file
