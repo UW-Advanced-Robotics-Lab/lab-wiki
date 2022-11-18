@@ -11,8 +11,8 @@ on:
   gollum:
 
 env:
-  GIT_AUTHOR_EMAIL: opensource+bot@newrelic.com
-  GIT_AUTHOR_NAME: nr-opensource-bot
+  GIT_AUTHOR_EMAIL: jxdock@gmail.com
+  GIT_AUTHOR_NAME: jx-bot
 
 jobs:
   job-sync-docs-to-wiki:
