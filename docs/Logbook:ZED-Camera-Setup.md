@@ -1,7 +1,16 @@
-## ZED Camera Documentation
+<toc>
+# Table of Contents
+[*Last generated: Fri 18 Nov 2022 18:47:51 EST*]
+- [**ZED Camera Documentation**](#ZED-Camera-Documentation)
+  - [How to fix ZED Camera USB 3.0 not recognized](#How-to-fix-ZED-Camera-USB-30-not-recognized)
+    - [Replace the cable:](#Replace-the-cable)
 
 
-### How to fix ZED Camera USB 3.0 not recognized
+</toc>
+
+---
+# ZED Camera Documentation
+## How to fix ZED Camera USB 3.0 not recognized
 - It could be caused by the damage to the cable or loosen connector inside the camera, and need a replacement.
 - Checking if it is only detecting as USB 2:
   - `lsusb -t` to see the USB devices, and make sure ZED is visible on USB 3.0 Channel with `: ZED, 5Gb/s`
@@ -9,7 +18,7 @@
   - Try to wiggle around the cable at the ZED camera to find a sweet spot where it will be detected as USB 3.0
   - If the sweet spot does not exist, meaning that you may have to proceed to replace the cable, if the camera is out of warranty.
 
-#### Replace the cable:
+### Replace the cable:
 :warning: |  This procedure is irreversible, and please make sure you have used all resources possible. 
 :---: | :---
 

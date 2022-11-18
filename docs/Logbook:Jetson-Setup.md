@@ -1,6 +1,31 @@
-> ⚠️ Last updated: Sept. 21, 2022
+<toc>
+# Table of Contents
+[*Last generated: Fri 18 Nov 2022 18:47:51 EST*]
+- [**Jetson AGX Orin - RT Kernel Final Guide:**](#Jetson-AGX-Orin-RT-Kernel-Final-Guide)
+- [**Common**](#Common)
+  - [Recommended Tool-sets:](#Recommended-Tool-sets)
+    - [oh-my-zsh](#oh-my-zsh)
+    - [tmux](#tmux)
+    - [Fan-Control](#Fan-Control)
+    - [Jetson Links:](#Jetson-Links)
+- [**JETSON AGX ORIN:**](#JETSON-AGX-ORIN)
+  - [NVMe SSD Installation & bootsetup](#NVMe-SSD-Installation-bootsetup)
+  - [Kernel](#Kernel)
+  - [Direct NVMe Install](#Direct-NVMe-Install)
+- [**JETSON TX2 - ARUCO:**](#JETSON-TX2-ARUCO)
+  - [Ubuntu 18.04](#Ubuntu-1804)
+  - [ROS - Melodic](#ROS-Melodic)
+    - [Catkin tools](#Catkin-tools)
+    - [Open cv](#Open-cv)
+    - [all ros dependencies:](#all-ros-dependencies)
+    - [python2.7 ros dep:](#python27-ros-dep)
+  - [Python Packages:](#Python-Packages)
+  - [ZED](#ZED)
+  - [ROS Melodic with Python3](#ROS-Melodic-with-Python3)
 
-[TOC]
+
+</toc>
+> ⚠️ Last updated: Sept. 21, 2022
 
 # Jetson AGX Orin - RT Kernel Final Guide:
 
@@ -182,7 +207,7 @@
 
 
 
-# JETSON AGX ORIN [uwarl-orin]:
+# JETSON AGX ORIN:
 - [Review page from Jetson Hacks](https://jetsonhacks.com/2022/04/04/nvidia-jetson-agx-orin-developer-kit/)
 > Jetson AGX Orin delivers a 3-6X performance gain over Jetson AGX Xavier.
 > 1.5-2X boost for the CPU, 4X GPU cores --> 3-10X Boost comparing to Xavier
@@ -218,7 +243,7 @@ https://media.digikey.com/pdf/Data%20Sheets/Seeed%20Technology/Flashing_Booting_
 
 
 ----
-# JETSON TX2 [VISION - ARUCO]:
+# JETSON TX2 - ARUCO:
 ## Ubuntu 18.04
 - To install Jetson Ubuntu, we need to use *SDK Manager* on a Desktop with **Ubuntu 18.04** (20.04 does not support SDK installation, SAD)
 

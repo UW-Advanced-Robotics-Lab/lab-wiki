@@ -5,8 +5,8 @@ function markdown-toc(){
     
     declare -a TOC
     CODE_BLOCK=0
-    CODE_BLOCK_REGEX='^```'
-    CODE_BLOCK_REGEX_PAIR='^```.*```$'
+    CODE_BLOCK_REGEX='.*```'
+    CODE_BLOCK_REGEX_PAIR='.*```.*```'
     HEADING_REGEX='\#{1,}'
     
     while read -r LINE; do

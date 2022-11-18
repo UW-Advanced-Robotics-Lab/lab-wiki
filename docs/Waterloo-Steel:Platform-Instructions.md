@@ -1,10 +1,34 @@
+<toc>
+# Table of Contents
+[*Last generated: Fri 18 Nov 2022 18:47:52 EST*]
+- [**Waterloo Steel V2 Platform Instructions**](#Waterloo-Steel-V2-Platform-Instructions)
+- [**1. Waterloo Steel Robot Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Launch-Instructions-construction)
+- [**2. Local Development :construction:**](#2-Local-Development-construction)
+- [**workspace:**](#workspace)
+- [**clone --> to the src/**](#clone-to-the-src)
+- [**recursive submodules:**](#recursive-submodules)
+- [**or manually init specific submodules you want to compile with**](#or-manually-init-specific-submodules-you-want-to-compile-with)
+  - [Ubuntu 18 - ROS Melodic](#Ubuntu-18-ROS-Melodic)
+  - [Ubuntu 20 - ROS Noetic](#Ubuntu-20-ROS-Noetic)
+- [**3. Robot Maintenance**](#3-Robot-Maintenance)
+  - [Manual Migration Backup :construction:](#Manual-Migration-Backup-construction)
+- [**4. Debug Tips**](#4-Debug-Tips)
+  - [PeakCAN:](#PeakCAN)
+  - [PS Controller:](#PS-Controller)
+- [**5. Helpful Scripts**](#5-Helpful-Scripts)
+  - [Git:](#Git)
+- [**6. File Arch**](#6-File-Arch)
+  - [6.1 xacro and launching](#61-xacro-and-launching)
+
+
+</toc>
 # Waterloo Steel V2 Platform Instructions
 
-[TOC]
 
+---
 <img src="resources/Waterloo_steel_arch_v2_final.jpg" alt="Hardware Architecture Diagram V2 Final"></img>
 
-## 1. Waterloo Steel Robot Launch Instructions :construction:
+# 1. Waterloo Steel Robot Launch Instructions :construction:
 
 1. Power on the robot, wait for computers to auto-boot
 
@@ -28,14 +52,14 @@
 
 
 
-## 2. Local Development :construction:
+# 2. Local Development :construction:
 
 ```bash
 # SUMMIT-catkin_ws
 [Hardware v2] catkin workspace for Robotnik Summit XLS in Adlink MXE-211
 This will serve as the foundation for managing `UWARL_catkin_ws/src`
 
-## Installation Guide:
+# Installation Guide:
 1. Clone the repo as workspace source
     ```bash
     # workspace:
@@ -52,14 +76,14 @@ This will serve as the foundation for managing `UWARL_catkin_ws/src`
 
 > :warning: For additional Guides, Please follow [UWARL Wiki Guide](https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/wiki/How-To%3AWaterloo-Steel-V2-Final-Upgrade-Guide)
 
-## Usage Guide:
-### Modifications:
+# Usage Guide:
+## Modifications:
 1. switch workspace : `git checkout {branch-name}`
 2. add modules: `$ git submodule add {git-repo}`
 3. remove submodules: `$ git submodule deinit {git-repo}` and you may need delete the submodules in `.gitmodules` file
 4. Create a new branch of workspace: `git checkout -b waterloo_steel/adlink-mxe211-melodic/{node}/{feature}`
 
-### Commit and Push:
+## Commit and Push:
 1. Commit all changes under submodules
 2. Make sure you run this: `$ ./git-status-all.sh` to log all status into `git-status-all.log`
 3. commit all current workspace changes: `$ git add . && git commit -a`
@@ -69,11 +93,11 @@ This will serve as the foundation for managing `UWARL_catkin_ws/src`
 
 
 
-### Ubuntu 18 - ROS Melodic
+## Ubuntu 18 - ROS Melodic
 
 
 
-### Ubuntu 20 - ROS Noetic
+## Ubuntu 20 - ROS Noetic
 
 - `sudo ln -s /usr/bin/empy3 /usr/bin/empy` is required to get robotnik hw compiled on **x86**
 
@@ -87,9 +111,9 @@ This will serve as the foundation for managing `UWARL_catkin_ws/src`
 
 
 
-## 3. Robot Maintenance
+# 3. Robot Maintenance
 
-### Manual Migration Backup :construction:
+## Manual Migration Backup :construction:
 
 1. Backing Up Remote Robot's core files with https://github.com/UW-Advanced-Robotics-Lab/uwarl-robot-backup
    - Pre-requisite: previous ssh remote access of the computer
@@ -100,9 +124,9 @@ This will serve as the foundation for managing `UWARL_catkin_ws/src`
 
 
 
-## 4. Debug Tips
+# 4. Debug Tips
 
-### PeakCAN:
+## PeakCAN:
 
 - [Link to Linux Manual PDF](https://www.peak-system.com/fileadmin/media/linux/files/PCAN-Driver-Linux_UserMan_eng.pdf)
 
@@ -115,7 +139,7 @@ $ dmesg | grep pcan
 $	cat /etc/modprobe.d/pcan.conf
 ```
 
-### PS Controller:
+## PS Controller:
 
 ```bash
 # check driver status
@@ -124,9 +148,9 @@ $ systemctl status ds4drv.service
 
 
 
-## 5. Helpful Scripts
+# 5. Helpful Scripts
 
-### Git:
+## Git:
 
 ```bash
 # list all repo under catkin_ws/src and their git status
@@ -137,9 +161,9 @@ $ git-status-all
 
 
 
-## 6. File Arch
+# 6. File Arch
 
-### 6.1 xacro and launching
+## 6.1 xacro and launching
 
 ````
 # waterloo_steel

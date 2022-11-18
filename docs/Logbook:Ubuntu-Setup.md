@@ -1,7 +1,27 @@
+<toc>
+# Table of Contents
+[*Last generated: Fri 18 Nov 2022 18:47:51 EST*]
+- [**Ubuntu Setup**](#Ubuntu-Setup)
+  - [General Linux Ubuntu Setup](#General-Linux-Ubuntu-Setup)
+  - [ROS Kinetic Setup (for Ubuntu 16.04)](#ROS-Kinetic-Setup-for-Ubuntu-1604)
+  - [Summit Simulation](#Summit-Simulation)
+    - [Barrett WAM Arm (ArUco Demo)](#Barrett-WAM-Arm-ArUco-Demo)
+- [**Other Common Packages:**](#Other-Common-Packages)
+  - [PeakCAN (RT + NO/NETDEV_SUPPORT):](#PeakCAN-RT-NONETDEV_SUPPORT)
+- [**Tips**](#Tips)
+  - [Commonly used command:](#Commonly-used-command)
+  - [Remote Desktop Setup - XRDP (WLAN):](#Remote-Desktop-Setup-XRDP-WLAN)
+    - [(Extra):](#Extra)
+  - [Manually backup a directory of files:](#Manually-backup-a-directory-of-files)
+  - [SSH](#SSH)
+    - [SSH Keys & Github](#SSH-Keys-Github)
+  - [UDEV](#UDEV)
+
+
+</toc>
+
+---
 # Ubuntu Setup
-
-[TOC]
-
 ## General Linux Ubuntu Setup 
 > ⚠️ Noetic works, melodic works, up to you.
 1. install ROS noetic: http://wiki.ros.org/noetic/Installation/Ubuntu
@@ -57,7 +77,9 @@ $ sudo apt install protobuf-c-compiler
 
 # Other Common Packages:
 
-## PeakCAN (RT + NO/NETDEV_SUPPORT): [Linux User Manual](https://www.peak-system.com/fileadmin/media/linux/files/PCAN-Driver-Linux_UserMan_eng.pdf)
+## PeakCAN (RT + NO/NETDEV_SUPPORT): 
+
+> [Linux User Manual](https://www.peak-system.com/fileadmin/media/linux/files/PCAN-Driver-Linux_UserMan_eng.pdf)
 
 1. Download driver: `$ wget https://www.peak-system.com/fileadmin/media/linux/files/peak-linux-driver-8.15.2.tar.gz`
 

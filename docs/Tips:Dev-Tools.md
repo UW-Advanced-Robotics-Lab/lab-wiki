@@ -1,12 +1,21 @@
-# Development and Tools
+<toc>
+# Table of Contents
+[*Last generated: Fri 18 Nov 2022 18:47:52 EST*]
+- [**Git:**](#Git)
+  - [A better Git Graph:](#A-better-Git-Graph)
+- [**Linux:**](#Linux)
+  - [Docker:](#Docker)
+  - [Environment container comparison:](#Environment-container-comparison)
 
-[TOC]
 
-## Git:
+</toc>
+
+---
+# Git:
 
 - For introduction, please read [[Documentation/Coding-Guidelines.md]](./Documentation:Coding-Guidelines.md)
 
-### A better Git Graph:
+## A better Git Graph:
 
 ```bash
 $ git config --global alias.lg "log --graph --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --decorate=full"
@@ -18,16 +27,12 @@ $ git lg
 $ git lg -p
 ```
 
-
-
-## Linux:
+# Linux:
 
 1. `$ uname -r`: OS check 
 2. `$ cat /prov/version_signature`: identify kernel
 3. `$ arp -a` : Scan Local Network Devices and IPs
 4. `$ tree -L 1`: list hierarchy of directory in depth=1
-
-
 
 ## Docker:
 
@@ -36,8 +41,6 @@ $ git lg -p
 - encapsulates the entire OS, so you can swap out the entire OS
 
 - DOC: https://docs.docker.com/engine/
-
-
 
 ## Environment container comparison:
 

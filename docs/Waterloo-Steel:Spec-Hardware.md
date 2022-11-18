@@ -1,6 +1,21 @@
-## Barrett WAM Specs:
-### 7DOF WAM:
-#### Motors (*1):
+<toc>
+# Table of Contents
+[*Last generated: Fri 18 Nov 2022 18:47:52 EST*]
+- [**Barrett WAM Specs:**](#Barrett-WAM-Specs)
+  - [7DOF WAM:](#7DOF-WAM)
+    - [Motors (*1):](#Motors-1)
+    - [Power (*1):](#Power-1)
+    - [Drive Inertias (*6)](#Drive-Inertias-6)
+  - [Barrett Torque Sensor (*2):](#Barrett-Torque-Sensor-2)
+  - [Barrett Hand (*3):](#Barrett-Hand-3)
+
+
+</toc>
+
+---
+# Barrett WAM Specs:
+## 7DOF WAM:
+### Motors (*1):
   | 1-4 | 5-6 | 7 | BHand | Units
 -- | -- | -- | -- | -- | --
 Design Voltage | 48 | 48 | 48 | 19.8 | V
@@ -13,7 +28,7 @@ Resistance | 3.473 | 6.213 | 5.205 | 4.95 | Ohms
 Rotor Inertia | 9.293E-5 | 1.472E-5 | 1.349E-6 | 1.41E-7 | kg*m2
 Viscous Friction | 7.549E-5 | 8.899E-6 | 1.259E-6 | 0.674E-3 | Nm/rpm
 
-#### Power (*1):
+### Power (*1):
 Status | Control | 4-DOF | 7-DOF
 -- | -- | -- | --
 Powered on, no torques | External | 18 W | 27 W
@@ -24,7 +39,7 @@ Active at worst-case** position, 3kg payload | Internal | XXX | 85 W
 Active at worst-case** position with BH8-280, 2kg payload | Internal | XXX | 120 W
 Peak | External | 600 W | 800 W
 
-#### Drive Inertias (*6)
+### Drive Inertias (*6)
 Motor Drive Number | Total Drive Inertia at Rotor (kg-m2) |Drive Ratios | Total Reflected Inertia at Output (kg-m2) 
 -- | -- | -- | --
 M1 | 0.00011631 |42.00 |0.205190
@@ -36,7 +51,7 @@ M6 | 0.00001745 |9.48  |0.001641
 M7 | 0.00000142 |14.93 |0.000318
 
 
-### Barrett Torque Sensor (*2):
+## Barrett Torque Sensor (*2):
 | Property | Value |
 | --- | --- |
 | Total Mass | 136 g |
@@ -60,7 +75,7 @@ M7 | 0.00000142 |14.93 |0.000318
 | | Rate: 2.5 kHz max |
 | | Hysteresis: <5% |
 
-### Barrett Hand (*3):
+## Barrett Hand (*3):
 | Property | Value |
 | --- | --- |
 | Kinematics | Total fingers: 3 |

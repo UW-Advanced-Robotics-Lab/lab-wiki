@@ -1,12 +1,46 @@
-# Waterloo Steel V2 [Upgraded]
+<toc>
+# Table of Contents
+[*Last generated: Fri 18 Nov 2022 18:47:51 EST*]
+- [**Spec Comparison**](#Spec-Comparison)
+- [**ADLINK - MXE211**](#ADLINK-MXE211)
+    - [Catkin_ws/src](#Catkin_wssrc)
+  - [Barrett WAM](#Barrett-WAM)
+  - [Robotnik Summit XL](#Robotnik-Summit-XL)
+    - [PeakCANpcan](#PeakCANpcan)
+    - [misc commands:](#misc-commands)
+    - [PAD Configuration PS Controller (Sony)](#PAD-Configuration-PS-Controller-Sony)
+    - [Pixhawk PX4 Flight Controller (IMU)](#Pixhawk-PX4-Flight-Controller-IMU)
+    - [[:star: A better version] UWARL ROS Catkin Workspace Setup](#star-A-better-version-UWARL-ROS-Catkin-Workspace-Setup)
+    - [[:no_entry_sign: Manual] catkin_ws](#no_entry_sign-Manual-catkin_ws)
+    - [[⭐ A better version - Jack] RC Config for ROS and devices](#-A-better-version-Jack-RC-Config-for-ROS-and-devices)
+    - [[🛑 robotnik] RC Config for ROS and devices](#-robotnik-RC-Config-for-ROS-and-devices)
+      - [Boot/Startup Scripts:](#BootStartup-Scripts)
+      - [RC:](#RC)
+  - [Local Summit-PC Catkin-ws:](#Local-Summit-PC-Catkin-ws)
+    - [UWARL Repo Versions Backed:](#UWARL-Repo-Versions-Backed)
+    - [Robotnik:](#Robotnik)
+    - [Other Vendors:](#Other-Vendors)
+    - [Unused:](#Unused)
+    - [Unknown:](#Unknown)
+- [**Jetson AGX ORIN**](#Jetson-AGX-ORIN)
+  - [RT Kernel](#RT-Kernel)
+    - [Reference](#Reference)
+    - [Instruction on compiling on ORIN:](#Instruction-on-compiling-on-ORIN)
+    - [compiling on external PC](#compiling-on-external-PC)
+  - [install libbarrett](#install-libbarrett)
+- [**Axis Camera (AXIS M5013 Network Camera)**](#Axis-Camera-AXIS-M5013-Network-Camera)
+- [**Velodyn (VLP 16)**](#Velodyn-VLP-16)
+- [**TP Link Router (Archer C7 v2)**](#TP-Link-Router-Archer-C7-v2)
 
-[TOC]
 
+</toc>
+
+---
 > :warning: As mentioned in the issue, we will be unifying the platform and upgrade to Ubuntu 18.04 + Melodic for hosting RT for WAM and SUMMIT synchronization. Jetson ORIN will be processing visions mostly
 
 <img src="resources/Waterloo_steel_arch_v2_final.jpg" alt="Hardware Architecture Diagram V2 Final"></img>
 
-## Spec Comparison
+# Spec Comparison
 
 ```
 $ cat /proc/cpuinfo  | grep 'name'| uniq
@@ -26,13 +60,13 @@ $ grep MemTotal /proc/meminfo
 
 
 
-## ADLINK - MXE211
+# ADLINK - MXE211
 
 Version: ROS Melodic + Ubuntu 18.04 rt
 
 
 
-#### Catkin_ws/src
+### Catkin_ws/src
 
 1. [PeakCAN](####PeakCAN)
 2. `git clone https://github.com/RobotnikAutomation/rcomponent`
@@ -44,13 +78,13 @@ Version: ROS Melodic + Ubuntu 18.04 rt
 8. Setup [RC Config for ROS and devices](####RC Config for ROS and devices)
 9. [Continue to setup ROS and catkin_ws](####catkin_ws)
 
-### Barrett WAM 
+## Barrett WAM 
 
 - Please refer to [WAM PC Setup] Guide for External PC Setup
 
-### Robotnik Summit XL
+## Robotnik Summit XL
 
-#### PeakCANpcan
+### PeakCANpcan
 
 1. Install PeakCAN if have not
 
@@ -102,7 +136,7 @@ Version: ROS Melodic + Ubuntu 18.04 rt
 
 4. Connect Peak USB-CAN dongle, and test with `lsmod | grep pcan`  and `ls /dev/pcanusb*`
 
-#### misc commands:
+### misc commands:
 
 - ```
   # list can usb
@@ -135,7 +169,7 @@ Version: ROS Melodic + Ubuntu 18.04 rt
 - PCAN: https://www.peak-system.com/fileadmin/media/linux/implementation-details.html
 
 
-#### PAD Configuration PS Controller (Sony)
+### PAD Configuration PS Controller (Sony)
 
 - https://github.com/RobotnikAutomation/robotnik_pad
 
@@ -197,15 +231,15 @@ Version: ROS Melodic + Ubuntu 18.04 rt
 
 
 
-#### Pixhawk - PX4 Flight Controller (Chassis IMU)
+### Pixhawk PX4 Flight Controller (IMU)
 
 - PX4: https://docs.px4.io/main/en/dev_setup/building_px4.html
 
 - ROS Guide: http://wiki.ros.org/RobotnikAutomation/Tutorials/Use%20Pixhawk%20in%20AGV
 
-  - ```bash
-    $ sudo apt-get install ros-melodic-mavros ros-melodic-mavros-extras
-    ```
+  ```bash
+  $ sudo apt-get install ros-melodic-mavros ros-melodic-mavros-extras
+  ```
 
 - Steps:
 
@@ -214,7 +248,7 @@ Version: ROS Melodic + Ubuntu 18.04 rt
      ```bash
      $ udevadm info -a /dev/ttyUSB0 | grep serial
      
-     ## --- Output:
+     # --- Output:
          SUBSYSTEMS=="usb-serial"
          ATTRS{serial}=="FTA31EZ3"
          ATTRS{serial}=="0000:00:15.0"
@@ -225,7 +259,7 @@ Version: ROS Melodic + Ubuntu 18.04 rt
      ```bash
      $ sudo vim /etc/udev/rules.d/50-pixhawk.rules
      
-     ### -- Paste Below:
+     ## -- Paste Below:
      KERNEL=="ttyUSB[0-9]*", OWNER="summit", GROUP="dialout", MODE="0666"
      KERNEL=="ttyUSB[0-9]*", ATTRS{idProduct}=="6001", ATTRS{serial}=="FTA31EZ3", NAME="%k", SYMLINK="ttyUSB_PX4", GROUP="dialout", MODE="0666"
      ```
@@ -235,18 +269,19 @@ Version: ROS Melodic + Ubuntu 18.04 rt
      ```bash
      KERNEL=="ttyUSB[0-9]*", OWNER="summit", GROUP="dialout", MODE="0666"
      SUBSYSTEM=="tty", ATTRS{idVendor}=="26ac", ATTRS{idProduct}=="0011", NAME="%k", SYMLINK="tty_PX4", GROUP="dialout", MODE="0666"
+    ```
   
   3. reload and restart rules:
   
-     ```bash
+    ```bash
      sudo service udev reload 
      sudo service udev restart 
      sudo udevadm trigger
-     ```
+    ```
 
 
 
-#### [:star: A better version] UWARL ROS Catkin Workspace Setup
+### [:star: A better version] UWARL ROS Catkin Workspace Setup
 
 - Clone:
 
@@ -262,13 +297,13 @@ Version: ROS Melodic + Ubuntu 18.04 rt
 - Dependencies:
 
   ```bash
-  ##### Manual install:
+  #### Manual install:
   $ sudo apt-get install -y ros-melodic-transmission-interface ros-melodic-effort-controllers ros-melodic-joint-state-controller ros-melodic-navigation ros-melodic-ros-control ros-melodic-ros-controllers ros-melodic-velocity-controllers ros-melodic-control-toolbox ros-melodic-cmake-modules ros-melodic-serial ros-melodic-joystick-drivers ros-melodic-rosbridge-server ros-melodic-robot-localization ros-melodic-twist-mux ros-melodic-imu-tools ros-melodic-teb-local-planner ros-melodic-slam-gmapping ros-melodic-ackermann-msgs ros-melodic-rosbridge-suite
   
   $ sudo apt-get install ros-melodic-robot-state-publisher
   $ sudo apt-get install ros-melodic-velodyn
   
-  ##### Auto install dependencies:
+  #### Auto install dependencies:
   # ROS Noetic
   $ sudo apt-get install python3-rosdep
   # ROS Melodic and earlier
@@ -279,7 +314,7 @@ Version: ROS Melodic + Ubuntu 18.04 rt
 
 - Setup ROS RC configurations as described in [[⭐ A better version - Jack] RC Config for ROS and devices](####[⭐ A better version - Jack] RC Config for ROS and devices)
 
-#### [:no_entry_sign: Manual] catkin_ws
+### [:no_entry_sign: Manual] catkin_ws
 
 1. Install dependencies:
 
@@ -354,7 +389,7 @@ Version: ROS Melodic + Ubuntu 18.04 rt
 
    
 
-#### [⭐ A better version - Jack] RC Config for ROS and devices
+### [⭐ A better version - Jack] RC Config for ROS and devices
 
 - Lets use system boot as a method to auto boot services, as they can be restarted easily with status logs
 
@@ -427,17 +462,17 @@ Version: ROS Melodic + Ubuntu 18.04 rt
 - add to `~/zshrc/bashrc` for terminals:
 
   ```bash
-  ### >>> Custom entries:
+  ## >>> Custom entries:
   source /home/uwarl/uwarl-robot_configs/summit/summitxl_ros_config.zsh
   # source /home/uwarl/uwarl-robot_configs/summit/summitxl_ros_config.bash # bash
-  ### <<<< EOF .
+  ## <<<< EOF .
   ```
 
   
 
-#### [🛑 robotnik] RC Config for ROS and devices
+### [🛑 robotnik] RC Config for ROS and devices
 
-##### Boot/Startup Scripts:
+#### Boot/Startup Scripts:
 
 1. User system Permissions:
 
@@ -469,14 +504,14 @@ Version: ROS Melodic + Ubuntu 18.04 rt
    systemctl enable getty@ttyX.service
    ```
 
-##### RC:
+#### RC:
 
 1. Editor: `$ vim ~/.zshrc`
 
 2. Autoboot:
 
    ```bash
-   ### SUMMIT XL ###
+   ## SUMMIT XL ###
    # AUTOBOOT
    echo "ROBOTNIK SUMMIT XLS"
        Terminal=`tty`
@@ -498,16 +533,16 @@ Version: ROS Melodic + Ubuntu 18.04 rt
    Custom:
 
    ```zsh
-   ### ROS RELATED ###
+   ## ROS RELATED ###
    source /opt/ros/melodic/setup.zsh
    source ~/UWARL_catkin_ws/devel/setup.zsh
    source ~/uwarl-robot_configs/summitxl_params.env
    
-   ## ROS:
+   # ROS:
    #export ROS_MASTER_URI=http://192.168.0.200:11311/
    #export ROS_IP=192.168.0.120
    
-   ## kill processor:
+   # kill processor:
    alias kill-ros="ps aux  | grep -e ros | awk '{print $2}' | xargs -i -exec kill -9 {}"
    ```
 
@@ -602,9 +637,9 @@ Version: ROS Melodic + Ubuntu 18.04 rt
 
    
 
-### Local Summit-PC Catkin-ws:
+## Local Summit-PC Catkin-ws:
 
-#### UWARL Repo Versions Backed:
+### UWARL Repo Versions Backed:
 
 1. https://github.com/UW-Advanced-Robotics-Lab/uwarl-summit_xl_common : modifications found => https://github.com/UW-Advanced-Robotics-Lab/uwarl-summit_xl_common/pull/2
 2. (optional) https://github.com/UW-Advanced-Robotics-Lab/uwarl-summit_xl_sim : not found local summit-pc
@@ -617,44 +652,40 @@ Version: ROS Melodic + Ubuntu 18.04 rt
 
 @fwthree3 may take a look and leave comment at each PR I opened or below to briefly recall things have been changed.
 
-#### Robotnik:
+### Robotnik:
 
 - https://github.com/RobotnikAutomation/system_monitor: master, 4 commits behind
-#### Other Vendors:
+### Other Vendors:
 
 - https://github.com/ros/robot_state_publisher : noetic-level, 3 commits behind [Oct.03,2022]
 - https://github.com/ros-drivers/velodyne : master, 186 commits behind [Oct.03,2022]
 - https://github.com/rst-tu-dortmund/teb_local_planner : kinetic-devel, 65 commits behind [Oct.03, 2022]
 
-#### Unused:
+### Unused:
 
 - https://github.com/RobotnikAutomation/axis_camera : master, 12 commits behind [Oct.03,2022]
 
-#### Unknown:
+### Unknown:
 
 -  `multimap_server_msgs-master` ?? not tracked, local compiled for remote ROS https://github.com/RobotnikAutomation/multimap_server_msgs
-
-
-
-### 
 
 ---
 
 
 
-## Jetson AGX ORIN
+# Jetson AGX ORIN
 
-### RT Kernel
+## RT Kernel
 
 > :rotating_light:"real-time" does not mean "faster". It means "lower and stable latency". Response times may even be a little longer than in a standard Linux kernel, but they will always be the same. [(cite:peak-sys)](https://www.peak-system.com/fileadmin/media/linux/index.htm)
 
-#### Reference
+### Reference
 
 - **JetPack 5.0.2 | Jetson Linux r35.1** : available from here
 - Official linux instruction: https://docs.nvidia.com/jetson/archives/r35.1/DeveloperGuide/text/SD/Kernel/KernelCustomization.html#using-the-jetson-linux-real-time-kernel-package
 - Jetson Linux Doc:https://developer.download.nvidia.com/embedded/L4T/r35_Release_v1.0/Jetson_Linux_Release_Notes_r35.1.pdf
 
-#### Instruction on compiling on ORIN:
+### Instruction on compiling on ORIN:
 
 1. Install the latest kernel
 
@@ -685,7 +716,7 @@ Version: ROS Melodic + Ubuntu 18.04 rt
    # place new-compiled image
    $ sudo cp Image /boot
    
-   #### Ifff NVME installed
+   ### Ifff NVME installed
    # NOTE: if NVME is used for boot with jetsonhack, then:
    $ sudo mount /dev/mmcblk0p1 /mnt
    $ cp -r /boot/* /mnt/boot/
@@ -705,14 +736,14 @@ Version: ROS Melodic + Ubuntu 18.04 rt
    > Linux ubuntu 5.10.104-rt63-tegra #1 SMP PREEMPT RT Thu Nov 10 15:11:56 EST 2022 aarch64 aarch64 aarch64 GNU/Linux
    
    
-   #### Build PCAN with custom kernel with NETDEV:
+   ### Build PCAN with custom kernel with NETDEV:
    uwarl-orin•~/JX_linux/peak-linux-driver-8.15.2» export kernel_loc="$HOME/JX_linux/Linux_for_Tegra/source/public/kernel/"                                                                                                                              
    uwarl-orin•~/JX_linux/peak-linux-driver-8.15.2» make -C driver NET=NETDEV_SUPPORT KERNEL_LOCATION=$kernel_loc
    # install:
    uwarl-orin•~/JX_linux/peak-linux-driver-8.15.2» sudo make install KERNEL_LOCATION=$kernel_out
    ```
 
-#### compiling on external PC
+### compiling on external PC
 
 - `sudo apt install flex`
 
@@ -723,9 +754,7 @@ Version: ROS Melodic + Ubuntu 18.04 rt
     export CROSS_COMPILE_AARCH64={path}/Toolchain_gcc_9.3/bin/aarch64-buildroot-linux
     ```
 
-- 
-
-### install libbarrett
+## install libbarrett
 
 1. Install dependencies `$ ./scripts/install_dependencies.sh`
 
@@ -738,13 +767,7 @@ Version: ROS Melodic + Ubuntu 18.04 rt
       $ wget http://git.savannah.gnu.org/gitweb/\?p\=config.git\;a\=blob_plain\;f\=config.sub\;hb\=HEAD
       
       $ wget http://git.savannah.gnu.org/gitweb/\?p\=config.git\;a\=blob_plain\;f\=config.guess\;hb\=HEAD
-      
-      # and rename them to config.sub and config.guess respectively:
-      #   $ mv {...} config.sub
-      #   $ mv {...} config.guess
       ```
-
-      
 
    3. Compile libconfig and install:
 
@@ -763,16 +786,14 @@ Version: ROS Melodic + Ubuntu 18.04 rt
    export CXX=/usr/bin/clang++
    cd ~/libbarrett && cmake .
    make -j$(nproc)
-   
-   # now install:
+
    sudo make install
    ```
 
 3. copy libbarrett configurations from `uwarl-robot_configs` repo for vertical config (program assume horizontal)
 
 
-
-## Axis Camera (AXIS M5013 Network Camera)
+# Axis Camera (AXIS M5013 Network Camera)
 
 - Noetic ROS : https://wiki.ros.org/axis_camera
   - Github: https://github.com/ros-drivers/axis_camera/tree/noetic-devel
@@ -780,7 +801,7 @@ Version: ROS Melodic + Ubuntu 18.04 rt
 
 
 
-## Velodyn (VLP 16)
+# Velodyn (VLP 16)
 
 - ![Updated](resources/VLP_2022-10-19.png)
 
@@ -804,13 +825,7 @@ Version: ROS Melodic + Ubuntu 18.04 rt
 
   
 
-## TP Link Router (Archer C7 v2)
+# TP Link Router (Archer C7 v2)
 
 - Updated to 3.15.3 Build 180305 Rel.52658n (2018)
-
-
-
-
-
-nvme
 

@@ -1,6 +1,26 @@
-# Coding-Guidelines
+<toc>
+# Table of Contents
+[*Last generated: Fri 18 Nov 2022 18:47:51 EST*]
+- [**0. GitHub**](#0-GitHub)
+- [**1. Git**](#1-Git)
+  - [1.1 Intro. to Git](#11-Intro-to-Git)
+    - [1.1.a Git Commands [[1]]( https://ourcodingclub.github.io/tutorials/git-for-labs/)](#11a-Git-Commands-1)
+  - [1.2 Our Branching Strategy](#12-Our-Branching-Strategy)
+  - [1.3 Readme Markdown](#13-Readme-Markdown)
+- [**2. Documentation**](#2-Documentation)
+  - [2.1 Doxygen Style:](#21-Doxygen-Style)
+    - [2.1.a Python](#21a-Python)
+  - [2.2 General Usage of Commenting Tags:](#22-General-Usage-of-Commenting-Tags)
+  - [2.3 General File Commenting:](#23-General-File-Commenting)
+- [**3. Python**](#3-Python)
+  - [3.1 Common Header Format](#31-Common-Header-Format)
+  - [3.2 Docstring](#32-Docstring)
 
-## 0. GitHub
+
+</toc>
+
+---
+# 0. GitHub
 
 - We would like to use GitHub for progress tracking and project collaboration
   - **Projects**: An interactive board to track and manage relevant issues and tasks
@@ -10,13 +30,13 @@
   - **Pull Requests (PR)**: Merge and integrate your work to stable branches, and you may link PR with particular issues
 - A general guideline of coding may refer to the [Google-Style-Guide](https://google.github.io/styleguide)
 
-## 1. Git
+# 1. Git
 
-### 1.1 Intro. to Git 
+## 1.1 Intro. to Git 
 
 - A really good basic tutorial about why and how to use Git for Lab:  [[1]]( https://ourcodingclub.github.io/tutorials/git-for-labs/)
 
-#### 1.1.a Git Commands [[1]]( https://ourcodingclub.github.io/tutorials/git-for-labs/)
+### 1.1.a Git Commands [[1]]( https://ourcodingclub.github.io/tutorials/git-for-labs/)
 
 | Command                                  | Is `hub` required? | Origin          | Destination     | Description                                                  |
 | ---------------------------------------- | ------------------ | --------------- | --------------- | ------------------------------------------------------------ |
@@ -31,7 +51,7 @@
 | `git merge`                              | N                  | NA              | NA              | Merge any changes in the named branch with the current branch. |
 | `git checkout -b patch1`                 | N                  | NA              | NA              | Create a branch called "patch1" from the current branch and switch to it. |
 
-### 1.2 Our Branching Strategy
+## 1.2 Our Branching Strategy
 
 - Branch Name Guideline:
   - NOTE: the naming guidelines are defined by Jack here based on experiences, and may differ from some of the common naming standard. We may discuss for further modification and additions of commonly used naming strategies.
@@ -53,19 +73,19 @@
     - `FIX` : fixes 
     - `FEATURE` : a particular new feature 
 
-### 1.3 Readme Markdown
+## 1.3 Readme Markdown
 
 - Advanced formatting: https://gist.github.com/apaskulin/1ad686e42c7165cb9c22f9fe1e389558
 
 
 
-## 2. Documentation
+# 2. Documentation
 
-### 2.1 Doxygen Style:
+## 2.1 Doxygen Style:
 
 - We recommend to use [[2] doxygen](https://www.doxygen.nl/manual/docblocks.html) style documenting 
 
-#### 2.1.a Python
+### 2.1.a Python
 
 ```python
 """@package docstring
@@ -109,7 +129,7 @@ class PyClass:
      
 ```
 
-### 2.2 General Usage of Commenting Tags:
+## 2.2 General Usage of Commenting Tags:
 
 - `TODO:` todo tracking (many plugin support to-do tracking)
 - `NOTE`: note about something
@@ -117,13 +137,13 @@ class PyClass:
 - `FEATURE`: some sort of feature you would like to highlight
 - `BUG`: some sort of bug you would like to investigate or debug shortly, make sure there is no such tag before merging !
 
-### 2.3 General File Commenting:
+## 2.3 General File Commenting:
 
 - ASCII ART Generator: https://patorjk.com/software/taag
 
-## 3. Python
+# 3. Python
 
-### 3.1 Common Header Format 
+## 3.1 Common Header Format 
 
 - Refer to [[3]](https://stackoverflow.com/questions/1523427/what-is-the-common-header-format-of-python-files)
   1. First Line: `#!/usr/bin/env python` 
@@ -135,7 +155,7 @@ class PyClass:
   4. authorship
   5. Rest of the code
 
-### 3.2 Docstring
+## 3.2 Docstring
 
 - Comments! But there are couple different styles [[4]](https://gist.github.com/nipunsadvilkar/fec9d2a40f9c83ea7fd97be59261c400) , and we prefer either epytext or reST.
 

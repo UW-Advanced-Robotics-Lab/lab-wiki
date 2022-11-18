@@ -9,12 +9,12 @@
    > :notebook: The `Action` tab will automatically synchronize the contents inside `./docs` to the lab wiki page
 
 2. To generate Table of Contents:
-
-   1. Delete the entire content block of `[# Table of Contents]`
-
-   2. Invoke markdown auto-gen scripts:
+   
+   1. Invoke markdown auto-gen scripts:
 
       ```bash
       # This file only targets `${scritp-loc}/../docs/*.md` files
       $ bash scripts/markdown-toc.sh
       ```
+      - It will delete previous TOC block within `<toc> ... </toc>` 
+      - It will then stub the latest TOC at teh head of the markdown file
