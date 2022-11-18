@@ -28,10 +28,10 @@
 1. Follow the tutorial from https://www.instructables.com/ZED-Disassembly/
 2. Pull out the old cable carefully: 
 
-    <img src="https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/blob/main/Media/zed/connector.png" width="200" >
+    <img src="https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/blob/main/docs/resources/zed/connector.png" width="200" >
 3. Modify a stock USB Micro B Cable to expose the connector only (into a low-profile) 
 
-    <img src="https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/blob/main/Media/zed/new_connector.png" width="200" >
+    <img src="https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/blob/main/docs/resources/zed/new_connector.png" width="200" >
 4. Re-assemble the ZED camera: 
 
-    <img src="https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/blob/main/Media/zed/result.png" width="200" >
+    <img src="https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/blob/main/docs/resources/zed/result.png" width="200" >
