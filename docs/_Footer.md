@@ -1,0 +1,1 @@
+Copyright © 2012-2021 - University of Waterloo - [Advanced Robotics Lab](https://uwaterloo.ca/waterloo-mechanical-systems-control-lab/)
