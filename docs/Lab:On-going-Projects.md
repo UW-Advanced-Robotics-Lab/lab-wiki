@@ -1,6 +1,7 @@
 <toc>
+
 # Table of Contents
-[*Last generated: Fri 18 Nov 2022 19:45:08 EST*]
+[*Last generated: Fri 18 Nov 2022 20:12:56 EST*]
 - [**ArUco Demo:**](#ArUco-Demo)
   - [[LapTop Powered] Project Dependencies:](#LapTop-Powered-Project-Dependencies)
   - [[Jetson TX2 Version] (WIP........)](#Jetson-TX2-Version-WIP)

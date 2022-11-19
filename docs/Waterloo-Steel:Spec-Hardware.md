@@ -1,6 +1,7 @@
 <toc>
+
 # Table of Contents
-[*Last generated: Fri 18 Nov 2022 19:45:09 EST*]
+[*Last generated: Fri 18 Nov 2022 20:12:57 EST*]
 - [**Barrett WAM Specs:**](#Barrett-WAM-Specs)
   - [7DOF WAM:](#7DOF-WAM)
     - [Motors (*1):](#Motors-1)

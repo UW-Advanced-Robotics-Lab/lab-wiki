@@ -35,7 +35,7 @@ function markdown-toc(){
         fi
     done < <(grep -v '\n# Table of Contents' "${FILE}")
     
-    TOC_TEXT="<toc>\n"
+    TOC_TEXT="<toc>\n\n"
     TOC_TEXT+="# Table of Contents\n"
     TOC_TEXT+="[*Last generated: $(date)*]\n"
     for LINE in "${TOC[@]}"; do
