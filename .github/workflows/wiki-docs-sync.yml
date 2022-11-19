@@ -8,14 +8,16 @@ on:
       - "docs/**"
   repository_dispatch:
     types: [docs]
+  gollum:
 
 env:
-  GIT_AUTHOR_EMAIL: projectbyjx@gmail.com
-  GIT_AUTHOR_NAME: jaku-bot
+  GIT_AUTHOR_NAME: Actionbot
+  GIT_AUTHOR_EMAIL: actions@github.com
 
 jobs:
   job-sync-docs-to-wiki:
     runs-on: ubuntu-latest
+    if: github.event_name != 'gollum'
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
