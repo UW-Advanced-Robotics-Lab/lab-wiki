@@ -18,3 +18,10 @@
       ```
       - It will delete previous TOC block within `<toc> ... </toc>` 
       - It will then stub the latest TOC at teh head of the markdown file
+
+3. To generate _SideBar.md for Wiki:
+   
+   1. Install: `$ npm install github-wiki-sidebar -g`
+   
+   2. Generate: `$ cd docs && github-wiki-sidebar --silent`
+   
