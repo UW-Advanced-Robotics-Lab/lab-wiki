@@ -1,6 +1,6 @@
 <toc>
 # Table of Contents
-[*Last generated: Fri 18 Nov 2022 18:47:51 EST*]
+[*Last generated: Fri 18 Nov 2022 19:45:08 EST*]
 - [**0. GitHub**](#0-GitHub)
 - [**1. Git**](#1-Git)
   - [1.1 Intro. to Git](#11-Intro-to-Git)

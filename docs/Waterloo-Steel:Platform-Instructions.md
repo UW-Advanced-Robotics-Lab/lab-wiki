@@ -1,6 +1,6 @@
 <toc>
 # Table of Contents
-[*Last generated: Fri 18 Nov 2022 18:47:52 EST*]
+[*Last generated: Fri 18 Nov 2022 19:45:09 EST*]
 - [**Waterloo Steel V2 Platform Instructions**](#Waterloo-Steel-V2-Platform-Instructions)
 - [**1. Waterloo Steel Robot Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Launch-Instructions-construction)
 - [**2. Local Development :construction:**](#2-Local-Development-construction)

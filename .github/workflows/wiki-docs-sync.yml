@@ -1,5 +1,4 @@
 name: Docs --> Wiki Sync
-
 on:
   push:
     branches:
@@ -8,42 +7,17 @@ on:
       - "docs/**"
   repository_dispatch:
     types: [docs]
-  gollum:
-
-env:
-  GIT_AUTHOR_NAME: Actionbot
-  GIT_AUTHOR_EMAIL: actions@github.com
 
 jobs:
-  job-sync-docs-to-wiki:
+  sync_docs:
+    name: Sync docs
     runs-on: ubuntu-latest
-    if: github.event_name != 'gollum'
     steps:
-      - name: Checkout Repo
+      - name: Checkout current version
         uses: actions/checkout@v2
-      - name: Sync docs to wiki
-        uses: newrelic/wiki-sync-action@master
+      - name: Sync with local action
+        uses: kai-tub/external-repo-sync-action@v1
         with:
-          source: docs
-          destination: wiki
-          token: ${{ secrets.JACK_BOT_TOKEN }}
-          gitAuthorName: ${{ env.GIT_AUTHOR_NAME }}
-          gitAuthorEmail: ${{ env.GIT_AUTHOR_EMAIL }}
-
-#   job-sync-wiki-to-docs:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout Repo
-#         uses: actions/checkout@v2
-#         with:
-#           token: ${{ secrets.JACK_BOT_TOKEN }} # allows us to push back to repo
-#           ref: main
-#       - name: Sync Wiki to Docs
-#         uses: newrelic/wiki-sync-action@master
-#         with:
-#           source: wiki
-#           destination: docs
-#           token: ${{ secrets.JACK_BOT_TOKEN }}
-#           gitAuthorName: ${{ env.GIT_AUTHOR_NAME }}
-#           gitAuthorEmail: ${{ env.GIT_AUTHOR_EMAIL }}
-#           branch: main
+          source-directory: "./docs"
+        env:
+          GH_ACCESS_TOKEN: ${{ secrets.JACK_GITHUB_TOKEN }}
