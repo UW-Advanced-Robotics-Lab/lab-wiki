@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 18 Nov 2022 20:12:57 EST*]
+[*Last generated: Mon 21 Nov 2022 20:22:23 EST*]
 - [**Spec Comparison**](#Spec-Comparison)
 - [**ADLINK - MXE211**](#ADLINK-MXE211)
     - [Catkin_ws/src](#Catkin_wssrc)
@@ -386,7 +386,7 @@ Version: ROS Melodic + Ubuntu 18.04 rt
    $ rosdep install --from-paths src --ignore-src -r -y
    ```
 
-6. 🚧 ==TO-DO: concatenate entire packages into a new repo with every repos as submodules==
+6. ✅ ==~~TO-DO: concatenate entire packages into a new repo with every repos as submodules~~==
 
    
 
@@ -694,6 +694,8 @@ Version: ROS Melodic + Ubuntu 18.04 rt
 
 3. Apply RT patches & Compile:
 
+   > :no_entry_sign: Do not use the guide below, please refer to [Logbook:Jetson-setup.md] for the logs on RT Kernel
+
    ```bash
    uwarl-orin•Linux_for_Tegra/source/public» cd kernel                                                                                                                                                                                  [14:11:18]
    uwarl-orin•source/public/kernel» ls                                                                                                                                                                                                  [14:11:21]
@@ -743,6 +745,7 @@ Version: ROS Melodic + Ubuntu 18.04 rt
    # install:
    uwarl-orin•~/JX_linux/peak-linux-driver-8.15.2» sudo make install KERNEL_LOCATION=$kernel_out
    ```
+
 
 ### compiling on external PC
 

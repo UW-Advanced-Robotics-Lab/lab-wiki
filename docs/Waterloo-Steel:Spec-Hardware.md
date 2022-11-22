@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 18 Nov 2022 20:12:57 EST*]
+[*Last generated: Mon 21 Nov 2022 20:22:24 EST*]
 - [**Barrett WAM Specs:**](#Barrett-WAM-Specs)
   - [7DOF WAM:](#7DOF-WAM)
     - [Motors (*1):](#Motors-1)
@@ -17,17 +17,17 @@
 # Barrett WAM Specs:
 ## 7DOF WAM:
 ### Motors (*1):
-  | 1-4 | 5-6 | 7 | BHand | Units
--- | -- | -- | -- | -- | --
-Design Voltage | 48 | 48 | 48 | 19.8 | V
-Back EMF | 0.457 | 0.236 | 0.067 | 0.0177 | V/rad/sec
-No Load Speed | 100.218 | 192.309 | 569.022 | 1070 | rad/s
-Max Continuous Torque | 1.490 | 0.356 | 0.091 | 0.0367 | Nm
-Torque Constant | 0.457 | 0.236 | 0.067 | 0.0177 | Nm/A
-Inductance | 4.068 | 3.918 | 2.035 | 1.14 | mH
-Resistance | 3.473 | 6.213 | 5.205 | 4.95 | Ohms
-Rotor Inertia | 9.293E-5 | 1.472E-5 | 1.349E-6 | 1.41E-7 | kg*m2
-Viscous Friction | 7.549E-5 | 8.899E-6 | 1.259E-6 | 0.674E-3 | Nm/rpm
+|      | 1-4  | 5-6  | 7    | BHand | Units |
+| ---- | ---- | ---- | ---- | ----- | ----- |
+| Design Voltage | 48 | 48 | 48 | 19.8 | V |
+| Back EMF | 0.457 | 0.236 | 0.067 | 0.0177 | V/rad/sec |
+| No Load Speed | 100.218 | 192.309 | 569.022 | 1070 | rad/s|
+| Max Continuous Torque | 1.490 | 0.356 | 0.091 | 0.0367 | Nm |
+| Torque Constant | 0.457 | 0.236 | 0.067 | 0.0177 | Nm/A |
+| Inductance | 4.068 | 3.918 | 2.035 | 1.14 | mH |
+| Resistance | 3.473 | 6.213 | 5.205 | 4.95 | Ohms |
+| Rotor Inertia | 9.293E-5 | 1.472E-5 | 1.349E-6 | 1.41E-7 | kg*m2 |
+| Viscous Friction | 7.549E-5 | 8.899E-6 | 1.259E-6 | 0.674E-3 | Nm/rpm |
 
 ### Power (*1):
 Status | Control | 4-DOF | 7-DOF

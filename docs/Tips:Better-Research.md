@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 18 Nov 2022 20:12:57 EST*]
+[*Last generated: Mon 21 Nov 2022 20:22:24 EST*]
 - [**Writing a Paper:**](#Writing-a-Paper)
   - [Book:](#Book)
   - [Data Visualization:](#Data-Visualization)
@@ -70,6 +70,7 @@
 1. [ResearchRabbit](https://www.researchrabbit.ai/): You can find relevant paper with graphical representation
 2. [Paper with Code](https://paperswithcode.com/methods): You can find paper with code: github and public dataset ranking board + clustered papers and the original paper of particular hot topics
 3. [Open Review](https://openreview.net): Open Review on public submitted papers
+4. [Connected Papers](https://www.connectedpapers.com/ ): Visualize all related papers in a graph diag 
 
 ### ML related:
 1. [NEURIPS ANTHOLOGY VISUALIZATION](https://neuripsav.vizhub.ai): Here, you got clustered ML papers on Neuralips
