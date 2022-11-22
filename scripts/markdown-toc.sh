@@ -79,9 +79,21 @@ function markdown-toc(){
     echo "    - [x] Generated table of contents"
 }
 
+
+# enter doc directories:
 cd "$(dirname "$0")"/../docs
+
+# markdown batch process:
+if "$1" = "-a"; then
+    # process all documents
+    LIST_OF_MD=(*.md)
+else
+    # process only modified files
+    LIST_OF_MD=$(git ls-files -m)
+fi 
+
 i=0
-for file in *.md; do
+for file in "${LIST_OF_MD[@]}"; do
     i=$(( i + 1 ))
     echo "> [$i] - editing toc @ $file"
     if [[ "${file}" == "_Sidebar.md" || "${file}" == "_Footer.md" || "${file}" == "Home.md" ]]; then
@@ -93,7 +105,6 @@ for file in *.md; do
             echo "    - [!] Already has a ToC, deleting the old ToC ..."
             sed '/<toc>/,/<\/toc>/d' $file > $file.new
             mv $file{.new,}
-            
             markdown-toc $file
             continue # skip if already has a toc
         else

@@ -1,6 +1,44 @@
 <toc>
 
 # Table of Contents
+[*Last generated: Tue 22 Nov 2022 15:16:20 EST*]
+- [**Table of Contents**](#Table-of-Contents)
+- [**Spec Comparison**](#Spec-Comparison)
+- [**ADLINK - MXE211**](#ADLINK-MXE211)
+    - [Catkin_ws/src](#Catkin_wssrc)
+  - [Barrett WAM](#Barrett-WAM)
+  - [Robotnik Summit XL](#Robotnik-Summit-XL)
+    - [PeakCANpcan](#PeakCANpcan)
+    - [misc commands:](#misc-commands)
+    - [PAD Configuration PS Controller (Sony)](#PAD-Configuration-PS-Controller-Sony)
+    - [Pixhawk PX4 Flight Controller (IMU)](#Pixhawk-PX4-Flight-Controller-IMU)
+    - [[:star: A better version] UWARL ROS Catkin Workspace Setup](#star-A-better-version-UWARL-ROS-Catkin-Workspace-Setup)
+    - [[:no_entry_sign: Manual] catkin_ws](#no_entry_sign-Manual-catkin_ws)
+    - [[⭐ A better version - Jack] RC Config for ROS and devices](#-A-better-version-Jack-RC-Config-for-ROS-and-devices)
+    - [[🛑 robotnik] RC Config for ROS and devices](#-robotnik-RC-Config-for-ROS-and-devices)
+      - [Boot/Startup Scripts:](#BootStartup-Scripts)
+      - [RC:](#RC)
+  - [Local Summit-PC Catkin-ws:](#Local-Summit-PC-Catkin-ws)
+    - [UWARL Repo Versions Backed:](#UWARL-Repo-Versions-Backed)
+    - [Robotnik:](#Robotnik)
+    - [Other Vendors:](#Other-Vendors)
+    - [Unused:](#Unused)
+    - [Unknown:](#Unknown)
+- [**Jetson AGX ORIN**](#Jetson-AGX-ORIN)
+  - [RT Kernel](#RT-Kernel)
+    - [Reference](#Reference)
+    - [Instruction on compiling on ORIN:](#Instruction-on-compiling-on-ORIN)
+    - [compiling on external PC](#compiling-on-external-PC)
+  - [install libbarrett](#install-libbarrett)
+- [**Axis Camera (AXIS M5013 Network Camera)**](#Axis-Camera-AXIS-M5013-Network-Camera)
+- [**Velodyn (VLP 16)**](#Velodyn-VLP-16)
+- [**TP Link Router (Archer C7 v2)**](#TP-Link-Router-Archer-C7-v2)
+
+
+</toc>
+<toc>
+
+# Table of Contents
 [*Last generated: Mon 21 Nov 2022 20:22:23 EST*]
 - [**Spec Comparison**](#Spec-Comparison)
 - [**ADLINK - MXE211**](#ADLINK-MXE211)
@@ -155,7 +193,7 @@ Version: ROS Melodic + Ubuntu 18.04 rt
   $ modinfo pcan | grep -e "^depends:"
   
   $ dmesg | grep pcan
-  
+  /home/uwarl-orin/JX_Linux/Linux_for_Tegra/source/public/kernel/kernel-5.10/Makefile
   
   ---
   udevadm info -a -p $(udevadm info -q path -n pcanusb33)

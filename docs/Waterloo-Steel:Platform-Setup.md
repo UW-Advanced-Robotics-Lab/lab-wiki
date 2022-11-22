@@ -39,6 +39,67 @@
 
 ---
 
+> :notebook: This cleanup is based on Logbook on V2 Upgrade, and semi-automated with our [uwarl-robot_configs](https://github.com/UW-Advanced-Robotics-Lab/uwarl-robot_configs) packages. So you do not have to troubleshoot much.
+
+# 0. Common
+
+> Highly recommended to install the items below ! 
+
+## 0.1 Remote Screen via SSH:
+
+- XFCE XRDP: https://www.hiroom2.com/ubuntu-2004-xrdp-xfce-en/
+
+  > :rotating_light: Xfce is lighter, GNOME is quite heavy, not recommended for remote screen via ssh.
+
+## 0.2 SSH Keys & Github
+
+1. generate key `ssh-keygen -t ed25519 -C "your_email@example.com"`
+2. copy the public key  `cat ~/.ssh/id_ed25519.pub`
+3. paste to GitHub SSH keys under personal account profile
+
+## 0.3 Commonly used command:
+
+1. `$ uname -r`: OS check 
+2. `$ cat /prov/version_signature`: identify kernel
+3. `$ arp -a` : Scan Local Network Devices and IPs
+4. `$ tree -L 1`: list hierarchy of directory in depth=1,may  require: `sudo apt install tree`
+
+## 0.4 ZSH & oh-my-zsh
+
+- install zsh first 
+
+  ```bash
+  $ sudo apt install zsh
+  ```
+
+- **Oh-my-zsh** (THE hipster dev tool + coke)
+
+  ```bash
+  $ sudo apt install curl
+  $ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  
+  # to modify themes:
+  $ sudo vim ~/.zshrc
+  $ source ~/.zshrc
+  ```
+
+  > :information_source:  https://github.com/ohmyzsh/ohmyzsh
+  >
+  > :information_source: Themes: https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+
+## 0.5 TMUX: virtual terminal within terminal
+
+- https://linuxize.com/post/getting-started-with-tmux/
+- Pretty/Easy-to-use Custom Mod: https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/ (except ctrl-b mod)
+
+> :notebook: Do not use multiple `ssh` clients, as they will make the system a bit heavier. 
+
+> 🔥 Tmux can still run in the background, even if the computer is disconnected from the internet. 
+
+> :warning: Normal ssh sessions without tmux will terminate the program if your ssh client is disconnected
+
+
+
 # 1. Adlink MXE 211 (Robotnik SUMMIT PC)
 
 | Ubuntu 18.04 - RT | Intel(R) Atom(TM) Processor E3950 @ 1.60GHz - 4 Cores - x64_86 | ROS-Melodic | NOT_NETDEV PCAN | 8 GB | 25W-35.2W |
@@ -48,119 +109,186 @@
 
 - RT kernel patch: https://stackoverflow.com/questions/51669724/install-rt-linux-patch-for-ubuntu
 
+  > [INSERT-HERE] Should be self-explanatory, good luck, and maybe log your steps as well.
+
 ## 1.2  Peak Linux Driver
 
+> :information_source: If needed, refer [Linux User Manual](https://www.peak-system.com/fileadmin/media/linux/files/PCAN-Driver-Linux_UserMan_eng.pdf)
+
+1. Download Peak Driver:
+
+   ```bash
+   #download:
+   $ wget https://www.peak-system.com/fileadmin/media/linux/files/peak-linux-driver-8.15.2.tar.gz
+   #untar:
+   $ tar -xzf peak-linux-driver-8.15.2.tar.gz
+   ```
+
+2. Build driver:
+
+   ```bash
+   $ cd peak-linux-driver-8.15.2.tar.gz
+   $ sudo make clean
+   $ sudo make
+   ```
+
+3. Install driver:
+
+   1. **NO NETDEV** with default peak-linux-driver make file
+
+      > :warning: with netdev, it wont work for summit controller `make ` , but  WAM requires netdev `make -C driver NET=NETDEV_SUPPORT`
+
+      ```bash
+      $ sudo make install
+      ```
+
+   2. (**Optional**) Configure PC CAN interfaces `$ cat /etc/modprobe.d/pcan.conf`:
+
+      ```bash
+      #### Below is the configuration found from summit-PC: ###
+      # pcan - automatic made entry, begin --------
+      # if required add options and remove comment 
+      # options pcan type=isa,sp
+      install pcan modprobe --ignore-install pcan
+      # pcan - automatic made entry, end ----------
+      ```
+
+   3. loading driver:
+
+      ```bash
+      $ sudo modprobe pcan
+      
+      # check if it's loaded properly:
+      $ sudo dmesg | grep pcan
+      ```
+
+      > 🟠 If dmseg failed: operation note permitted. ----> unlock restriction from non-root 
+      >
+      > ```bash
+      > $ sudo sysctl kernel.dmesg_restrict=0
+      > ```
+      >
+      > If it still does not work, reboot. Else, troubleshooting is needed. 
+
+   4. check PCAN-USB is configured properly
+
+      ```bash
+      summit@summit-171102A:~$ cat /proc/pcan
+      
+      *------------- PEAK-System CAN interfaces (www.peak-system.com) -------------
+      *------------- Release_20180720_n (8.6.0) May 25 2021 11:16:42 --------------
+      *------------- [mod] [isa] [pci] [pec] [dng] [par] [usb] [pcc] --------------
+      *--------------------- 1 interfaces @ major 243 found -----------------------
+      *n -type- -ndev- --base-- irq --btr- --read-- --write- --irqs-- -errors- status
+      32    usb   -NA- ffffffff 000 0x001c 00000000 00000000 00000000 00000000 0x0000
+      ```
+
+4. setup `60-can.rules` for robotnik summit CAN controller 
+
+   1. ```bash
+      vim /etc/udev/rules.d/...
+      # add a line:
+      `KERNEL=="pcanusb*", SYMLINK+="pcan_base", MODE="0666"`
+      ```
+
+   2. ```bash
+      KERNEL=="pcanusb*", SYMLINK+="pcan_base", MODE="0666"
+      RUN+="/bin/reset_can_non_xenomai.sh"
+      ```
+
+5. Reload udev rules or reboot to take effect:
+
+   ```bash
+   $ sudo service udev reload
+   $ sudo service udev restart
+   $ sudo udevadm trigger
+   $ sudo rmmod pcan
+   $ sudo modprobe pcan
+   ```
+
+6. Connect Peak USB-CAN dongle, and validate:
+
+   ```bash
+   $ sudo dmesg | grep pcan
+   $ ls /dev/pcanusb*
+   ```
+
+> :triangular_flag_on_post:  **[TODO]** May be worth it to backup udev rules and scripts into uwarl-robot_configs.  As well as `reset_can_non_xenomai.sh` bash scripts. 
 
 
-## 1.3 Summit Hardware Library
+
+## 1.3 Install ROS:
 
 
 
-## 1.4 Sony PS PAD Controller
+## 1.4 [:star:] UWARL ROS Catkin Workspace Setup
 
+### 1.4.1 ⭐ [Automated] Install Catkin Workspace + Hardware Setup
 
-
-
-
-## 1.5 Pixhawk PX4 Flight Controller - Chassis IMU
-
-
-
-
-
-## 1.6 Velodyn (VLP 16)
-
-- ![Updated](resources/VLP_2022-10-19.png)
-
-- Updated to 3.0.41 on Oct-19,2022
-
-  - Now we have DHCP :) 
-
-- > ⚠️ Make sure the velodyn is on different subnet with the router, else you will not be able to use wifi at all due to conflicts
-
-- ROS: http://wiki.ros.org/velodyne/Tutorials/Getting%20Started%20with%20the%20Velodyne%20VLP16
-
-  ```bash
-  $ sudo apt-get install ros-melodic-velodyne
-  # test launch
-  $ roslaunch velodyne_pointcloud VLP16_points.launch	
-  $ rosnode list
-  $ rostopic echo /velodyne_points
-  # rviz:
-  $ rosrun rviz rviz -f velodyne
-  ```
-
-
-
-
-## 1.7 Install ROS:
-
-
-
-## 1.8 [:star:] UWARL ROS Catkin Workspace Setup
-
-### 1.8.1 ⭐ [Automated] Install Catkin Workspace + Hardware Setup
 0. Install ROS and configure the environment necessary from previous section
 
 1. Clone configurations: 
-    ```zsh
-    $ cd ~ && git clone git@github.com:UW-Advanced-Robotics-Lab/uwarl-robot_configs.git
-    ```
-2. Install the repo with auto-script:
-    ```zsh
-    $ cd ~ && ./uwarl-robot_configs/scripts/auto-config_UWARL_catkin_ws.zsh
-    ```
 
-    > :notebook: this script will install automatically based on the **user name** (e.g. uwarl-orin) to identify the PC space
+   ```zsh
+   $ cd ~ && git clone git@github.com:UW-Advanced-Robotics-Lab/uwarl-robot_configs.git
+   ```
+
+2. Install the repo with auto-script:
+
+   ```zsh
+   $ cd ~ && ./uwarl-robot_configs/scripts/auto-config_UWARL_catkin_ws.zsh
+   ```
+
+   > :notebook: this script will install automatically based on the **user name** (e.g. uwarl-orin) to identify the PC space
 
 3. Install Hardware Package:
 
-    ```bash
-    $ sudo dpkg -i ~/uwarl-robot_configs/summit/ros-melodic-robotnik-msgs_2.2.0-0bionic_amd64.deb
-    ```
+   ```bash
+   $ sudo dpkg -i ~/uwarl-robot_configs/summit/ros-melodic-robotnik-msgs_2.2.0-0bionic_amd64.deb
+   ```
 
-    > :warning: You may not find this one from the server directly, but I did hard work for you, as stated below:
+   > :warning: You may not find this one from the server directly, but I did hard work for you, as stated below:
 
-    #### 1.8.1-(3) How to Build Hardware Package?
+   #### 1.4.1-(3) How to Build Hardware Package?
 
-    > :warning: In Melodic, you will see errror on dependency `melodic-msgs`, which is not available in melodic server, and required a local build, which will be done later with catkin build, just ignore this error
+   > :warning: In Melodic, you will see errror on dependency `melodic-msgs`, which is not available in melodic server, and required a local build, which will be done later with catkin build, just ignore this error
 
-    1. :notebook: we can actually build one :D
-
-       ```bash
-       $ cd UWARL_catkin_ws/uwarl-robotnik_msgs
-       $ catkin build --this
-       $ bloom-generate rosdebian --os-name ubuntu --ros-distro melodic
-       $ fakeroot debian/rules binary
-       ```
-
-    - Build base_hw dpkg:
+   1. :notebook: we can actually build one :D
 
       ```bash
-      sudo dpkg -i uwarl-robotnik_base_hw/lib/ros-melodic-robotnik-base-hw-lib_****_amd64.deb
+      $ cd UWARL_catkin_ws/uwarl-robotnik_msgs
+      $ catkin build --this
+      $ bloom-generate rosdebian --os-name ubuntu --ros-distro melodic
+      $ fakeroot debian/rules binary
       ```
+
+   - Build base_hw dpkg:
+
+     ```bash
+     sudo dpkg -i uwarl-robotnik_base_hw/lib/ros-melodic-robotnik-base-hw-lib_****_amd64.deb
+     ```
 
 4. Configure ROS Environment:\
 
-    ```bash
-    # (Optional) Ensure ip are correct in the env.
-    $ sudo vim ~/uwarl-robot_configs/summit/user_services/environment
-    # Copy ROS env:
-    $ sudo cp ~/uwarl-robot_configs/summit/user_services/environment ~/.ros/
-    ```
+   ```bash
+   # (Optional) Ensure ip are correct in the env.
+   $ sudo vim ~/uwarl-robot_configs/summit/user_services/environment
+   # Copy ROS env:
+   $ sudo cp ~/uwarl-robot_configs/summit/user_services/environment ~/.ros/
+   ```
 
 5. Catkin Build:    
 
-    ```bash
-    # source robot config env & ros
-    $ source ~/.zshrc
-    # build:
-    $ cd $ROS_CATKIN_WS && catkin_build
-    ### Trick:
-    $ build_ws # from anywhere, which will does the job for you :P (Jack is too lazy)
-    ```
+   ```bash
+   # source robot config env & ros
+   $ source ~/.zshrc
+   # build:
+   $ cd $ROS_CATKIN_WS && catkin_build
+   ### Trick:
+   $ build_ws # from anywhere, which will does the job for you :P (Jack is too lazy)
+   ```
 
-### 1.8.2 Setup Auto-launch at the boot:
+### 1.4.2 Setup Auto-launch at the boot:
 
 - Let's use system boot as a method to auto-boot services, as they can be restarted easily with status logs
 
@@ -196,34 +324,183 @@
   sudo loginctl enable-linger $USER
   ```
 
-- Check:
+#### 1.4.2.1 How to use/stop/log auto-launch
+
+```bash
+# check system:
+$ systemctl --user status roscorelaunch@waterloo_steel_bringup:waterloo_steel_summit.launch.service
+
+# restart:
+$ systemctl --user restart roscorelaunch@waterloo_steel_bringup:waterloo_steel_summit.launch.service
+
+# stop:
+$ systemctl --user stop roscorelaunch@waterloo_steel_bringup:waterloo_steel_summit.launch.service
+
+# check log:
+$ journalctl --user --user-unit=roscorelaunch@waterloo_steel_bringup:waterloo_steel_summit.launch.service
+# live:
+$ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:waterloo_steel_summit.launch.service
+```
+
+## 1.5 Sony PS PAD Controller
+
+> :information_source: You may want to prepare the ROS first as instructed in [1.8 [:star:] UWARL ROS Catkin Workspace Setup](#18-star-UWARL-ROS-Catkin-Workspace-Setup)
+
+- https://github.com/RobotnikAutomation/robotnik_pad
+
+  - ds4drv automatic install: 
+
+    ```bash
+    $ sudo ./ds4drv-install.sh
+    ```
+
+    > :notebook: This step also modifies the `udev`  file: `/etc/udev/rules.d/50-ds4drv.rules`
+    >
+    > - Since PS4 Hidraw mode creates two jsX devices.
+    >   - one by DS4DRV
+    >   - one by OS upon pairing (only buttons, no acc)
+    >
+    > - There could be a race condition between the name of the devices, hence, we need a rules at the udev level, and prioritize js0 as the OS version, and then, js1 will be registered for ds4drv.
+
+  - Check service:
+
+    ```bash
+    $ systemctl status ds4drv.service
+    ```
+
+  - Configuration setting: 
+
+    ```bash
+    $ sudo vim ds4drv.conf
+    ```
+
+  - [**Troubleshoots**] You may encounter:
+
+  - >  :rotating_light: Please install `pip install six==1.13` or above, so ps4drv does not fail 
+
+  - >  :tipping_hand_man: If not working, try `sudo` , sigh
+
+  - > :tipping_hand_man: if systemctl cannot find package for ds4drv, make sure installed using `sudo python3.6 -m pip install -U ds4drv` instead of pip tool to be clear
+    >
+    > :tipping_hand_man: if does not work, try clearpath branch: https://github.com/clearpathrobotics/ds4drv
+
+- Bluetooth dongle (**pluggable** usb bluetooth 4.0 @ usb 2.0 port):
+
+  > :tophat: This is the magical dongle that works like magic, the one that came with Robotnik does not work well in Linux.
+
+  - check Bluetooth socket layer init status
+
+    ```bash
+    $ dmesg | egrep -i 'blue|firm' | cut -c 16-
+    ```
+
+  - Check:
+
+    ```bash
+    $ sudo systemctl status bluetooth.service # <-- make sure it is working
+    $ rfkill list
+    $ hcitool dev
+    ```
+
+  - Connect:
+
+    ```bash
+    $ sudo bluetoothctl
+    
+    #----- Command:
+    [bluetooth]# scan on
+    [bluetooth]# trust MAC
+    [bluetooth]# agent on
+    [bluetooth]# pair MAC
+    ```
+
+  - Check if jsX live is connected:
+
+    ```bash
+    $ ls /dev/input
+    ```
+
+  - Check udev name for js0 as "Sony Entertainment ***":
+
+    ```bash
+    $ udevadm info -a /dev/input/js0
+    ```
+
+
+> :triangular_flag_on_post:  **[TODO]** May be worth it to backup udev rules and scripts into uwarl-robot_configs. ---Jack
+
+## 1.6 Pixhawk PX4 Flight Controller - Chassis IMU
+
+- PX4: https://docs.px4.io/main/en/dev_setup/building_px4.html
+
+- ROS Guide: http://wiki.ros.org/RobotnikAutomation/Tutorials/Use%20Pixhawk%20in%20AGV
 
   ```bash
-  # check system:
-  $ systemctl --user status roscorelaunch@waterloo_steel_bringup:waterloo_steel_summit.launch.service
-  
-  # restart:
-  $ systemctl --user restart roscorelaunch@waterloo_steel_bringup:waterloo_steel_summit.launch.service
-  
-  # stop:
-  $ systemctl --user stop roscorelaunch@waterloo_steel_bringup:waterloo_steel_summit.launch.service
-  
-  # check log:
-  $ journalctl --user --user-unit=roscorelaunch@waterloo_steel_bringup:waterloo_steel_summit.launch.service
-  # live:
-  $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:waterloo_steel_summit.launch.service
+  $ sudo apt-get install ros-melodic-mavros ros-melodic-mavros-extras
   ```
 
-- add to `~/zshrc`  (Preferred) or `~/bashrc` (scripts may be out-dated) for terminals:
+- Steps:
+
+  1. Identify the serial number:
+
+     ```bash
+     $ udevadm info -a /dev/ttyUSB0 | grep serial
+     
+     # --- Output:
+         SUBSYSTEMS=="usb-serial"
+         ATTRS{serial}=="FTA31EZ3"
+         ATTRS{serial}=="0000:00:15.0"
+     ```
+
+  2. Create / Modify udev:
+
+     ```bash
+     $ sudo vim /etc/udev/rules.d/50-pixhawk.rules
+     
+     ## -- Paste Below:
+     KERNEL=="ttyUSB[0-9]*", OWNER="summit", GROUP="dialout", MODE="0666"
+     KERNEL=="ttyUSB[0-9]*", ATTRS{idProduct}=="6001", ATTRS{serial}=="FTA31EZ3", NAME="%k", SYMLINK="ttyUSB_PX4", GROUP="dialout", MODE="0666"
+     ```
+
+     If using USB-to-micro_USB:
+
+     ```bash
+     KERNEL=="ttyUSB[0-9]*", OWNER="summit", GROUP="dialout", MODE="0666"
+     SUBSYSTEM=="tty", ATTRS{idVendor}=="26ac", ATTRS{idProduct}=="0011", NAME="%k", SYMLINK="tty_PX4", GROUP="dialout", MODE="0666"
+     ```
+
+  3. reload and restart rules:
+
+     ```bash
+     $ sudo service udev reload 
+     $ sudo service udev restart 
+     $ sudo udevadm trigger
+     ```
+
+
+> :triangular_flag_on_post:  **[TODO]** May be worth it to backup udev rules into uwarl-robot_configs. ---Jack
+
+## 1.7 Velodyn (VLP 16)
+
+- ![Updated](resources/VLP_2022-10-19.png)
+
+- Updated to 3.0.41 on Oct-19,2022
+
+  - Now we have DHCP :) 
+
+- > ⚠️ Make sure the velodyn is on different subnet with the router, else you will not be able to use wifi at all due to conflicts
+
+- ROS: http://wiki.ros.org/velodyne/Tutorials/Getting%20Started%20with%20the%20Velodyne%20VLP16
 
   ```bash
-  ## >>> Custom entries:
-  source /home/uwarl/uwarl-robot_configs/summit/summitxl_ros_config.zsh
-  # source /home/uwarl/uwarl-robot_configs/summit/summitxl_ros_config.bash # bash
-  ## <<<< EOF .
+  $ sudo apt-get install ros-melodic-velodyne
+  # test launch
+  $ roslaunch velodyne_pointcloud VLP16_points.launch	
+  $ rosnode list
+  $ rostopic echo /velodyne_points
+  # rviz:
+  $ rosrun rviz rviz -f velodyne
   ```
-
-  
 
 
 
@@ -282,7 +559,7 @@
 
 4. Plug-in DP Monitor, and manually configure ubuntu at boot with `uwarl-orin`
 
-   > :cheese:  Last installation (Nov. 21, 2022) was successfully onto NVMe. **485.4 GB / 491.4 GB Available**, Boot directly from NVMe. 
+   > :cheese:  Last installation (Nov. 21, 2022) was successfully onto NVMe. **485.4 GB / 491.4 GB Available**, Boot directly from NVMe. **467.3 GB** after installing JetPack 5 SDK
 
    > [System Check]:
    >
@@ -310,101 +587,225 @@
 
 4. Wait for installation. And DONE :beers:
 
-## 2.1 (Jetson) RT Kernel
+## 2.1 (Jetson) RT Kernel :yum:
 
 > :notebook: TAG: jetson_35.1, the public release DOES NOT HAVE RT KERNEL, SAD!!
 >
 > - So you have to compile from source:
 
-1. Compile custom kernel:
+### 2.1.1 Build custom kernel from source:
 
-   1. In your browser, go to https://developer.nvidia.com/embedded/jetson-linux-archive.
+1. Create Driver Directories, so we can download any other drivers here
 
-   2. Locate and download the Jetson Linux source files for your release.
+   ```bash
+   $ mkdir $HOME/JX_Linux
+   ```
 
-   3. Extract the `.tbz2` file:
+2. In your browser, go to https://developer.nvidia.com/embedded/jetson-linux-archive.
 
-      ```bash
-      $ tar -xjf public_sources.tbz2
-      ```
+3. Locate and download the Jetson Linux source files (Driver Package Sources) for your release.
 
-   4. Extract the kernel source file:
+   ```bash
+   # r35.1 as an example:
+   $ wget https://developer.nvidia.com/embedded/l4t/r35_release_v1.0/sources/public_sources.tbz2
+   ```
 
-      ```bash
-      $ cd Linux_for_Tegra/source/public
-      $ export TEGRA=$HOME/{somewhere}/Linux_for_Tegra/source/public
-      $ tar –xjf kernel_src.tbz2
-      ```
+4. Extract the `.tbz2` file:
 
-      This extracts the kernel source to the `kernel/`subdirectory.
+   ```bash
+   $ tar -xjf public_sources.tbz2
+   ```
 
-   5. Apply RT Kernel: 
+5. Extract the kernel source file:
 
-      ```bash
-      $ cd $TEGRA/kernel
-      $ ./kernel-5.10/scripts/rt-patch.sh apply-patches
-      ### OUTPUT:
-      #> The PREEMPT RT patches have been successfully applied!
-      ```
+   ```bash
+   # make a shortcut here:
+   $ export TEGRA=$HOME/JX_Linux/Linux_for_Tegra/source/public
+   # extract kernel:
+   $ cd $TEGRA
+   $ tar –xjf kernel_src.tbz2 
+   ```
 
-   6. :no_entry_sign:**(ON NON-Jetson PC)** Cross Compile:
+   This extracts the kernel source to the `kernel/`subdirectory.
 
-      ```bash
-      $ export CROSS_COMPILE_AARCH64_PATH=<toolchain-path>
-      $ export CROSS_COMPILE_AARCH64=<toolchain-path>/bin/aarch64-buildroot-linux-gnu-
-      ```
+6. Apply RT Kernel: 
 
-   7. Kernel out:
+   ```bash
+   $ cd $TEGRA/kernel
+   $ ./kernel-5.10/scripts/rt-patch.sh apply-patches
+   ### Expected OUTPUT:
+   #> The PREEMPT RT patches have been successfully applied!
+   ```
 
-      ```bash
-      $ cd {somewhere}/kernel_out
-      $ export kernel_out={somewhere}/kernel_out
-      ```
+7. :no_entry_sign:**(ON NON-Jetson PC)** Cross Compile:
 
-   8. Build:
+   ```bash
+   $ export CROSS_COMPILE_AARCH64_PATH=<toolchain-path>
+   $ export CROSS_COMPILE_AARCH64=<toolchain-path>/bin/aarch64-buildroot-linux-gnu-
+   ```
 
-      ```bash
-      $ cd $TEGRA && ./nvbuild.sh -o $kernel_out
-      ```
+8. Kernel out:
 
-2. Apply built to the root:
+   ```bash
+   $ mkdir $HOME/JX_Linux/kernel_out
+   $ export kernel_out=$HOME/JX_Linux/kernel_out
+   $ cd $kernel_out
+   ```
 
-   1. Replace `/boot/Image` with a copy of this file:
+9. Install Dependencies for kernel build (Missing OpenSSL development package):
 
-      ```bash
-      # a copy backup:
-      $ sudo mv /boot/kernel/Image /boot/kernel/Image.bak.non-rt
-      # override:
-      $ sudo cp $kernel_out/arch/arm64/boot/Image /boot/kernel/Image
-      ```
+   ```bash
+   $ sudo apt-get install libssl-dev
+   
+   # $ sudo apt-get install libncurses-dev flex bison openssl libssl-dev dkms libelf-dev libudev-dev libpci-dev libiberty-dev autoconf
+   ```
 
-   2. Reboot:
+10. Build & wait for a while :hourglass: **(~1/2 hour on orin)** 
 
-      ```bash
-      $ sudo reboot 0
-      ```
+   ```bash
+   $ cd $TEGRA && ./nvbuild.sh -o $kernel_out 
+   ```
 
-   3. Install new Kernel headers:
 
-      ```bash
-      # - copy kernel_out into `/usr/src/{uname -r}`
-      $ sudo mkdir /usr/src/linux-headers-5.10.104-rt63-tegra-ubuntu20.04_aarch64/
-      $ cd /usr/src/linux-headers-5.10.104-rt63-tegra-ubuntu20.04_aarch64/
-      $ mkdir kernel-5.10
-      $ sudo cp -r $kernel_out kernel-5.10
-      # - inside `/usr/src/{uname -r}` to install into `/lib/modules`
-      $ sudo make module_install 
-      $ ls /lib/modules 
-      # [5.10.104-rt63]
-      # - but we want: 5.10.104-rt63-tegra 
-      # 		hence, lets rename the foler instead:
-      $ sudo mv 5.10.104-rt63/ 5.10.104-rt63-tegra
-      
-      # export current kernel
-      $ export kernel=/usr/src/linux-headers-5.10.104-rt63-tegra-ubuntu20.04_aarch64/kernel-5.10
-      ```
+### 2.1.2 Apply kernel to the boot:
 
-      
+1. Replace `/boot/Image` with a copy of this file:
+
+   ```bash
+   # a copy backup:
+   $ cd $HOME
+   $ sudo mv /boot/Image /boot/Image.bak.non-rt
+   # override the current boot:
+   $ sudo cp $kernel_out/arch/arm64/boot/Image /boot/Image
+   $ sudo cp $kernel_out/arch/arm64/boot/dts/nvidia/* /boot
+   $ sudo cp $kernel_out/arch/arm64/boot/dts/nvidia/tegra234-p3701-0000-p3737-0000.dtb /boot/dtb/kernel_tegra234-p3701-0000-p3737-0000.dtb
+   
+   $ sudo cp $kernel_out/drivers/gpu/nvgpu/nvgpu.ko /usr/lib/modules/$(uname -r)/kernel/drivers/gpu/nvgpu/nvgpu.ko
+   #$ sudo cp $kernel_out/arch/arm64/boot/dts/nvidia/* /boot/dtb/
+   
+   ```
+
+2. Save built kernel to `/usr/src`:
+
+   ```bash
+   # - build package dependencies:
+   sudo apt update
+   sudo apt install -y build-essential flex bison libssl-dev libelf-dev
+   # - build config
+   make config
+   # - check if kernel source has it before
+   $ ls /usr/src
+   # - copy kernel_out into `/usr/src/{uname -r}`
+   $ sudo mkdir /usr/src/linux-headers-5.10.104-rt63-tegra-ubuntu20.04_aarch64/
+   $ sudo cp -r /usr/src/linux-headers-5.10.104-tegra-ubuntu20.04_aarch64/* /usr/src/linux-headers-5.10.104-rt63-tegra-ubuntu20.04_aarch64/
+   # - make an empty kernel
+   $ cd /usr/src/linux-headers-5.10.104-rt63-tegra-ubuntu20.04_aarch64/
+   $ sudo rm -rf kernel-5.10
+   # - copy kernel over
+   # $ sudo mkdir kernel-5.10
+   # $ sudo cp -r $kernel_out/* kernel-5.10
+   # - alternatively, make a symbolic link, to avoid conflicts
+   $ sudo ln -s $kernel_out kernel-5.10
+   ```
+
+3. Install Kernel to the `/lib/modules`
+
+   ```bash
+   # - inside `/usr/src/{uname -r}` to install into `/lib/modules`
+   $ cd $kernel_out
+   $ sudo make modules_install
+   # output:  DEPMOD  5.10.104-rt63-tegra
+   $ ls /lib/modules 
+   # output: [5.10.104-rt63-tegra (<--what we compiled),  5.10.104-tegra]
+   ```
+
+4. Install custom kernel to the `/usr/include`:
+
+   ```bash
+   $ cd $kernel_out && sudo make headers_install INSTALL_HDR_PATH=/usr
+   ```
+
+5. Set up for building external modules (later, needed for other drivers):
+
+   ```bash
+   $ sudo make modules_prepare
+   ```
+
+6. Override **EMMC boot** 
+
+   > :fire: It seems that the rootfs boot is still through EMMC
+
+   ```bash
+   $ sudo mount /dev/mmcblk0p1 /mnt
+   $ sudo cp /boot/Image /mnt/boot/Image
+   $ sudo cp -r /boot/dtb/* /mnt/boot/dtb
+   ```
+
+7. Reboot:
+
+   ```bash
+   $ sudo reboot 0
+   $ uname -a
+   Linux uwarl-orin 5.10.104-rt63-tegra #1 SMP PREEMPT RT Tue Nov 22 09:18:41 EST 2022 aarch64 aarch64 aarch64 GNU/Linux
+   ```
+
+8. :no_good: Kernel Test (https://www.kernel.org/doc/html/latest/dev-tools/kselftest.html): 
+
+   > TODO: when running kselftest, it freezes, need someone to investigate?
+
+   ```bash
+   # export current kernel
+   $ export kernel_out=$HOME/JX_Linux/kernel_out
+   $ cd $kernel_out && sudo make summary=1 kselftest
+   ```
+
+9. In future, to compile other drivers, you need to specify header:
+
+   ```bash
+   # export current kernel
+   $ export kernel_src=/usr/src/linux-headers-5.10.104-rt63-tegra-ubuntu20.04_aarch64/kernel-5.10
+   ```
+
+> Possible Make commands within `$kernel_src` ---> imported from `/home/uwarl-orin/JX_Linux/Linux_for_Tegra/source/public/kernel/kernel-5.10/Makefile`
+>
+> ```bash
+> $ cat /home/uwarl-orin/JX_Linux/Linux_for_Tegra/source/public/kernel/kernel-5.10/Makefile
+> ```
+> 
+> To see possible commands to run in kernel output:
+> 
+> ```bash
+> help:
+> 	@echo  'Cleaning targets:'
+> 	@echo  '  clean		  - Remove most generated files but keep the config and'
+> 	...
+> 	@echo  '* modules	  - Build all modules'
+> 	@echo  '  modules_install - Install all modules to INSTALL_MOD_PATH (default: /)'
+> 	...
+>   @echo  '  modules_prepare - Set up for building external modules'
+> 	...
+> 	@echo  '  headers_install - Install sanitised kernel headers to INSTALL_HDR_PATH'; \
+>   ...
+>   @echo  'Kernel selftest:'
+> 	@echo  '  kselftest         - Build and run kernel selftest'
+> 	@echo  '                      Build, install, and boot kernel before'
+> 	@echo  '                      running kselftest on it'
+> 	@echo  '                      Run as root for full coverage'
+> 	@echo  '  kselftest-all     - Build kernel selftest'
+> 	@echo  '  kselftest-install - Build and install kernel selftest'
+> 	@echo  '  kselftest-clean   - Remove all generated kselftest files'
+> 	@echo  '  kselftest-merge   - Merge all the config dependencies of'
+> 	@echo  '		      kselftest to existing .config.'
+> 	@echo  ''
+> 	@$(if $(dtstree), \
+> 		echo 'Devicetree:'; \
+> 		echo '* dtbs             - Build device tree blobs for enabled boards'; \
+> 		echo '  dtbs_install     - Install dtbs to $(INSTALL_DTBS_PATH)'; \
+> 		echo '  dt_binding_check - Validate device tree binding documents'; \
+> 		echo '  dtbs_check       - Validate device tree source files';\
+> 		echo '')
+> ```
+> 
 
 ## 2.2 Peak Linux Driver  (Out-of-tree Linux RT Header)
 
@@ -417,15 +818,22 @@ $ wget https://www.peak-system.com/fileadmin/media/linux/files/peak-linux-driver
 # unzip:
 $ tar -xzf peak-linux-driver-8.15.2.tar.gz
 
-# build driver with netdev and specified kernel:
-$ make -C driver NET=NETDEV_SUPPORT KERNEL_LOCATION=$kernel LOCALVERSION="-tegra"
+# build driver with netdev:
+$ sudo make -C driver NET=NETDEV_SUPPORT KERNEL_VERSION="5.10.104-rt63-tegra"
+# KERNEL_LOCATION=$kernel_src 
+# LOCALVERSION="-tegra"
+
+### OUTPUT ###:
+#*** Host OS Release=Ubuntu v20.04
+#*** Host machine kernel version=5.10.104-rt63-tegra
+#*** Driver kernel version=5.10.104-rt63-tegra (5.10.104)
+#*** Path to kernel sources=/lib/modules/5.10.104-rt63-tegra/build
 
 # install:
-$ sudo make install KERNEL_LOCATION=$kernel
+$ sudo make install KERNEL_VERSION="5.10.104-rt63-tegra"
 
-# GUCCI
-cd ~/libbarrett/scripts && ~/libbarrett/scripts/install_dependencies.sh
-$ sudo reboot 0
+# load pcan
+$ sudo modprobe pcan
 
 # testing:
 $ sudo dmesg | grep pcan
@@ -437,96 +845,110 @@ $ sudo dmesg | grep pcan
 
 
 
-## 2.3 Libbarrett Hardware Library
+## 2.3 Install ROS
 
-> Use our `uwarl-libbarrett` with fixes to support arm based system
+> :information_source: http://wiki.ros.org/noetic/Installation/Ubuntu
 
-1. Install dependencies `$ ./scripts/install_dependencies.sh`
+1. 
 
-   1. This will fail at builing the `libconfig-1.4.5`, due to outdated aux-build kernel guesses (the outdated one is 2006, last modified is 2022)
+## 2.4 [:star: automated] UWARL ROS Catkin Workspace Setup
 
-   2. So let's update:
+### 2.4.1 ⭐ [Automated] Install Catkin Workspace + Hardware Setup
 
-      ```bash
-      $ cd ~/Downloads/libconfig-1.4.5
-      $ wget -o http://git.savannah.gnu.org/gitweb/\?p\=config.git\;a\=blob_plain\;f\=config.sub\;hb\=HEAD
-      
-      $ wget -o http://git.savannah.gnu.org/gitweb/\?p\=config.git\;a\=blob_plain\;f\=config.guess\;hb\=HEAD
-      ```
+0. Install ROS and configure the environment necessary from previous section
 
-   3. Compile libconfig and install:
+1. Clone configurations: 
 
-      ```bash
-      cd libconfig-1.4.5 && ./configure && make -j$(nproc)
-      sudo make install
-      sudo ldconfig
-      sudo reboot 0
-      ```
-
-2. Continue to build library and install:
-
-   ```bash
-   cd ~/libbarrett
-   export CC=/usr/bin/clang
-   export CXX=/usr/bin/clang++
-   cd ~/libbarrett && cmake .
-   make -j$(nproc)
-   
-   sudo make install
+   ```zsh
+   $ cd ~ && git clone git@github.com:UW-Advanced-Robotics-Lab/uwarl-robot_configs.git
    ```
 
-3. copy libbarrett configurations from `uwarl-robot_configs` repo for vertical config (program assume horizontal)
+2. Install the repo with auto-script:
 
-## 2.4 ZED Stereo-Camera
+   ```zsh
+   $ cd ~ && ./uwarl-robot_configs/scripts/auto-config_UWARL_catkin_ws.zsh
+   ```
+
+   > :notebook: this script will install automatically based on the **user name** (e.g. uwarl-orin) to identify the PC space
+
+3. Install Hardware Package:
+
+   ```bash
+   $ sudo dpkg -i ~/uwarl-robot_configs/summit/ros-melodic-robotnik-msgs_2.2.0-0bionic_amd64.deb
+   ```
+
+   > :warning: You may not find this one from the server directly, but I did hard work for you, as stated below:
+
+   #### 2.4.1-(3) How to Build Libbarrett Hardware Library?
+
+   > Use our `uwarl-libbarrett` with fixes to support arm based system
+
+   1. Install dependencies 
+
+      ```bash
+      cd ~/libbarrett/scripts && ~/libbarrett/scripts/install_dependencies.sh
+      $ sudo reboot 0
+      ```
+
+      1. This will fail at builing the `libconfig-1.4.5`, due to outdated aux-build kernel guesses (the outdated one is 2006, last modified is 2022)
+
+      2. So let's update:
+
+         ```bash
+         $ cd ~/Downloads/libconfig-1.4.5
+         $ wget -o http://git.savannah.gnu.org/gitweb/\?p\=config.git\;a\=blob_plain\;f\=config.sub\;hb\=HEAD
+         
+         $ wget -o http://git.savannah.gnu.org/gitweb/\?p\=config.git\;a\=blob_plain\;f\=config.guess\;hb\=HEAD
+         ```
+
+      3. Compile libconfig and install:
+
+         ```bash
+         cd libconfig-1.4.5 && ./configure && make -j$(nproc)
+         sudo make install
+         sudo ldconfig
+         sudo reboot 0
+         ```
+
+   2. Continue to build library and install:
+
+      ```bash
+      cd ~/libbarrett
+      export CC=/usr/bin/clang
+      export CXX=/usr/bin/clang++
+      cd ~/libbarrett && cmake .
+      make -j$(nproc)
+      
+      sudo make install
+      ```
+
+   3. copy libbarrett configurations from `uwarl-robot_configs` repo for vertical config (program assume horizontal)
+
+4. Configure ROS Environment:\
+
+   ```bash
+   # (Optional) Ensure ip are correct in the env.
+   $ sudo vim ~/uwarl-robot_configs/summit/user_services/environment
+   # Copy ROS env:
+   $ sudo cp ~/uwarl-robot_configs/summit/user_services/environment ~/.ros/
+   ```
+
+5. Catkin Build:    
+
+   ```bash
+   # source robot config env & ros
+   $ source ~/.zshrc
+   # build:
+   $ cd $ROS_CATKIN_WS && catkin_build
+   ### Trick:
+   $ build_ws # from anywhere, which will does the job for you :P (Jack is too lazy)
+   ```
+
+### 
+
+## 2.5 ZED Stereo-Camera
 
 
 
-## 2.5 Intel i515 Lidar Mono-Camera
-
-
-
-## 2.6 Install ROS
-
-
-
-## 2.7 [:star: automated] UWARL ROS Catkin Workspace Setup
-
-
-
-# 3. Common:
-
-## 3.1 Remote Screen via SSH:
-
-- XFCE XRDP: https://www.hiroom2.com/ubuntu-2004-xrdp-xfce-en/
-
-  > :rotating_light: Xfce is lighter, GNOME is quite heavy, not recommended for remote screen via ssh.
-
-## 3.2 SSH Keys & Github
-
-1. generate key `ssh-keygen -t ed25519 -C "your_email@example.com"`
-2. copy the public key  `cat ~/.ssh/id_ed25519.pub`
-3. paste to GitHub SSH keys under personal account profile
-
-## 3.3 Commonly used command:
-
-1. `$ uname -r`: OS check 
-2. `$ cat /prov/version_signature`: identify kernel
-3. `$ arp -a` : Scan Local Network Devices and IPs
-4. `$ tree -L 1`: list hierarchy of directory in depth=1,may  require: `sudo apt install tree`
-
-## 3.4 ZSH & oh-my-zsh
-
-- install zsh first `sudo apt install zsh`
-- https://github.com/ohmyzsh/ohmyzsh
-
-## 3.5 TMUX: virtual terminal within terminal
-
-- https://linuxize.com/post/getting-started-with-tmux/
-- Pretty/Easy-to-use Custom Mod: https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/ (except ctrl-b mod)
-
-> :notebook: Do not use multiple `ssh` clients, as they will make the system a bit heavier. 
-
-> 🔥 Tmux can still run in the background, even if the computer is disconnected from the internet. 
-
-> :warning: Normal ssh sessions without tmux will terminate the program if your ssh client is disconnected
+## 2.6 Intel i515 Lidar Mono-Camera
 
