@@ -1,38 +1,42 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 21 Nov 2022 20:22:24 EST*]
+[*Last generated: Tue 22 Nov 2022 15:10:20 EST*]
+- [**0. Common**](#0-Common)
+  - [0.1 Remote Screen via SSH:](#01-Remote-Screen-via-SSH)
+  - [0.2 SSH Keys & Github](#02-SSH-Keys-Github)
+  - [0.3 Commonly used command:](#03-Commonly-used-command)
+  - [0.4 ZSH & oh-my-zsh](#04-ZSH-oh-my-zsh)
+  - [0.5 TMUX: virtual terminal within terminal](#05-TMUX-virtual-terminal-within-terminal)
 - [**1. Adlink MXE 211 (Robotnik SUMMIT PC)**](#1-Adlink-MXE-211-Robotnik-SUMMIT-PC)
   - [1.1 RT Kernel](#11-RT-Kernel)
   - [1.2  Peak Linux Driver](#12-Peak-Linux-Driver)
-  - [1.3 Summit Hardware Library](#13-Summit-Hardware-Library)
-  - [1.4 Sony PS PAD Controller](#14-Sony-PS-PAD-Controller)
-  - [1.5 Pixhawk PX4 Flight Controller - Chassis IMU](#15-Pixhawk-PX4-Flight-Controller-Chassis-IMU)
-  - [1.6 Velodyn (VLP 16)](#16-Velodyn-VLP-16)
-  - [1.7 Install ROS:](#17-Install-ROS)
-  - [1.8 [:star:] UWARL ROS Catkin Workspace Setup](#18-star-UWARL-ROS-Catkin-Workspace-Setup)
-    - [1.8.1 ⭐ [Automated] Install Catkin Workspace + Hardware Setup](#181-Automated-Install-Catkin-Workspace-Hardware-Setup)
-      - [1.8.1-(3) How to Build Hardware Package?](#181-3-How-to-Build-Hardware-Package)
-    - [1.8.2 Setup Auto-launch at the boot:](#182-Setup-Auto-launch-at-the-boot)
+  - [1.3 Install ROS:](#13-Install-ROS)
+  - [1.4 [:star:] UWARL ROS Catkin Workspace Setup](#14-star-UWARL-ROS-Catkin-Workspace-Setup)
+    - [1.4.1 ⭐ [Automated] Install Catkin Workspace + Hardware Setup](#141-Automated-Install-Catkin-Workspace-Hardware-Setup)
+      - [1.4.1-(3) How to Build Hardware Package?](#141-3-How-to-Build-Hardware-Package)
+    - [1.4.2 Setup Auto-launch at the boot:](#142-Setup-Auto-launch-at-the-boot)
+      - [1.4.2.1 How to use/stop/log auto-launch](#1421-How-to-usestoplog-auto-launch)
+  - [1.5 Sony PS PAD Controller](#15-Sony-PS-PAD-Controller)
+  - [1.6 Pixhawk PX4 Flight Controller - Chassis IMU](#16-Pixhawk-PX4-Flight-Controller-Chassis-IMU)
+  - [1.7 Velodyn (VLP 16)](#17-Velodyn-VLP-16)
 - [**2. Jetson Orin (Barrett WAM External PC)**](#2-Jetson-Orin-Barrett-WAM-External-PC)
   - [2.0 Flash Linux OS & Install JetPack :v:](#20-Flash-Linux-OS-Install-JetPack-v)
     - [2.0.a eMMC SD](#20a-eMMC-SD)
     - [2.0.b NVMe SSD](#20b-NVMe-SSD)
       - [2.0.b.1 Flash Linux onto NVMe direct Boot:](#20b1-Flash-Linux-onto-NVMe-direct-Boot)
       - [2.0.b.2 Install Jetpack SDK:](#20b2-Install-Jetpack-SDK)
-  - [2.1 (Jetson) RT Kernel](#21-Jetson-RT-Kernel)
+  - [2.1 (Jetson) RT Kernel :yum:](#21-Jetson-RT-Kernel-yum)
+    - [2.1.1 Build custom kernel from source:](#211-Build-custom-kernel-from-source)
+    - [2.1.2 Apply kernel to the boot:](#212-Apply-kernel-to-the-boot)
   - [2.2 Peak Linux Driver  (Out-of-tree Linux RT Header)](#22-Peak-Linux-Driver-Out-of-tree-Linux-RT-Header)
-  - [2.3 Libbarrett Hardware Library](#23-Libbarrett-Hardware-Library)
-  - [2.4 ZED Stereo-Camera](#24-ZED-Stereo-Camera)
-  - [2.5 Intel i515 Lidar Mono-Camera](#25-Intel-i515-Lidar-Mono-Camera)
-  - [2.6 Install ROS](#26-Install-ROS)
-  - [2.7 [:star: automated] UWARL ROS Catkin Workspace Setup](#27-star-automated-UWARL-ROS-Catkin-Workspace-Setup)
-- [**3. Common:**](#3-Common)
-  - [3.1 Remote Screen via SSH:](#31-Remote-Screen-via-SSH)
-  - [3.2 SSH Keys & Github](#32-SSH-Keys-Github)
-  - [3.3 Commonly used command:](#33-Commonly-used-command)
-  - [3.4 ZSH & oh-my-zsh](#34-ZSH-oh-my-zsh)
-  - [3.5 TMUX: virtual terminal within terminal](#35-TMUX-virtual-terminal-within-terminal)
+  - [2.3 Install ROS](#23-Install-ROS)
+  - [2.4 [:star: automated] UWARL ROS Catkin Workspace Setup](#24-star-automated-UWARL-ROS-Catkin-Workspace-Setup)
+    - [2.4.1 ⭐ [Automated] Install Catkin Workspace + Hardware Setup](#241-Automated-Install-Catkin-Workspace-Hardware-Setup)
+      - [2.4.1-(3) How to Build Libbarrett Hardware Library?](#241-3-How-to-Build-Libbarrett-Hardware-Library)
+    - [###](#)
+  - [2.5 ZED Stereo-Camera](#25-ZED-Stereo-Camera)
+  - [2.6 Intel i515 Lidar Mono-Camera](#26-Intel-i515-Lidar-Mono-Camera)
 
 
 </toc>
@@ -173,7 +177,7 @@
    4. check PCAN-USB is configured properly
 
       ```bash
-      summit@summit-171102A:~$ cat /proc/pcan
+      $ cat /proc/pcan
       
       *------------- PEAK-System CAN interfaces (www.peak-system.com) -------------
       *------------- Release_20180720_n (8.6.0) May 25 2021 11:16:42 --------------
@@ -225,7 +229,7 @@
 
 ### 1.4.1 ⭐ [Automated] Install Catkin Workspace + Hardware Setup
 
-0. Install ROS and configure the environment necessary from previous section
+0. Install ROS and configure the environment necessary from previous section, and SSH authenticated with Github, see instruction @ [0.2 SSH Keys & Github](#02-SSH-Keys-Github)
 
 1. Clone configurations: 
 
@@ -849,13 +853,24 @@ $ sudo dmesg | grep pcan
 
 > :information_source: http://wiki.ros.org/noetic/Installation/Ubuntu
 
-1. 
+```bash
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+
+sudo apt install curl # if you haven't already installed curl
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+
+sudo apt update
+
+sudo apt install ros-noetic-desktop-full
+```
+
+
 
 ## 2.4 [:star: automated] UWARL ROS Catkin Workspace Setup
 
-### 2.4.1 ⭐ [Automated] Install Catkin Workspace + Hardware Setup
+### 2.4.1 ⭐ [Automated] Install Catkin Workspace + Hardware Setup + ROS Install
 
-0. Install ROS and configure the environment necessary from previous section
+0. Make sure SSH authenticated with Github, see instruction @ [0.2 SSH Keys & Github](#02-SSH-Keys-Github)
 
 1. Clone configurations: 
 
@@ -870,6 +885,8 @@ $ sudo dmesg | grep pcan
    ```
 
    > :notebook: this script will install automatically based on the **user name** (e.g. uwarl-orin) to identify the PC space
+   >
+   > :fire: This will install ROS Noetic for you, if you have ubuntu 20.04 focal (like Jetson) , otherwise, you have to install manually OR add a script to it as well?
 
 3. Install Hardware Package:
 
