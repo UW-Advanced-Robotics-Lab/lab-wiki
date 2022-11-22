@@ -14,7 +14,10 @@
 
       ```bash
       # This file only targets `${scritp-loc}/../docs/*.md` files
+      # - to update toc for modified files before committing:
       $ bash scripts/markdown-toc.sh
+      # - update all toc for all files regardless of files changes:
+      $ bash scripts/markdown-toc.sh -a
       ```
       - It will delete previous TOC block within `<toc> ... </toc>` 
       - It will then stub the latest TOC at teh head of the markdown file
