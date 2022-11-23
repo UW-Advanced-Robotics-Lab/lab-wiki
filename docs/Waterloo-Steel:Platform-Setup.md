@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Tue 22 Nov 2022 15:10:20 EST*]
+[*Last generated: Tue 22 Nov 2022 22:18:00 EST*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen via SSH:](#01-Remote-Screen-via-SSH)
   - [0.2 SSH Keys & Github](#02-SSH-Keys-Github)
@@ -32,9 +32,9 @@
   - [2.2 Peak Linux Driver  (Out-of-tree Linux RT Header)](#22-Peak-Linux-Driver-Out-of-tree-Linux-RT-Header)
   - [2.3 Install ROS](#23-Install-ROS)
   - [2.4 [:star: automated] UWARL ROS Catkin Workspace Setup](#24-star-automated-UWARL-ROS-Catkin-Workspace-Setup)
-    - [2.4.1 ⭐ [Automated] Install Catkin Workspace + Hardware Setup](#241-Automated-Install-Catkin-Workspace-Hardware-Setup)
+    - [2.4.1 ⭐ [Automated] Install Catkin Workspace + Hardware Setup + ROS Install](#241-Automated-Install-Catkin-Workspace-Hardware-Setup-ROS-Install)
       - [2.4.1-(3) How to Build Libbarrett Hardware Library?](#241-3-How-to-Build-Libbarrett-Hardware-Library)
-    - [###](#)
+    - [~~2.4.1-(3) v2 : How to Build Libbarrett v2.0.0 ?~~ [Not working]](#241-3-v2-How-to-Build-Libbarrett-v200-Not-working)
   - [2.5 ZED Stereo-Camera](#25-ZED-Stereo-Camera)
   - [2.6 Intel i515 Lidar Mono-Camera](#26-Intel-i515-Lidar-Mono-Camera)
 
@@ -190,15 +190,17 @@
 4. setup `60-can.rules` for robotnik summit CAN controller 
 
    1. ```bash
-      vim /etc/udev/rules.d/...
+      $ vim /etc/udev/rules.d/...
       # add a line:
       `KERNEL=="pcanusb*", SYMLINK+="pcan_base", MODE="0666"`
       ```
 
    2. ```bash
-      KERNEL=="pcanusb*", SYMLINK+="pcan_base", MODE="0666"
+      KERNEL=="pcanusb*", SYMLINK+="pcan_base", MODE="0666" 
       RUN+="/bin/reset_can_non_xenomai.sh"
       ```
+      
+      > Delete this "pcanusb" for WAM mode driver can0
 
 5. Reload udev rules or reboot to take effect:
 
@@ -890,58 +892,108 @@ sudo apt install ros-noetic-desktop-full
 
 3. Install Hardware Package:
 
-   ```bash
-   $ sudo dpkg -i ~/uwarl-robot_configs/summit/ros-melodic-robotnik-msgs_2.2.0-0bionic_amd64.deb
-   ```
-
-   > :warning: You may not find this one from the server directly, but I did hard work for you, as stated below:
-
    #### 2.4.1-(3) How to Build Libbarrett Hardware Library?
 
    > Use our `uwarl-libbarrett` with fixes to support arm based system
 
-   1. Install dependencies 
+   1. Clone lib: 
 
       ```bash
-      cd ~/libbarrett/scripts && ~/libbarrett/scripts/install_dependencies.sh
+      $ cd $HOME
+      $ git clone git@github.com:UW-Advanced-Robotics-Lab/uwarl-libbarrett.git
+      # make sure it's checkout @ uwarl/noetic/dev-3.0.2
+      ```
+
+   2. Install dependencies
+
+      ```bash
+      cd ~/uwarl-libbarrett/scripts && ~/uwarl-libbarrett/scripts/install_dependencies.sh
       $ sudo reboot 0
       ```
 
-      1. This will fail at builing the `libconfig-1.4.5`, due to outdated aux-build kernel guesses (the outdated one is 2006, last modified is 2022)
+      > :notebook: `uwarl/noetic/dev-3.0.2` is a modified version for our robot, and install libconfig into `~/JX_Linux` path, and compile with aarch64 custom header. The official version has out-dated and does not work detect arm64 arch. 
 
-      2. So let's update:
-
-         ```bash
-         $ cd ~/Downloads/libconfig-1.4.5
-         $ wget -o http://git.savannah.gnu.org/gitweb/\?p\=config.git\;a\=blob_plain\;f\=config.sub\;hb\=HEAD
-         
-         $ wget -o http://git.savannah.gnu.org/gitweb/\?p\=config.git\;a\=blob_plain\;f\=config.guess\;hb\=HEAD
-         ```
-
-      3. Compile libconfig and install:
-
-         ```bash
-         cd libconfig-1.4.5 && ./configure && make -j$(nproc)
-         sudo make install
-         sudo ldconfig
-         sudo reboot 0
-         ```
-
-   2. Continue to build library and install:
+   3. Continue to build library and install:
 
       ```bash
-      cd ~/libbarrett
+      # install libbarrett:
+      cd ~/uwarl-libbarrett
       export CC=/usr/bin/clang
       export CXX=/usr/bin/clang++
-      cd ~/libbarrett && cmake .
+      cd ~/uwarl-libbarrett && cmake .
       make -j$(nproc)
       
       sudo make install
+      
+      # build libbarrett example programs:
+      cd ~/uwarl-libbarrett/examples && cmake .
+      make -j$(nproc)
       ```
 
-   3. copy libbarrett configurations from `uwarl-robot_configs` repo for vertical config (program assume horizontal)
+   4. (Optional, this version has fixed the config in build files) copy libbarrett configurations from `uwarl-robot_configs` repo for vertical config (program assusudo make installme horizontal)
 
-4. Configure ROS Environment:\
+   ### ~~2.4.1-(3) v2 : How to Build Libbarrett v2.0.0 ?~~ [Not working]
+
+   > :stop_sign: No GOOD :sweat:
+   >
+   > 1. Follow previous v3.0.0 installation guide
+   >
+   > 2. Now, checkout v2.0.0 branch
+   >
+   >    ```bash
+   >    cd ~/uwarl-libbarrett
+   >    git checkout uwarl/melodic/dev2.0.1
+   >    ```
+   >
+   > 3. Manually install dependencies needed:
+   >
+   >    ```bash
+   >    sudo apt-get install -y build-essential python-dev python-argparse git cmake
+   >    sudo apt-get install -y libgsl0-dev libncurses5-dev pkg-config libboost-all-dev
+   >    
+   >    # install Eigen:
+   >    cd ~/JX_Linux
+   >    wget https://gitlab.com/libeigen/eigen/-/archive/3.2.10/eigen-3.2.10.tar.bz2
+   >    tar --bzip2 -xf eigen-3.2.10.tar.bz2
+   >    cd eigen-3.2.10/
+   >    mkdir -p build && cd build
+   >    cmake ../ && make && sudo make install
+   >    ```
+   >
+   > 4. Install a specific old version of libboost (1.65.1.0ubuntu1): https://stackoverflow.com/questions/8430332/uninstall-boost-and-install-another-version
+   >
+   > 5. Build and install:
+   >
+   >    ```bash
+   >    cd ~/uwarl-libbarrett
+   >    # clean old makes:
+   >    make clean
+   >    # specify eigen path , as latest version will have conflicts with some of the type casts:
+   >    cmake -D Eigen_INCLUDE_DIRS=/home/uwarl-orin/JX_Linux/eigen-3.2.10/ 
+   >    # make, for a while:
+   >    make -j8
+   >    # install:
+   >    sudo make install
+   >    ```
+
+   > 1. check boost version:
+   >
+   >    ```bash
+   >    dpkg -s libboost-dev | grep 'Version'
+   >    ```
+   >
+   > 2. Install boost 1.65.1 [https://www.boost.org/doc/libs/1_65_1/more/getting_started/unix-variants.html]
+   >
+   >    ```bash
+   >    $ cd ~/JX_Linux
+   >    $ wget http://downloads.sourceforge.net/project/boost/boost/1.65.1/boost_1_65_1.tar.gz
+   >    $ tar --bzip2 -xf ~/JX_Linux/boost_1_65_1.tar.bz2
+   >    $ cd boost_1_65_1
+   >    $ ./bootstrap.sh
+   >    $ ./b2 install
+   >    ```
+
+4. [TODO-fix] Configure ROS Environment:
 
    ```bash
    # (Optional) Ensure ip are correct in the env.
@@ -956,12 +1008,12 @@ sudo apt install ros-noetic-desktop-full
    # source robot config env & ros
    $ source ~/.zshrc
    # build:
-   $ cd $ROS_CATKIN_WS && catkin_build
-   ### Trick:
    $ build_ws # from anywhere, which will does the job for you :P (Jack is too lazy)
+   # source:
+   $ source_ws # lemme know if we should auto-source after build, :wink:
    ```
 
-### 
+
 
 ## 2.5 ZED Stereo-Camera
 
