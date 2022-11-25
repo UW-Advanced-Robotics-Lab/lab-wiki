@@ -1,13 +1,16 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 25 Nov 2022 14:32:24 EST*]
+[*Last generated: Fri 25 Nov 2022 15:45:15 EST*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen via SSH:](#01-Remote-Screen-via-SSH)
   - [0.2 SSH Keys & Github](#02-SSH-Keys-Github)
   - [0.3 Commonly used command:](#03-Commonly-used-command)
   - [0.4 ZSH & oh-my-zsh](#04-ZSH-oh-my-zsh)
   - [0.5 TMUX: virtual terminal within terminal](#05-TMUX-virtual-terminal-within-terminal)
+  - [0.6 Useful Apt Tools:](#06-Useful-Apt-Tools)
+    - [0.6.1 tree - file directory print](#061-tree-file-directory-print)
+    - [0.6.2 zenith - system activity monitor in terminal](#062-zenith-system-activity-monitor-in-terminal)
 - [**1. Adlink MXE 211 (Robotnik SUMMIT PC)**](#1-Adlink-MXE-211-Robotnik-SUMMIT-PC)
   - [1.1 RT Kernel](#11-RT-Kernel)
   - [1.2  Peak Linux Driver](#12-Peak-Linux-Driver)
@@ -52,9 +55,13 @@
 
 ## 0.1 Remote Screen via SSH:
 
-- XFCE XRDP: https://www.hiroom2.com/ubuntu-2004-xrdp-xfce-en/
-
+- ```bash
+  $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
+  ```
+  
   > :rotating_light: Xfce is lighter, GNOME is quite heavy, not recommended for remote screen via ssh.
+  >
+  > :information_source: Ref: XFCE XRDP: https://www.hiroom2.com/ubuntu-2004-xrdp-xfce-en/
 
 ## 0.2 SSH Keys & Github
 
@@ -102,6 +109,42 @@
 > 🔥 Tmux can still run in the background, even if the computer is disconnected from the internet. 
 
 > :warning: Normal ssh sessions without tmux will terminate the program if your ssh client is disconnected
+
+
+
+## 0.6 Useful Apt Tools:
+
+### 0.6.1 tree - file directory print
+
+```bash
+$ sudo apt install tree
+$ tree -L 2
+
+# Example outputs:
+.
+├── README.md
+├── scripts
+│   ├── auto-config_UWARL_catkin_ws.zsh
+│   ├── common.sh
+│   ├── git_functions.sh
+│   └── shortcuts.sh
+├── summit
+│   ├── install_geographiclib_datasets.sh
+│   ├── rgbd_summit.rviz
+│   ├── ros-melodic-robotnik-msgs_2.2.0-0bionic_amd64.deb
+│   ├── summitxl_params.env
+│   ├── summitxl_ros_config.bash
+│   ├── summitxl_ros_config.zsh
+│   └── user_services
+└── wam
+    └── barrett.zip
+```
+
+### 0.6.2 zenith - system activity monitor in terminal
+
+- Refer to https://github.com/bvaisvil/zenith
+
+
 
 
 

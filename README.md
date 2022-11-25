@@ -7,6 +7,8 @@
 1. Modify files inside `./docs`, and add resources to `./docs/resources`
 
    > :notebook: The `Action` tab will automatically synchronize the contents inside `./docs` to the lab wiki page
+   >
+   > :warning: Do not directly modify the **wiki** tab online, as they will get overridden by a new push from the lab-wiki repository. (`lab-wiki` --> `lab-wiki.wiki` synchronization is one-way only. )
 
 2. To generate Table of Contents:
    
@@ -14,7 +16,7 @@
 
       ```bash
       # This file only targets `${scritp-loc}/../docs/*.md` files
-      # - to update toc for modified files before committing:
+      # - to update toc for modified/added files before committing:
       $ bash scripts/markdown-toc.sh
       # - update all toc for all files regardless of files changes:
       $ bash scripts/markdown-toc.sh -a
@@ -22,7 +24,7 @@
       - It will delete previous TOC block within `<toc> ... </toc>` 
       - It will then stub the latest TOC at teh head of the markdown file
 
-3. To generate _SideBar.md for Wiki:
+3. To generate `_SideBar.md` for Wiki:
    
    1. Install: `$ npm install github-wiki-sidebar -g`
    
