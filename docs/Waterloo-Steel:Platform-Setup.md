@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 25 Nov 2022 15:45:15 EST*]
+[*Last generated: Fri 25 Nov 2022 18:47:19 EST*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen via SSH:](#01-Remote-Screen-via-SSH)
   - [0.2 SSH Keys & Github](#02-SSH-Keys-Github)
@@ -1039,6 +1039,19 @@ sudo apt install ros-noetic-desktop-full
 
 
 ## 2.5 ZED Stereo-Camera
+
+1. Install ZED SDK:  https://www.stereolabs.com/developers/release/
+
+   ```bash
+   $ cd ~/JX_Linux
+   $ wget https://download.stereolabs.com/zedsdk/3.8/l4t35.1/jetsons
+   $ mv jetsons ZED_SDK_Tegra_L4T35.1_v3.8.2.zstd.run
+   $ sudo apt install zstd 
+   $ sudo chmod +x ZED_SDK_Tegra_L4T35.1_v3.8.2.zstd.run
+   $ ./ZED_SDK_Tegra_L4T35.1_v3.8.2.zstd.run
+   ```
+
+2. 
 
 
 

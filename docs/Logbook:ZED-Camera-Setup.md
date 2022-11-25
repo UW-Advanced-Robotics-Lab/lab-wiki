@@ -1,10 +1,11 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 25 Nov 2022 11:45:03 EST*]
+[*Last generated: Fri 25 Nov 2022 18:47:18 EST*]
 - [**ZED Camera Documentation**](#ZED-Camera-Documentation)
   - [How to fix ZED Camera USB 3.0 not recognized](#How-to-fix-ZED-Camera-USB-30-not-recognized)
     - [Replace the cable:](#Replace-the-cable)
+  - [ZED SDK on Jetson ORIN](#ZED-SDK-on-Jetson-ORIN)
 
 
 </toc>
@@ -29,10 +30,26 @@
 1. Follow the tutorial from https://www.instructables.com/ZED-Disassembly/
 2. Pull out the old cable carefully: 
 
-    <img src="https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/blob/main/docs/resources/zed/connector.png" width="200" >
+    <img src="resources/zed/connector.png" width="200" >
 3. Modify a stock USB Micro B Cable to expose the connector only (into a low-profile) 
 
-    <img src="https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/blob/main/docs/resources/zed/new_connector.png" width="200" >
+    <img src="resources/zed/new_connector.png" width="200" >
 4. Re-assemble the ZED camera: 
 
-    <img src="https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/blob/main/docs/resources/zed/result.png" width="200" >
+    <img src="resources/zed/result.png" width="200" >
+
+
+
+## ZED SDK on Jetson ORIN
+
+1. Install ZED SDK:  https://www.stereolabs.com/developers/release/
+
+```bash
+$ cd ~/JX_Linux
+$ wget https://download.stereolabs.com/zedsdk/3.8/l4t35.1/jetsons
+$ mv jetsons ZED_SDK_Tegra_L4T35.1_v3.8.2.zstd.run
+$ sudo apt install zstd 
+$ sudo chmod +x ZED_SDK_Tegra_L4T35.1_v3.8.2.zstd.run
+$ ./ZED_SDK_Tegra_L4T35.1_v3.8.2.zstd.run
+```
+

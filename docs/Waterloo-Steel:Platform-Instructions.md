@@ -1,13 +1,15 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 25 Nov 2022 14:32:24 EST*]
+[*Last generated: Fri 25 Nov 2022 18:47:18 EST*]
 - [**1. Waterloo Steel Robot Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Launch-Instructions-construction)
   - [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC)
     - [1.1.1 PS Controller:](#111-PS-Controller)
     - [1.1.2 Summit XL Bringup:](#112-Summit-XL-Bringup)
   - [1.2 Jetson Orin (WAM + Vision PC)](#12-Jetson-Orin-WAM-Vision-PC)
 - [**2. Unified Development :construction:**](#2-Unified-Development-construction)
+  - [2.1 How to commit:](#21-How-to-commit)
+  - [2.2 How to Add a new modules under workspace/src:](#22-How-to-Add-a-new-modules-under-workspacesrc)
 - [**3. ROS UWARL_catkin_ws Usage Guide:**](#3-ROS-UWARL_catkin_ws-Usage-Guide)
   - [3.1 Modifications:](#31-Modifications)
   - [3.2 Commit and Push:](#32-Commit-and-Push)
@@ -25,11 +27,11 @@
 
 1. MXE 211 should auto-launch the summit-xl 
    1. If you need to check status, refer to [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC) below.
-   
+
 1. Interfacing on-board computers:
-   
+
    1. SSH:
-   
+
       ```bash
       # Jetson:
       ssh uwarl-orin@192.168.1.10
@@ -38,8 +40,27 @@
       # Internal-WAM PC:
       ssh robot@192.168.1.40
       ```
-   
-      
+
+
+3. All shortcuts came with auto-configuration:
+
+   ```bash
+   # update (pull recursively in a batch) of the entire workspace with all required submodules (as noted in common.sh) from anywhere
+   $ update_ws
+   # build ws from anywhere
+   $ build_ws
+   # source ws from anywhere
+   $ src_ws
+   # source ~/.zshrc from anywhere
+   $ src_zsh
+   # cd into workspace from anywhere
+   $ cd_ws
+   # check wworkspace status from anywhere
+   $ check_ws_status
+   # cd into robot_configs from anywhere
+   $ cd_config
+   ```
+
    
 
 ## 1.1 Adlink MXE 211 (SUMMIT + Lidar PC)
@@ -110,15 +131,78 @@ $ systemctl status ds4drv.service
 4. Build: 
 
     ```bash
+    # update (pull recursively in a batch) of the entire workspace with all required submodules (as noted in common.sh) from anywhere
+    $ update_ws
     # build ws from anywhere
     $ build_ws
     # source ws from anywhere
     $ src_ws
-    # cd into workspace from anywhere
-    $ cd_ws
     ```
 
 5. (*) For hardware platform setup, please refer to [ [Waterloo-Steel:Platform-Setup.md](./Waterloo-Steel:Platform-Setup.md) ]
+
+## 2.1 How to commit:
+
+1. check every status of subdirectories of the Catkin Workspace:
+
+   ```bash
+   $ check_ws_status 
+   ```
+
+2. commit changes for every sub-directory (submodule)
+
+   ```bash
+   $ cd uwarl-barrrett-ros-pkg 
+   $ git status 
+   $ git commit -a 
+   $ git push
+   ```
+
+3. Once you are satisfied with the current version of the workspace, you may commit this specific combination of submodules
+
+   ```bash
+   $ check_ws_status # let's update local log file that automatically track workspace status upon checking the status, so we will know if the commit for workspace has any local commits that have not yet been tracked.
+   $ cd_ws
+   $ git status
+   $ git commit -a 
+   $ git push
+   ```
+
+## 2.2 How to Add a new modules under workspace/src:
+
+1. Add module into workspace
+   ```bash
+   $ cd_ws
+   $ git submodule add git@github.com:UW-Advanced-Robotics-Lab/uwarl-zed_ros_wrapper.git
+   $ git commit ### commit: [New Submodule] : zed ros wrapper
+   $ git push
+   ```
+
+2. Add module name into `uwarl-robot_configs/scripts/common.sh`
+
+   ```bash
+   $ cd_config
+   $ vim scripts/common.sh
+   ## Ex: add zed ros wrapper to wam module
+   SUBMODULES_FOR_WAM=(
+       "uwarl-barrett-ros-pkg" 
+       "uwarl-zed_ros_wrapper" # <----- just added
+   )
+   ```
+
+3. Update workspace and install ros dependencies:
+
+   ```bash
+   $ update_ws
+   ```
+
+4. Build:
+
+   ```bash
+   $ build_ws
+   ```
+
+   
 
 # 3. ROS UWARL_catkin_ws Usage Guide:
 
