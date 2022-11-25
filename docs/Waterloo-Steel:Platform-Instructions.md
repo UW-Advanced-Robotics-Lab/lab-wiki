@@ -1,12 +1,14 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 25 Nov 2022 18:47:18 EST*]
+[*Last generated: Fri 25 Nov 2022 18:52:09 EST*]
 - [**1. Waterloo Steel Robot Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Launch-Instructions-construction)
   - [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC)
     - [1.1.1 PS Controller:](#111-PS-Controller)
     - [1.1.2 Summit XL Bringup:](#112-Summit-XL-Bringup)
   - [1.2 Jetson Orin (WAM + Vision PC)](#12-Jetson-Orin-WAM-Vision-PC)
+    - [1.2.1 WAM:](#121-WAM)
+    - [1.2.2 ZED:](#122-ZED)
 - [**2. Unified Development :construction:**](#2-Unified-Development-construction)
   - [2.1 How to commit:](#21-How-to-commit)
   - [2.2 How to Add a new modules under workspace/src:](#22-How-to-Add-a-new-modules-under-workspacesrc)
@@ -99,6 +101,31 @@ $ systemctl status ds4drv.service
 ## 1.2 Jetson Orin (WAM + Vision PC)
 
 [TODO]
+
+### 1.2.1 WAM:
+
+```bash
+# launch wam node:
+$ roslaunch wam_node wam_node.launch
+
+# example commands:
+$ rosservice call /wam/go_home                                                                         $ rosservice call /wam/joint_move "joints:                                                            
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0"
+```
+
+
+
+### 1.2.2 ZED:
+
+```bash
+$ roslaunch zed_wrapper zed.launch
+```
 
 
 

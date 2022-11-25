@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 25 Nov 2022 18:47:19 EST*]
+[*Last generated: Fri 25 Nov 2022 18:52:09 EST*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen via SSH:](#01-Remote-Screen-via-SSH)
   - [0.2 SSH Keys & Github](#02-SSH-Keys-Github)
@@ -1050,8 +1050,6 @@ sudo apt install ros-noetic-desktop-full
    $ sudo chmod +x ZED_SDK_Tegra_L4T35.1_v3.8.2.zstd.run
    $ ./ZED_SDK_Tegra_L4T35.1_v3.8.2.zstd.run
    ```
-
-2. 
 
 
 
