@@ -1,4 +1,6 @@
+
 ![UW logo vert](resources/Waterloo_Engineering_Logo_vert_rgb.png)
+
 ## About:
 Outline and overview of works contributed by all members and alumnis from the **University of Waterloo Advanced Robotics Lab** （aka [_Waterloo Mechanical Systems & Control Lab_](https://uwaterloo.ca/waterloo-mechanical-systems-control-lab/).
 
@@ -15,3 +17,4 @@ Outline and overview of works contributed by all members and alumnis from the **
 ## Demo Videos:
 
 - [April 2022 | Multi-floor Operation Using The Elevator](https://www.youtube.com/watch?v=rkKu2eE83Ss)
+

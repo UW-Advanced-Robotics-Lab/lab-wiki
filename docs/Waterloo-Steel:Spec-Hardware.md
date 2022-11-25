@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 21 Nov 2022 20:22:24 EST*]
+[*Last generated: Fri 25 Nov 2022 11:45:04 EST*]
 - [**Barrett WAM Specs:**](#Barrett-WAM-Specs)
   - [7DOF WAM:](#7DOF-WAM)
     - [Motors (*1):](#Motors-1)
@@ -13,7 +13,10 @@
 
 </toc>
 
+![waterloo-steel-v2-fov](resources/waterloo-steel-v2-fov.png)
+
 ---
+
 # Barrett WAM Specs:
 ## 7DOF WAM:
 ### Motors (*1):

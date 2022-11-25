@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Tue 22 Nov 2022 22:18:00 EST*]
+[*Last generated: Fri 25 Nov 2022 11:45:03 EST*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen via SSH:](#01-Remote-Screen-via-SSH)
   - [0.2 SSH Keys & Github](#02-SSH-Keys-Github)

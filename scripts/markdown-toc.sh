@@ -70,7 +70,7 @@ function markdown-toc(){
                 TOC_TEXT+="- [**${LINE#\#* }**](#${LINK})\n"
                 ;;
         esac
-    
+
     done
     TOC_TEXT+="\n\n</toc>\n"
     
@@ -79,24 +79,24 @@ function markdown-toc(){
     echo "    - [x] Generated table of contents"
 }
 
-
-# enter doc directories:
-cd "$(dirname "$0")"/../docs
+# enter main directories:
+cd "$(dirname "$0")"/..
 
 # markdown batch process:
-if "$1" = "-a"; then
+if [[ $1 = "-a" ]]; then
     # process all documents
-    LIST_OF_MD=(*.md)
+    LIST_OF_MD=(docs/*.md)
 else
-    # process only modified files
-    LIST_OF_MD=$(git ls-files -m)
+    # process only '.md' files
+    LIST_OF_MD="$(git diff --name-only --diff-filter=AM -- 'docs/*.md')" 
+    LIST_OF_MD=($LIST_OF_MD) # convert to array
 fi 
 
 i=0
 for file in "${LIST_OF_MD[@]}"; do
     i=$(( i + 1 ))
     echo "> [$i] - editing toc @ $file"
-    if [[ "${file}" == "_Sidebar.md" || "${file}" == "_Footer.md" || "${file}" == "Home.md" ]]; then
+    if [[ $file = "docs/_Sidebar.md" || $file = "docs/_Footer.md" || $file = "docs/Home.md" ]]; then
         echo "    - [!] Skip $file"
         continue # skip particular md files
     else

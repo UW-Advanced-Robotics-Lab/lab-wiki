@@ -1,14 +1,15 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 18 Nov 2022 20:12:57 EST*]
+[*Last generated: Fri 25 Nov 2022 11:45:04 EST*]
 - [**Platform Specific**](#Platform-Specific)
   - [Barrett WAM ARM](#Barrett-WAM-ARM)
   - [SUMMIT-XLS Mobile Platform](#SUMMIT-XLS-Mobile-Platform)
 
 
 </toc>
----
+
+
 
 # Platform Specific
 

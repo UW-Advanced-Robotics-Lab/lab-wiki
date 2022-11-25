@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 18 Nov 2022 20:12:57 EST*]
+[*Last generated: Fri 25 Nov 2022 11:45:03 EST*]
 - [**0. GitHub**](#0-GitHub)
 - [**1. Git**](#1-Git)
   - [1.1 Intro. to Git](#11-Intro-to-Git)

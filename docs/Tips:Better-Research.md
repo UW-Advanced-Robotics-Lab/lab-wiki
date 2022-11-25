@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 21 Nov 2022 20:22:24 EST*]
+[*Last generated: Fri 25 Nov 2022 11:45:03 EST*]
 - [**Writing a Paper:**](#Writing-a-Paper)
   - [Book:](#Book)
   - [Data Visualization:](#Data-Visualization)

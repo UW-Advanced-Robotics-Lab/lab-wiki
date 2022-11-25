@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 18 Nov 2022 20:12:57 EST*]
+[*Last generated: Fri 25 Nov 2022 11:45:03 EST*]
 - [**Waterloo Steel V2 Platform Instructions**](#Waterloo-Steel-V2-Platform-Instructions)
 - [**1. Waterloo Steel Robot Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Launch-Instructions-construction)
 - [**2. Local Development :construction:**](#2-Local-Development-construction)
@@ -23,10 +23,12 @@
 
 
 </toc>
-# Waterloo Steel V2 Platform Instructions
 
 
 ---
+
+# Waterloo Steel V2 Platform Instructions
+
 <img src="resources/Waterloo_steel_arch_v2_final.jpg" alt="Hardware Architecture Diagram V2 Final"></img>
 
 # 1. Waterloo Steel Robot Launch Instructions :construction:

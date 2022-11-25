@@ -27,4 +27,3 @@
    1. Install: `$ npm install github-wiki-sidebar -g`
    
    2. Generate: `$ cd docs && github-wiki-sidebar --silent`
-   

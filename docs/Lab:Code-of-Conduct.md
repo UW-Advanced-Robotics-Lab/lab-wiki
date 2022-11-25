@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 18 Nov 2022 20:12:56 EST*]
+[*Last generated: Fri 25 Nov 2022 11:45:02 EST*]
 - [**Academic Research Code of Conduct**](#Academic-Research-Code-of-Conduct)
   - [Attribution](#Attribution)
 - [**Contributor Covenant Code of Conduct**](#Contributor-Covenant-Code-of-Conduct)
