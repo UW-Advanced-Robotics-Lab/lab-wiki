@@ -1,37 +1,57 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 25 Nov 2022 11:45:03 EST*]
-- [**Waterloo Steel V2 Platform Instructions**](#Waterloo-Steel-V2-Platform-Instructions)
+[*Last generated: Fri 25 Nov 2022 14:32:24 EST*]
 - [**1. Waterloo Steel Robot Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Launch-Instructions-construction)
-- [**2. Local Development :construction:**](#2-Local-Development-construction)
-- [**workspace:**](#workspace)
-- [**clone --> to the src/**](#clone-to-the-src)
-- [**recursive submodules:**](#recursive-submodules)
-- [**or manually init specific submodules you want to compile with**](#or-manually-init-specific-submodules-you-want-to-compile-with)
-  - [Ubuntu 18 - ROS Melodic](#Ubuntu-18-ROS-Melodic)
-  - [Ubuntu 20 - ROS Noetic](#Ubuntu-20-ROS-Noetic)
-- [**3. Robot Maintenance**](#3-Robot-Maintenance)
-  - [Manual Migration Backup :construction:](#Manual-Migration-Backup-construction)
-- [**4. Debug Tips**](#4-Debug-Tips)
-  - [PeakCAN:](#PeakCAN)
-  - [PS Controller:](#PS-Controller)
-- [**5. Helpful Scripts**](#5-Helpful-Scripts)
-  - [Git:](#Git)
-- [**6. File Arch**](#6-File-Arch)
-  - [6.1 xacro and launching](#61-xacro-and-launching)
+  - [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC)
+    - [1.1.1 PS Controller:](#111-PS-Controller)
+    - [1.1.2 Summit XL Bringup:](#112-Summit-XL-Bringup)
+  - [1.2 Jetson Orin (WAM + Vision PC)](#12-Jetson-Orin-WAM-Vision-PC)
+- [**2. Unified Development :construction:**](#2-Unified-Development-construction)
+- [**3. ROS UWARL_catkin_ws Usage Guide:**](#3-ROS-UWARL_catkin_ws-Usage-Guide)
+  - [3.1 Modifications:](#31-Modifications)
+  - [3.2 Commit and Push:](#32-Commit-and-Push)
+- [**Appendix A - File Arch**](#Appendix-A-File-Arch)
+  - [A.1 xacro and launching](#A1-xacro-and-launching)
 
 
 </toc>
 
 
----
-
-# Waterloo Steel V2 Platform Instructions
 
 <img src="resources/Waterloo_steel_arch_v2_final.jpg" alt="Hardware Architecture Diagram V2 Final"></img>
 
 # 1. Waterloo Steel Robot Launch Instructions :construction:
+
+1. MXE 211 should auto-launch the summit-xl 
+   1. If you need to check status, refer to [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC) below.
+   
+1. Interfacing on-board computers:
+   
+   1. SSH:
+   
+      ```bash
+      # Jetson:
+      ssh uwarl-orin@192.168.1.10
+      # Adlink:
+      ssh uwarl@192.168.1.11
+      # Internal-WAM PC:
+      ssh robot@192.168.1.40
+      ```
+   
+      
+   
+
+## 1.1 Adlink MXE 211 (SUMMIT + Lidar PC)
+
+### 1.1.1 PS Controller:
+
+```bash
+# check driver status
+$ systemctl status ds4drv.service
+```
+
+### 1.1.2 Summit XL Bringup:
 
 1. Power on the robot, wait for computers to auto-boot
 
@@ -55,120 +75,74 @@
 
 
 
-# 2. Local Development :construction:
+## 1.2 Jetson Orin (WAM + Vision PC)
 
-```bash
-# SUMMIT-catkin_ws
-[Hardware v2] catkin workspace for Robotnik Summit XLS in Adlink MXE-211
-This will serve as the foundation for managing `UWARL_catkin_ws/src`
+[TODO]
 
-# Installation Guide:
-1. Clone the repo as workspace source
+
+
+# 2. Unified Development :construction:
+
+> 🔥 (hot-takes) on **[Hardware v2]** : A unified multi-platform configuration
+>
+> - `UWARL_catkin_ws/src`:  A single common catkin workspace that can be deployed dynamically across multiple platforms. This repository will track other ROS components as submodules on particular commit hask token (without tracking physical files and changes).
+> - `uwarl-robot_configs`: An all-star installation toolkit that will configure any hardware automatically with simple bash scripts.
+> - Supported OS: **Ubuntu 18.04** and **Ubuntu 20.04**
+
+1. Install Git and configure the environment necessary from previous section, and SSH authenticated with Github, see instruction @ [0.2 SSH Keys & Github](#02-SSH-Keys-Github)
+
+2. Clone configurations: 
+
+    ```zsh
+    $ cd ~ && git clone git@github.com:UW-Advanced-Robotics-Lab/uwarl-robot_configs.git
+    ```
+
+3. Install the repo with auto-script:
+
+    ```zsh
+    $ cd ~ && ./uwarl-robot_configs/scripts/auto-config_UWARL_catkin_ws.zsh
+    ```
+
+    > :notebook: this script will install automatically based on the **user name** (e.g. uwarl-orin) to identify the PC space
+    >
+    > :hot_pepper: It will install ROS Noetic for Ubuntu 20.04 automatically if your system does not have yet!
+
+4. Build: 
+
     ```bash
-    # workspace:
-    $ cd ~ && mkdir -p ~/UWARL_catkin_ws/src
-    # clone --> to the src/
-    $ git clone git@github.com:UW-Advanced-Robotics-Lab/SUMMIT-catkin_ws.git ~/UWARL_catkin_ws/src
-		# recursive submodules:
-    $ cd ~/UWARL_catkin_ws/src && git submodule update --init --recursive
-    # or manually init specific submodules you want to compile with
-```
-2. Build: `$ cd ~/UWARL_catkin_ws && catkin build`
-3. Robot ROS Configuration Files & Scripts & instructions on semi-automated installation:
-    --> https://github.com/UW-Advanced-Robotics-Lab/uwarl-robot_configs
+    # build ws from anywhere
+    $ build_ws
+    # source ws from anywhere
+    $ src_ws
+    # cd into workspace from anywhere
+    $ cd_ws
+    ```
 
-> :warning: For additional Guides, Please follow [UWARL Wiki Guide](https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/wiki/How-To%3AWaterloo-Steel-V2-Final-Upgrade-Guide)
+5. (*) For hardware platform setup, please refer to [ [Waterloo-Steel:Platform-Setup.md](./Waterloo-Steel:Platform-Setup.md) ]
 
-# Usage Guide:
-## Modifications:
+# 3. ROS UWARL_catkin_ws Usage Guide:
+
+## 3.1 Modifications:
 1. switch workspace : `git checkout {branch-name}`
 2. add modules: `$ git submodule add {git-repo}`
 3. remove submodules: `$ git submodule deinit {git-repo}` and you may need delete the submodules in `.gitmodules` file
 4. Create a new branch of workspace: `git checkout -b waterloo_steel/adlink-mxe211-melodic/{node}/{feature}`
 
-## Commit and Push:
+## 3.2 Commit and Push:
 1. Commit all changes under submodules
 2. Make sure you run this: `$ ./git-status-all.sh` to log all status into `git-status-all.log`
 3. commit all current workspace changes: `$ git add . && git commit -a`
 4. Push workspace `$ git push` or upload a branch `$ git push -u {your-branch-name}`
 
-```
 
 
+---
 
-## Ubuntu 18 - ROS Melodic
+# Appendix A - File Arch
 
+## A.1 xacro and launching
 
-
-## Ubuntu 20 - ROS Noetic
-
-- `sudo ln -s /usr/bin/empy3 /usr/bin/empy` is required to get robotnik hw compiled on **x86**
-
-  - **arm** arch please do not update the submodule for the base_hw
-
-- Catkin build with python3: ` catkin build -DPYTHON_EXECUTABLE=/usr/bin/python3`
-
-  - else you may get compile error for failing to find python `empy`
-
-  
-
-
-
-# 3. Robot Maintenance
-
-## Manual Migration Backup :construction:
-
-1. Backing Up Remote Robot's core files with https://github.com/UW-Advanced-Robotics-Lab/uwarl-robot-backup
-   - Pre-requisite: previous ssh remote access of the computer
-   - Ex: (⚠️ Large) backing up summit-pc configuration: `bash backup.sh uwarl_summit summit@192.168.0.147 {passcode}`
-   - Lightweight backup just the config necessary (`backup_without_home`)
-
-2. Unpacking only: `bash unpacking.sh uwarl_summit`
-
-
-
-# 4. Debug Tips
-
-## PeakCAN:
-
-- [Link to Linux Manual PDF](https://www.peak-system.com/fileadmin/media/linux/files/PCAN-Driver-Linux_UserMan_eng.pdf)
-
-```bash
-# check if loaded
-$ sudo modprobe pcan
-$ dmesg | grep pcan
-	
-# Check CAN interfaces configurations:
-$	cat /etc/modprobe.d/pcan.conf
-```
-
-## PS Controller:
-
-```bash
-# check driver status
-$ systemctl status ds4drv.service
-```
-
-
-
-# 5. Helpful Scripts
-
-## Git:
-
-```bash
-# list all repo under catkin_ws/src and their git status
-$ find . -maxdepth 1 -type d -execdir sh -c 'cd {}; pwd ;git status; git remote -v; echo "----------\n\"' \;
-# [uwarl-robot_configs] now in zshrc aliasing:
-$ git-status-all
-```
-
-
-
-# 6. File Arch
-
-## 6.1 xacro and launching
-
-````
+````bash
 # waterloo_steel
 Private repo that contains the mobile manipulator configuration for both hw and sim. 
 

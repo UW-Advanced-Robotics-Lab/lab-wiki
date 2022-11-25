@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 25 Nov 2022 11:45:03 EST*]
+[*Last generated: Fri 25 Nov 2022 14:32:24 EST*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen via SSH:](#01-Remote-Screen-via-SSH)
   - [0.2 SSH Keys & Github](#02-SSH-Keys-Github)
@@ -20,6 +20,7 @@
   - [1.5 Sony PS PAD Controller](#15-Sony-PS-PAD-Controller)
   - [1.6 Pixhawk PX4 Flight Controller - Chassis IMU](#16-Pixhawk-PX4-Flight-Controller-Chassis-IMU)
   - [1.7 Velodyn (VLP 16)](#17-Velodyn-VLP-16)
+  - [1.8 (Optional) Switching Adlink as WAM PC:](#18-Optional-Switching-Adlink-as-WAM-PC)
 - [**2. Jetson Orin (Barrett WAM External PC)**](#2-Jetson-Orin-Barrett-WAM-External-PC)
   - [2.0 Flash Linux OS & Install JetPack :v:](#20-Flash-Linux-OS-Install-JetPack-v)
     - [2.0.a eMMC SD](#20a-eMMC-SD)
@@ -34,7 +35,7 @@
   - [2.4 [:star: automated] UWARL ROS Catkin Workspace Setup](#24-star-automated-UWARL-ROS-Catkin-Workspace-Setup)
     - [2.4.1 ⭐ [Automated] Install Catkin Workspace + Hardware Setup + ROS Install](#241-Automated-Install-Catkin-Workspace-Hardware-Setup-ROS-Install)
       - [2.4.1-(3) How to Build Libbarrett Hardware Library?](#241-3-How-to-Build-Libbarrett-Hardware-Library)
-    - [~~2.4.1-(3) v2 : How to Build Libbarrett v2.0.0 ?~~ [Not working]](#241-3-v2-How-to-Build-Libbarrett-v200-Not-working)
+    - [[TODO-fix] Configure ROS Environment:](#TODO-fix-Configure-ROS-Environment)
   - [2.5 ZED Stereo-Camera](#25-ZED-Stereo-Camera)
   - [2.6 Intel i515 Lidar Mono-Camera](#26-Intel-i515-Lidar-Mono-Camera)
 
@@ -190,18 +191,13 @@
 4. setup `60-can.rules` for robotnik summit CAN controller 
 
    1. ```bash
-      $ vim /etc/udev/rules.d/...
+      $ sudo vim /etc/udev/rules.d/60-can.rules
       # add a line:
-      `KERNEL=="pcanusb*", SYMLINK+="pcan_base", MODE="0666"`
+      KERNEL=="pcanusb*", SYMLINK+="pcan_base", MODE="0666"
       ```
 
-   2. ```bash
-      KERNEL=="pcanusb*", SYMLINK+="pcan_base", MODE="0666" 
-      RUN+="/bin/reset_can_non_xenomai.sh"
-      ```
-      
       > Delete this "pcanusb" for WAM mode driver can0
-
+   
 5. Reload udev rules or reboot to take effect:
 
    ```bash
@@ -219,7 +215,7 @@
    $ ls /dev/pcanusb*
    ```
 
-> :triangular_flag_on_post:  **[TODO]** May be worth it to backup udev rules and scripts into uwarl-robot_configs.  As well as `reset_can_non_xenomai.sh` bash scripts. 
+> :triangular_flag_on_post:  **[TODO]** May be worth it to backup udev rules and scripts into uwarl-robot_configs. 
 
 
 
@@ -508,6 +504,51 @@ $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:wa
   $ rosrun rviz rviz -f velodyne
   ```
 
+## 1.8 (Optional) Switching Adlink as WAM PC:
+
+- Please refer to the instruction [Logbook:WAM-PC-Setup.md](Logbook:WAM-PC-Setup.md)
+
+- Adlink was originally purchased as WAM External PC, but reutilized to host as a SUMMIT PC, since summit only support x86 architecture
+
+- But you can dynamically switch the current system by 
+
+  1. Modifying can udev rules:
+
+     ```bash
+     $ sudo vim /etc/udev/rules.d/60-can.rules
+     
+     # clear the file 
+     # for Summit:
+     KERNEL=="pcanusb*", SYMLINK+="pcan_base", MODE="0666"
+     
+     # for WAM:
+     RUN+="/bin/reset_can.sh"
+     ```
+
+  2. re-installing NON/NETDEV-pcan driver 
+
+     ```bash
+     # NOTE: these two directories are pre-built with PCAN instruction above
+     ### for switching from [Summit ---> WAM]
+     # uninstall NON-NETDEV:
+     $ cd ~/UWARL_drivers/peak-linux-driver-8.14.0-rt-no-ndev 
+     $ sudo make uninstall
+     # install NETDEV:
+     $ cd ~/UWARL_drivers/peak-linux-driver-8.14.0
+     $ sudo make install
+     
+     # reactivate:
+     $ sudo modprobe pcan
+     $ sudo rmmod pcan
+     $ sudo reboot
+     
+     # check:
+     $ sudo dmesg | grep pcan
+     $ cat /proc/pcan
+     ```
+
+  3. swapping out the PCAN dongle
+
 
 
 # 2. Jetson Orin (Barrett WAM External PC)
@@ -569,7 +610,7 @@ $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:wa
 
    > [System Check]:
    >
-   > - [x] Heat Sink Fan running
+   > - [x] Heat Sink Fan running `$ sudo jetson_clocks --fan`
    > - [x] DP working
    > - [x] SSH available by default
 
@@ -932,68 +973,7 @@ sudo apt install ros-noetic-desktop-full
 
    4. (Optional, this version has fixed the config in build files) copy libbarrett configurations from `uwarl-robot_configs` repo for vertical config (program assusudo make installme horizontal)
 
-   ### ~~2.4.1-(3) v2 : How to Build Libbarrett v2.0.0 ?~~ [Not working]
-
-   > :stop_sign: No GOOD :sweat:
-   >
-   > 1. Follow previous v3.0.0 installation guide
-   >
-   > 2. Now, checkout v2.0.0 branch
-   >
-   >    ```bash
-   >    cd ~/uwarl-libbarrett
-   >    git checkout uwarl/melodic/dev2.0.1
-   >    ```
-   >
-   > 3. Manually install dependencies needed:
-   >
-   >    ```bash
-   >    sudo apt-get install -y build-essential python-dev python-argparse git cmake
-   >    sudo apt-get install -y libgsl0-dev libncurses5-dev pkg-config libboost-all-dev
-   >    
-   >    # install Eigen:
-   >    cd ~/JX_Linux
-   >    wget https://gitlab.com/libeigen/eigen/-/archive/3.2.10/eigen-3.2.10.tar.bz2
-   >    tar --bzip2 -xf eigen-3.2.10.tar.bz2
-   >    cd eigen-3.2.10/
-   >    mkdir -p build && cd build
-   >    cmake ../ && make && sudo make install
-   >    ```
-   >
-   > 4. Install a specific old version of libboost (1.65.1.0ubuntu1): https://stackoverflow.com/questions/8430332/uninstall-boost-and-install-another-version
-   >
-   > 5. Build and install:
-   >
-   >    ```bash
-   >    cd ~/uwarl-libbarrett
-   >    # clean old makes:
-   >    make clean
-   >    # specify eigen path , as latest version will have conflicts with some of the type casts:
-   >    cmake -D Eigen_INCLUDE_DIRS=/home/uwarl-orin/JX_Linux/eigen-3.2.10/ 
-   >    # make, for a while:
-   >    make -j8
-   >    # install:
-   >    sudo make install
-   >    ```
-
-   > 1. check boost version:
-   >
-   >    ```bash
-   >    dpkg -s libboost-dev | grep 'Version'
-   >    ```
-   >
-   > 2. Install boost 1.65.1 [https://www.boost.org/doc/libs/1_65_1/more/getting_started/unix-variants.html]
-   >
-   >    ```bash
-   >    $ cd ~/JX_Linux
-   >    $ wget http://downloads.sourceforge.net/project/boost/boost/1.65.1/boost_1_65_1.tar.gz
-   >    $ tar --bzip2 -xf ~/JX_Linux/boost_1_65_1.tar.bz2
-   >    $ cd boost_1_65_1
-   >    $ ./bootstrap.sh
-   >    $ ./b2 install
-   >    ```
-
-4. [TODO-fix] Configure ROS Environment:
+   ### [TODO-fix] Configure ROS Environment:
 
    ```bash
    # (Optional) Ensure ip are correct in the env.
@@ -1001,7 +981,7 @@ sudo apt install ros-noetic-desktop-full
    # Copy ROS env:
    $ sudo cp ~/uwarl-robot_configs/summit/user_services/environment ~/.ros/
    ```
-
+   
 5. Catkin Build:    
 
    ```bash

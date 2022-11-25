@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 25 Nov 2022 11:45:03 EST*]
+[*Last generated: Fri 25 Nov 2022 14:32:24 EST*]
 - [**Spec Comparison**](#Spec-Comparison)
 - [**ADLINK - MXE211**](#ADLINK-MXE211)
     - [Catkin_ws/src](#Catkin_wssrc)
@@ -29,6 +29,7 @@
     - [Instruction on compiling on ORIN:](#Instruction-on-compiling-on-ORIN)
     - [compiling on external PC](#compiling-on-external-PC)
   - [install libbarrett](#install-libbarrett)
+    - [~~2.4.1-(3) v2 : How to Build Libbarrett v2.0.0 on ubuntu 20 ?~~ [Not working]](#241-3-v2-How-to-Build-Libbarrett-v200-on-ubuntu-20-Not-working)
 - [**Axis Camera (AXIS M5013 Network Camera)**](#Axis-Camera-AXIS-M5013-Network-Camera)
 - [**Velodyn (VLP 16)**](#Velodyn-VLP-16)
 - [**TP Link Router (Archer C7 v2)**](#TP-Link-Router-Archer-C7-v2)
@@ -795,6 +796,68 @@ Version: ROS Melodic + Ubuntu 18.04 rt
    ```
 
 3. copy libbarrett configurations from `uwarl-robot_configs` repo for vertical config (program assume horizontal)
+
+### ~~2.4.1-(3) v2 : How to Build Libbarrett v2.0.0 on ubuntu 20 ?~~ [Not working]
+
+> :stop_sign: No GOOD :sweat:  Attempted to install libbarrett 2.0.0 on ubuntu 20.
+>
+> 1. Follow previous v3.0.0 installation guide
+>
+> 2. Now, checkout v2.0.0 branch
+>
+>    ```bash
+>    cd ~/uwarl-libbarrett
+>    git checkout uwarl/melodic/dev2.0.1
+>    ```
+>
+> 3. Manually install dependencies needed:
+>
+>    ```bash
+>    sudo apt-get install -y build-essential python-dev python-argparse git cmake
+>    sudo apt-get install -y libgsl0-dev libncurses5-dev pkg-config libboost-all-dev
+>    
+>    # install Eigen:
+>    cd ~/JX_Linux
+>    wget https://gitlab.com/libeigen/eigen/-/archive/3.2.10/eigen-3.2.10.tar.bz2
+>    tar --bzip2 -xf eigen-3.2.10.tar.bz2
+>    cd eigen-3.2.10/
+>    mkdir -p build && cd build
+>    cmake ../ && make && sudo make install
+>    ```
+>
+> 4. Install a specific old version of libboost (1.65.1.0ubuntu1): https://stackoverflow.com/questions/8430332/uninstall-boost-and-install-another-version
+>
+> 5. Build and install:
+>
+>    ```bash
+>    cd ~/uwarl-libbarrett
+>    # clean old makes:
+>    make clean
+>    # specify eigen path , as latest version will have conflicts with some of the type casts:
+>    cmake -D Eigen_INCLUDE_DIRS=/home/uwarl-orin/JX_Linux/eigen-3.2.10/ 
+>    # make, for a while:
+>    make -j8
+>    # install:
+>    sudo make install
+>    ```
+
+> 1. check boost version:
+>
+>    ```bash
+>    dpkg -s libboost-dev | grep 'Version'
+>    ```
+>
+> 2. Install boost 1.65.1 [https://www.boost.org/doc/libs/1_65_1/more/getting_started/unix-variants.html]
+>
+>    ```bash
+>    $ cd ~/JX_Linux
+>    $ wget http://downloads.sourceforge.net/project/boost/boost/1.65.1/boost_1_65_1.tar.gz
+>    $ tar --bzip2 -xf ~/JX_Linux/boost_1_65_1.tar.bz2
+>    $ cd boost_1_65_1
+>    $ ./bootstrap.sh
+>    $ ./b2 install
+>    ```
+
 
 
 # Axis Camera (AXIS M5013 Network Camera)
