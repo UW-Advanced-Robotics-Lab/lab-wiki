@@ -1,9 +1,10 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 25 Nov 2022 18:52:09 EST*]
+[*Last generated: Tue 29 Nov 2022 15:21:56 EST*]
 - [**0. Common**](#0-Common)
-  - [0.1 Remote Screen via SSH:](#01-Remote-Screen-via-SSH)
+  - [0.1 Remote Screen:](#01-Remote-Screen)
+    - [0.1.1 XRDP SSH](#011-XRDP-SSH)
   - [0.2 SSH Keys & Github](#02-SSH-Keys-Github)
   - [0.3 Commonly used command:](#03-Commonly-used-command)
   - [0.4 ZSH & oh-my-zsh](#04-ZSH-oh-my-zsh)
@@ -11,6 +12,8 @@
   - [0.6 Useful Apt Tools:](#06-Useful-Apt-Tools)
     - [0.6.1 tree - file directory print](#061-tree-file-directory-print)
     - [0.6.2 zenith - system activity monitor in terminal](#062-zenith-system-activity-monitor-in-terminal)
+  - [0.7 ROS Tools:](#07-ROS-Tools)
+    - [0.7.1 Rviz:](#071-Rviz)
 - [**1. Adlink MXE 211 (Robotnik SUMMIT PC)**](#1-Adlink-MXE-211-Robotnik-SUMMIT-PC)
   - [1.1 RT Kernel](#11-RT-Kernel)
   - [1.2  Peak Linux Driver](#12-Peak-Linux-Driver)
@@ -53,15 +56,17 @@
 
 > Highly recommended to install the items below ! 
 
-## 0.1 Remote Screen via SSH:
+## 0.1 Remote Screen:
 
-- ```bash
-  $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
-  ```
-  
-  > :rotating_light: Xfce is lighter, GNOME is quite heavy, not recommended for remote screen via ssh.
-  >
-  > :information_source: Ref: XFCE XRDP: https://www.hiroom2.com/ubuntu-2004-xrdp-xfce-en/
+### 0.1.1 XRDP SSH
+
+```bash
+$ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
+```
+
+> :rotating_light: Xfce is lighter, GNOME is quite heavy, not recommended for remote screen via ssh.
+>
+> :information_source: Ref: XFCE XRDP: https://www.hiroom2.com/ubuntu-2004-xrdp-xfce-en/
 
 ## 0.2 SSH Keys & Github
 
@@ -145,6 +150,18 @@ $ tree -L 2
 - Refer to https://github.com/bvaisvil/zenith
 
 
+
+## 0.7 ROS Tools:
+
+### 0.7.1 Rviz:
+
+```bash
+$ sudo apt-get install ros-noetic-rviz
+
+# workaround for no display and qt error
+export QT_QPA_PLATFORM=offscreen 
+$ rosrun rviz rviz
+```
 
 
 

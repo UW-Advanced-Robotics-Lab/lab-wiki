@@ -88,7 +88,7 @@ if [[ $1 = "-a" ]]; then
     LIST_OF_MD=(docs/*.md)
 else
     # process only '.md' files
-    LIST_OF_MD="$(git diff --name-only --diff-filter=AM -- 'docs/*.md')" 
+    LIST_OF_MD="$(git status --porcelain -- 'docs/*.md' | sed s/^...//)" 
     LIST_OF_MD=($LIST_OF_MD) # convert to array
 fi 
 
