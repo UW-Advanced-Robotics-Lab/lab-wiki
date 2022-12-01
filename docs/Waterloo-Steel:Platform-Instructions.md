@@ -1,9 +1,10 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 25 Nov 2022 18:52:09 EST*]
+[*Last generated: Thu  1 Dec 2022 17:55:45 EST*]
 - [**1. Waterloo Steel Robot Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Launch-Instructions-construction)
   - [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC)
+    - [1.1.0 Reset Workspace:](#110-Reset-Workspace)
     - [1.1.1 PS Controller:](#111-PS-Controller)
     - [1.1.2 Summit XL Bringup:](#112-Summit-XL-Bringup)
   - [1.2 Jetson Orin (WAM + Vision PC)](#12-Jetson-Orin-WAM-Vision-PC)
@@ -67,6 +68,16 @@
 
 ## 1.1 Adlink MXE 211 (SUMMIT + Lidar PC)
 
+### 1.1.0 Reset Workspace:
+
+```bash
+$ rm -rf ~/UWARL_catkin_ws
+$ cd_config
+$ ./scripts/auto-config_UWARL_catkin_ws.zsh
+```
+
+
+
 ### 1.1.1 PS Controller:
 
 ```bash
@@ -85,22 +96,20 @@ $ systemctl status ds4drv.service
    $ ssh uwarl@192.168.1.11
    
    # check if summit bringup is successful
-   $ systemctl status --user roscorelaunch@summit_xl_bringup:summit_xl_complete.launch
+   $ systemctl status --user roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch
    
    # stop/restart
-   $ systemctl stop/restart --user roscorelaunch@summit_xl_bringup:summit_xl_complete.launch
+   $ systemctl stop/restart --user roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch
    
    # [DEBUG]
-   $ journalctl --user --user-unit=roscorelaunch@summit_xl_bringup:summit_xl_complete.launch.service > log.txt
+   $ journalctl --user --user-unit=roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch > log.txt
    # [DEBUG] - Live Stream:
-   $ journalctl --follow --user --user-unit=roscorelaunch@summit_xl_bringup:summit_xl_complete.launch.service
+   $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch
    ```
 
 
 
 ## 1.2 Jetson Orin (WAM + Vision PC)
-
-[TODO]
 
 ### 1.2.1 WAM:
 
@@ -213,9 +222,25 @@ $ roslaunch zed_wrapper zed.launch
    ## Ex: add zed ros wrapper to wam module
    SUBMODULES_FOR_WAM=(
        "uwarl-barrett-ros-pkg" 
-       "uwarl-zed_ros_wrapper" # <----- just added
+       "uwarl-zed_ros_wrapper" # <----- just added/uncomment
    )
    ```
+
+   1. Remove/Commenting-out the module:
+
+      ```bash
+      $ cd_ws
+      $ rm -rf uwarl-zed_ros_wrapper/* # delete local cache
+      $ cd_config
+      $ vim scripts/common.sh
+      ## Ex: comment out zed ros wrapper to wam module
+      SUBMODULES_FOR_WAM=(
+          "uwarl-barrett-ros-pkg" 
+          #"uwarl-zed_ros_wrapper" # <----- just added
+      )
+      ```
+
+      
 
 3. Update workspace and install ros dependencies:
 
@@ -252,6 +277,8 @@ $ roslaunch zed_wrapper zed.launch
 # Appendix A - File Arch
 
 ## A.1 xacro and launching
+
+[TODO: below is not up-to-date]
 
 ````bash
 # waterloo_steel

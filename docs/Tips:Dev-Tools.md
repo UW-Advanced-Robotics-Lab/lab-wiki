@@ -1,12 +1,14 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 25 Nov 2022 11:45:03 EST*]
+[*Last generated: Thu  1 Dec 2022 17:55:45 EST*]
 - [**Git:**](#Git)
   - [A better Git Graph:](#A-better-Git-Graph)
 - [**Linux:**](#Linux)
   - [Docker:](#Docker)
   - [Environment container comparison:](#Environment-container-comparison)
+- [**VM:**](#VM)
+  - [Setup SSH in VM:](#Setup-SSH-in-VM)
 
 
 </toc>
@@ -54,3 +56,9 @@ $ git lg -p
 | Vagrant | to provision a machine with an OS | Offer higher degree of isolation than Docker, and runs as isolated processes within the host OS | Heavier, larger and longer time to build |
 
 > :notebook: [Isolation Level]: pyenv < virtualenv <= Anaconda < Docker < Vagrant 
+
+# VM:
+
+## Setup SSH in VM:
+
+https://rocky-chen.medium.com/setup-ssh-connection-to-your-ubuntu-vm-of-virtualbox-macos-eed4691fe08
