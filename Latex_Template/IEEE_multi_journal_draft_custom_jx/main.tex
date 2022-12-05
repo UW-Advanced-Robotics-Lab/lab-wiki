@@ -1,0 +1,268 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ************************************************************************** %%
+%% *                                PREAMBLE.                               * %%
+%% ************************************************************************** %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[lettersize,journal]{IEEEtran}
+%  \begin{list}{}{}
+%    \item{Regular Journal Article}
+%    \item{{\tt{$\backslash$documentclass[journal]{IEEEtran}}}}\\
+%    \item{{Conference Paper}}
+%    \item{{\tt{$\backslash$documentclass[conference]{IEEEtran}}}}\\
+%    \item{Computer Society Journal Article}
+%    \item{{\tt{$\backslash$documentclass[10pt,journal,compsoc]{IEEEtran}}}}\\
+%    \item{Computer Society Conference Paper}
+%    \item{{\tt{$\backslash$documentclass[conference,compsoc]{IEEEtran}}}}\\
+%    \item{{Communications Society Journal Article}}
+%    \item{{\tt{$\backslash$documentclass[journal,comsoc]{IEEEtran}}}}\\
+%    \item{{Brief, Correspondence or Technote}}
+%    \item{{\tt{$\backslash$documentclass[9pt,technote]{IEEEtran}}}}
+%  \end{list}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{algorithmic}
+\usepackage{array}
+\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\usepackage{textcomp}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\usepackage{balance}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ************************************************************************** %%
+%% *                           [JX] STYLES & CONFIG.                        * %%
+%% ************************************************************************** %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% + [JX] add chapter functionality in article class
+\usepackage[]{hyperref}
+\newcounter{Chapcounter}
+\newcommand\showmycounter{\addtocounter{Chapcounter}{1}\themycounter}
+\newcommand{\chapter}[1] 
+{ {\centering          
+  \addtocounter{Chapcounter}{1} \Large \underline{\textbf{ \color{blue} Chapter \theChapcounter: ~#1}} }   
+  \addcontentsline{toc}{section}{ Chapter:~\theChapcounter~~ #1}  \vspace{1em}  
+}
+%%%%
+
+%% %[+JX] SI Units
+\RequirePackage{siunitx}
+
+%% %[+JX] glossaries (must be loaded after hyperref package) and style
+%\RequirePackage[acronym,nonumberlist,section]{glossaries}
+\RequirePackage[section]{glossaries}
+\RequirePackage{glossary-tree}
+\RequirePackage{glossaries-extra}
+\makeglossaries
+\loadglsentries{glossaries}
+
+%% %[+JX] additional math packages
+\RequirePackage{physics}
+\RequirePackage{cancel}
+
+%% %[+JX] bib
+\bibliographystyle{IEEEtran}
+
+%%%%%%%%%% %[+JX] custom styling:
+% TODO Flags
+\RequirePackage{xcolor}
+\newcommand\TODO[1]{{\textcolor{red}{\textbf{#1}}}}
+\newcommand\ATTR[1]{{\textcolor{blue}{\textbf{#1}}}}
+\newcommand\COMMENT[1]{\textcolor{orange}{#1}}
+
+%%%  Equation Condition
+\newenvironment{eqconditions}
+  {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}{>{$}l<{$} @{${}={}$} l}}
+  {\end{tabular}\par\vspace{\belowdisplayskip}}
+\newenvironment{eqconditions*}
+  {\noindent\begin{tabular}{>{$}l<{$} @{${}={}$} l}}
+  {\end{tabular}}
+
+% custom math command
+\newcommand{\unit}[1]{\left[\si{#1}\right]}
+
+%%%%%%%%%% %[+JX] shortcuts styling:
+%% MATH %%
+\newcommand{\RR}{\mathds{R}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\sign}{\mathop{\mathrm{sign}}}
+\newcommand{\argmin}{\mathop{\mathrm{argmin}}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\bv}{\mathbf{b}}
+\newcommand{\wv}{\mathbf{w}}
+\newcommand{\xv}{\mathbf{x}}
+\newcommand{\av}{\mathbf{a}}
+\newcommand{\yv}{\mathbf{y}}
+\newcommand{\rv}{\mathbf{r}}
+\newcommand{\inner}[2]{\langle #1, #2 \rangle}
+\newcommand{\magenta}[1]{{\color{magenta}#1}}
+
+\newcommand{\xspace}{\;}
+\newcommand{\ea}{\textbf{et al.}\xspace}
+\newcommand{\eg}{\textbf{e.g.}\xspace}
+\newcommand{\ie}{\textbf{i.e.}\xspace}
+\newcommand{\iid}{\textbf{i.i.d.}\xspace}
+\newcommand{\cf}{\textbf{cf.}\xspace}
+\newcommand{\wrt}{\textbf{w.r.t.}\xspace}
+\newcommand{\aka}{\textbf{a.k.a.}\xspace}
+\newcommand{\etc}{\textbf{etc.}\xspace}
+\newcommand{\st}{\textbf{s.t.}\xspace}
+
+\newcommand{\ans}[1]{{\textcolor{orange}{\textsf{Ans}: #1}}}
+\newcommand{\SE}[1]{\textrm{SE(#1)}}
+\newcommand{\se}[1]{\textrm{se(#1)}}
+\newcommand{\SO}[1]{\textrm{SO(#1)}}
+\newcommand{\so}[1]{\textrm{so(#1)}}
+
+\newcommand{\bm}[1]{\mathbf{#1}}
+
+% + [JX]: I am lazy shortcuts:
+\newcommand{\Hz}[1]{{#1}\,[Hz] }
+\newcommand{\VIO}{\gls{VIO} }
+\newcommand{\VO}{\gls{VO} }
+\newcommand{\SOTA}{\gls{SOTA} }
+\newcommand{\SUMMIT}{\gls{Summit} }
+\newcommand{\WAM}{\gls{WAM} }
+\newcommand{\BHand}{\gls{BHand} }
+\newcommand{\eih}{eye-in-hand }
+\newcommand{\EE}{\gls{EE} }
+
+
+\newcommand\mat[1]{\begin{matrix}#1\end{matrix}} 
+\newcommand\pbracket[1]{\left( #1 \right)} 
+\newcommand\bbracket[1]{\left[ #1 \right]} 
+\newcommand{\matp}[1]{\pbracket{ \mat{ #1 } }}
+\newcommand{\matb}[1]{\bbracket{ \mat{ #1 } }}
+
+\newcommand{\I}{\mathbf{I}}
+
+% [+JX] screw:
+\newcommand{\expxi}[1]{e^{\hat\xi_{#1}\theta_{#1}}}
+\newcommand{\expw}[1]{e^{\hatw_{#1}\theta_{#1}}}
+\newcommand{\hatw}{\hat\omega}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %[+JX] collections
+\RequirePackage{enumitem}
+
+
+% + [JX]:  fancy chapter styling --x does not work in article, using custom chapter command
+%\usepackage[Lenny]{fncychap} %
+%\ChNameUpperCase
+%\ChNumVar{\fontsize{40}{42}\usefont{OT1}{ptm}{m}{n}\selectfont}
+%\ChTitleVar{\Large\sc}% [USER] PICK Document style:
+
+%% %[+JX] for more clever way of referencing (must be loaded after hyperref package)
+\RequirePackage[nameinlink, noabbrev]{cleveref}
+
+% + subfolder and filesd
+\graphicspath{{Figs/}}
+\usepackage{subfiles} % Best loaded last in the preamble
+
+%%%%%%%%% ================================================================== %%%%%%%%%
+%%%%%%%%%                     [ START OF MAIN BODY ]                         %%%%%%%%%
+%%%%%%%%% ================================================================== %%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ************************************************************************** %%
+%% *                                TEMPLATE.                               * %%
+%% ************************************************************************** %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %% Enumerate with reference:
+%    \begin{enumerate}[label=\textbf{A.\arabic*}]
+%    \item a
+%    \item \label{l} b
+%    \item c. goto \ref{l}
+%    \end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ************************************************************************** %%
+%% *                                DOCUMENT.                               * %%
+%% ************************************************************************** %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\title{A clustered of \gls{SOTA} Paper}
+\author{John Doe \thanks{University of Waterloo}}
+ 
+\markboth{IEEE Journal, Last Edited: \today}{J. Xu}
+
+
+
+\maketitle
+
+% + [JX] Table of Contents:
+\tableofcontents
+%    \twocolumn[ 
+%        \begin{@twocolumnfalse} 
+%            \tableofcontents
+%        \end{@twocolumnfalse} 
+%    ]
+%
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ************************************************************************** %%
+%% *                              CHAPTER 01.                               * %%
+%% ************************************************************************** %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Template}
+
+\ATTR{[Last edit: Sept, 2022]}
+
+\input{chapters/chp1-template}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ************************************************************************** %%
+%% *                              CHAPTER 02.                               * %%
+%% ************************************************************************** %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Template}
+
+\ATTR{[Last edit: Sept, 2022]}
+
+\input{chapters/chp1-template}
+
+
+
+%%%%%%%%% ================================================================== %%%%%%%%%
+%%%%%%%%%                      [ END OF MAIN BODY ]                          %%%%%%%%%
+%%%%%%%%% ================================================================== %%%%%%%%%
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ************************************************************************** %%
+%% *                            [JX] Glossary                               * %%
+%% ************************************************************************** %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\printglossaries    
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ************************************************************************** %%
+%% *                             Bibliography                               * %%
+%% ************************************************************************** %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliography{[Referenced-for-report]-research}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ************************************************************************** %%
+%% *                                Bio.                                    * %%
+%% ************************************************************************** %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{IEEEbiographynophoto}{Jane Doe}
+%Biography text here without a photo.
+%\end{IEEEbiographynophoto}
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{Figs/fig1.png}}]{Jianxiang (Jack) Xu} 
+%    University of Waterloo, MASc
+%\end{IEEEbiography}
+
+\end{document}
+
+
