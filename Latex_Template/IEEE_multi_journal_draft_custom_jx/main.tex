@@ -45,7 +45,8 @@
 \newcommand{\chapter}[1] 
 { {\centering          
   \addtocounter{Chapcounter}{1} \Large \underline{\textbf{ \color{blue} Chapter \theChapcounter: ~#1}} }   
-  \addcontentsline{toc}{section}{ Chapter:~\theChapcounter~~ #1}  \vspace{1em}  
+  \addcontentsline{toc}{section}{\underline{[Chapter:~\theChapcounter]~~ #1}}  
+  \vspace{1em} 
 }
 %%%%
 
@@ -213,22 +214,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Template}
 
-\ATTR{[Last edit: Sept, 2022]}
-
 \input{chapters/chp1-template}
+
+\clearpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% ************************************************************************** %%
 %% *                              CHAPTER 02.                               * %%
 %% ************************************************************************** %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Template}
-
-\ATTR{[Last edit: Sept, 2022]}
+\chapter{Template2}
 
 \input{chapters/chp1-template}
 
-
+\clearpage
 
 %%%%%%%%% ================================================================== %%%%%%%%%
 %%%%%%%%%                      [ END OF MAIN BODY ]                          %%%%%%%%%
