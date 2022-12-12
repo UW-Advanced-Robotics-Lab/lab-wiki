@@ -317,3 +317,56 @@ waterloo_steel/..viz/..sim_bringup/waterloo_steeel_complete_combined.launch	>>> 
 
 
 
+## A.2 ROS 
+
+### A.2.1 ROS Profiling
+
+- Reads:
+  - [Read More about [Debugging and profiling ROS nodes]](https://subscription.packtpub.com/book/iot-&-hardware/9781783987443/4/ch04lvl1sec25/debugging-and-profiling-ros-nodes)
+  - Valgrind:https://valgrind.org
+  - https://answers.ros.org/question/28383/time-consumption-profiling/
+  - ROS valgrind: https://wiki.ros.org/roslaunch/Tutorials/Roslaunch%20Nodes%20in%20Valgrind%20or%20GDB
+    - Kcachegrind: https://wiki.ros.org/roslaunch/Tutorials/Profiling%20roslaunch%20nodes
+
+#### a) GDB:
+
+```bash
+<launch>
+  <node name="wam_node" type="wam_node" pkg="wam_node" output="screen" 
+    launch-prefix="gdb -ex run --args"
+  />
+</launch>
+```
+
+#### b) Valgrind:
+
+- Install:
+
+  - ```bash
+    $ sudo apt -y install valgrind
+    $ sudo apt-get install kcachegrind # visualizer:
+    
+    #### roslaunch file add prefix:
+    <launch>
+      <node name="wam_node" type="wam_node" pkg="wam_node" output="screen" 
+        launch-prefix="valgrind --tool=callgrind  
+          --log-file=/home/uwarl-orin/JX_Logs/valgrind.log 
+          --callgrind-out-file='/home/uwarl-orin/JX_Logs/callgrind.wam_node.%p'"
+      />
+    </launch>
+    ```
+
+- Instructions:
+
+  - ```bash
+    $ catkin build -DCMAKE_BUILD_TYPE=Debug
+    
+    # enable core dumps:
+    $ ulimit -a	# check limits
+    $ ulimit -c unlimited  # unlimited
+    
+    # allow core dumps to be created:
+    $ sudo echo 1 > /proc/sys/kernel/core_uses_pid
+    ```
+
+  - 

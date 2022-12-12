@@ -634,13 +634,57 @@ $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:wa
   password: xxxxxx
   ```
 
+- If you are going to use NVMe SSD mainly, please skip the SDK installation once it flashes OS.
+  - eMMC is still a default kernel booting directory, even if BIOS change
+  - Proceed with step 2.0.b below
+
 ### 2.0.b NVMe SSD
+
+#### 2.0.b.0 Wipe NVMe SSD
+
+- Boot with eMMC SSD Kernel
+
+  - Open [Disk] 
+  - Delete all partitions, and make sure entire volume is fee
+
+- Configure free ssd:
+
+  1. SSH into the Jetson Orin from eMMC boot `$ ssh uwarl-orin@192.168.1.10`
+
+  2. Check the NVMe drive’s device name (e.g. /dev/nvme0n1):
+
+     ```bash
+     $ lsblk -d -p | grep nvme | cut -d\ -f  1
+     ```
+
+     > Note that there must be two spaces after the ‑d\.
+
+  3. Create a new GPT
+
+     ```bash
+     $ sudo parted /dev/nvme0n1 mklabel gpt
+     ```
+
+  4. Create Partition:
+
+     ```bash
+     $ sudo parted /dev/nvme0n1 mkpart APP 0GB 500GB
+     ```
+
+  5. Format APP as an ext4 partition and mount it.
+
+     ```bash
+     $ sudo mkfs.ext4 /dev/nvme0n1p1 
+     $ sudo mount /dev/nvme0n1p1 /mnt
+     ```
+
+- ***[Proceed next step]***
 
 #### 2.0.b.1 Flash Linux onto NVMe direct Boot:
 
 > NVMe is much faster (x5-10) than EMMc SSD, but you would want to install JetPack and updates with eMMC first just in case.
 
-1. Configure **BIOS**:
+1. [Optional, may need to manually do this in the end] Configure **BIOS**:
 
    - Boot Computer and enter BIO with [ESC] at the boot screen
 
@@ -654,17 +698,31 @@ $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:wa
    ```
 
    >  :warning: It will fail at Flashing!!! At least it will prepare and compile all installation files. (R35.1), dunno if it will be fixed. To note, NVMe support and UEFI Boot Manager were only introduced after JetPack 5.
+   >
+   >  - But at least you will see on your host PC:
+   >
+   >  ![disk](resources/disk.png)
 
-3. Manually flashing it:
+3. Manually flashing OS after you see NVME drive is available on host PC:
 
    ```bash
    # In Host PC: 
    $ cd ~/{Target-HW-Image-Folder}/JetPack_5.0.2_Linux_JETSON_AGX_ORIN_TARGETS/Linux_for_Tegra
+   
+   # sdf has been recognized by host computer now as shown in previous step
+   $ sudo BOARDID=3701 BOARDSKU=0000 FAB=TS4 ./tools/kernel_flash/l4t_initrd_flash.sh -c tools/kernel_flash/flash_l4t_external.xml --external-device sdf --direct sdf jetson-agx-orin-devkit external
+   
    # flash manually:
-   $ sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device nvme0n1p1 -c ./tools/kernel_flash/flash_l4t_external.xml -S 100 --erase-all --showlogs jetson-agx-orin-devkit nvme0n1p1
+   #$ sudo BOOTDEV=nvme0n1p1 ./flash.sh jetson-agx-orin-devkit nvme0n1p1
+   # not this command:
+   #$ sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device nvme0n1p1 -c ./tools/kernel_flash/flash_l4t_external.xml -S 490 --erase-all --showlogs jetson-agx-orin-devkit nvme0n1p1
    ```
 
 4. Plug-in DP Monitor, and manually configure ubuntu at boot with `uwarl-orin`
+
+   1. user name : uwarl-orin
+   2. do not install chrome
+   3. ...
 
    > :cheese:  Last installation (Nov. 21, 2022) was successfully onto NVMe. **485.4 GB / 491.4 GB Available**, Boot directly from NVMe. **467.3 GB** after installing JetPack 5 SDK
 
@@ -680,7 +738,8 @@ $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:wa
    >
    > https://github.com/jetsonhacks/rootOnNVMe (It's not booting from NVMe, but rather booting from eMMC, and switching to NVMe by a system-ctl service)
 
-#### 2.0.b.2 Install Jetpack SDK:
+
+#### 2.0.b.2 Install Jetpack SDK with SDK Manager:
 
 1. After flashing OS, unplug the flashing USB cable, and launch SDK Manager 
 
@@ -699,6 +758,12 @@ $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:wa
 > :notebook: TAG: jetson_35.1, the public release DOES NOT HAVE RT KERNEL, SAD!!
 >
 > - So you have to compile from source:
+>
+> :warning: The procedure has been verified, but we will revert back to non-RT (Dec. 09), and wait for the official release of the RT kernel header version. (Since some packages that require header files would have to be explicitly compiled with locally built kernel.)
+>
+>  :warning: The display may not work after RT kernel, so we are reverting back to non-RT, as we need a display driver to use a certain library.
+>
+> [2022 Dec. 09, reflashing jetson back to default non-RT]
 
 ### 2.1.1 Build custom kernel from source:
 
