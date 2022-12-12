@@ -1,16 +1,17 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Tue 29 Nov 2022 15:21:56 EST*]
+[*Last generated: Mon 12 Dec 2022 15:30:35 EST*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen:](#01-Remote-Screen)
     - [0.1.1 XRDP SSH](#011-XRDP-SSH)
-  - [0.2 SSH Keys & Github](#02-SSH-Keys-Github)
+  - [0.2 SSH Keys and Github](#02-SSH-Keys-and-Github)
   - [0.3 Commonly used command:](#03-Commonly-used-command)
   - [0.4 ZSH & oh-my-zsh](#04-ZSH-oh-my-zsh)
   - [0.5 TMUX: virtual terminal within terminal](#05-TMUX-virtual-terminal-within-terminal)
-  - [0.6 Useful Apt Tools:](#06-Useful-Apt-Tools)
-    - [0.6.1 tree - file directory print](#061-tree-file-directory-print)
+  - [0.6 VIM:](#06-VIM)
+  - [0.7 Useful Apt Tools:](#07-Useful-Apt-Tools)
+    - [0.7.1 tree - file directory print](#071-tree-file-directory-print)
     - [0.6.2 zenith - system activity monitor in terminal](#062-zenith-system-activity-monitor-in-terminal)
   - [0.7 ROS Tools:](#07-ROS-Tools)
     - [0.7.1 Rviz:](#071-Rviz)
@@ -31,17 +32,17 @@
   - [2.0 Flash Linux OS & Install JetPack :v:](#20-Flash-Linux-OS-Install-JetPack-v)
     - [2.0.a eMMC SD](#20a-eMMC-SD)
     - [2.0.b NVMe SSD](#20b-NVMe-SSD)
+      - [2.0.b.0 Wipe NVMe SSD](#20b0-Wipe-NVMe-SSD)
       - [2.0.b.1 Flash Linux onto NVMe direct Boot:](#20b1-Flash-Linux-onto-NVMe-direct-Boot)
-      - [2.0.b.2 Install Jetpack SDK:](#20b2-Install-Jetpack-SDK)
-  - [2.1 (Jetson) RT Kernel :yum:](#21-Jetson-RT-Kernel-yum)
+      - [2.0.b.2 Install Jetpack SDK with SDK Manager:](#20b2-Install-Jetpack-SDK-with-SDK-Manager)
+  - [2.1 [Optional*] (Jetson) RT Kernel :yum:](#21-Optional-Jetson-RT-Kernel-yum)
     - [2.1.1 Build custom kernel from source:](#211-Build-custom-kernel-from-source)
     - [2.1.2 Apply kernel to the boot:](#212-Apply-kernel-to-the-boot)
-  - [2.2 Peak Linux Driver  (Out-of-tree Linux RT Header)](#22-Peak-Linux-Driver-Out-of-tree-Linux-RT-Header)
-  - [2.3 Install ROS](#23-Install-ROS)
-  - [2.4 [:star: automated] UWARL ROS Catkin Workspace Setup](#24-star-automated-UWARL-ROS-Catkin-Workspace-Setup)
-    - [2.4.1 ⭐ [Automated] Install Catkin Workspace + Hardware Setup + ROS Install](#241-Automated-Install-Catkin-Workspace-Hardware-Setup-ROS-Install)
-      - [2.4.1-(3) How to Build Libbarrett Hardware Library?](#241-3-How-to-Build-Libbarrett-Hardware-Library)
+  - [2.2 [:wrench: if Manual] Peak Linux Driver  (Out-of-tree Linux RT Header)](#22-wrench-if-Manual-Peak-Linux-Driver-Out-of-tree-Linux-RT-Header)
+  - [2.3 [:wrench: if Manual] Install ROS](#23-wrench-if-Manual-Install-ROS)
     - [[TODO-fix] Configure ROS Environment:](#TODO-fix-Configure-ROS-Environment)
+  - [2.5 [:wrench: If Manual] How to Build Libbarrett Hardware Library?](#25-wrench-If-Manual-How-to-Build-Libbarrett-Hardware-Library)
+  - [2.4 [:star: automated] UWARL ROS Catkin Workspace Setup](#24-star-automated-UWARL-ROS-Catkin-Workspace-Setup)
   - [2.5 ZED Stereo-Camera](#25-ZED-Stereo-Camera)
   - [2.6 Intel i515 Lidar Mono-Camera](#26-Intel-i515-Lidar-Mono-Camera)
 
@@ -68,7 +69,7 @@ $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
 >
 > :information_source: Ref: XFCE XRDP: https://www.hiroom2.com/ubuntu-2004-xrdp-xfce-en/
 
-## 0.2 SSH Keys & Github
+## 0.2 SSH Keys and Github
 
 1. generate key `ssh-keygen -t ed25519 -C "your_email@example.com"`
 2. copy the public key  `cat ~/.ssh/id_ed25519.pub`
@@ -97,9 +98,10 @@ $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
   
   # to modify themes:
   $ sudo vim ~/.zshrc
+  ## Recommended themes: `ys` and `jonathan`
   $ source ~/.zshrc
   ```
-
+  
   > :information_source:  https://github.com/ohmyzsh/ohmyzsh
   >
   > :information_source: Themes: https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
@@ -115,11 +117,21 @@ $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
 
 > :warning: Normal ssh sessions without tmux will terminate the program if your ssh client is disconnected
 
+## 0.6 VIM:
 
+1. set github editor to vim:
 
-## 0.6 Useful Apt Tools:
+   ```bash
+   $ git config --global core.editor "vim"
+   ```
 
-### 0.6.1 tree - file directory print
+   > or have env variable in zshrc: `export GIT_EDITOR=vim`
+
+2. Why VIM? ---> personal preference
+
+## 0.7 Useful Apt Tools:
+
+### 0.7.1 tree - file directory print
 
 ```bash
 $ sudo apt install tree
@@ -287,7 +299,11 @@ $ rosrun rviz rviz
 
 ### 1.4.1 ⭐ [Automated] Install Catkin Workspace + Hardware Setup
 
-0. Install ROS and configure the environment necessary from previous section, and SSH authenticated with Github, see instruction @ [0.2 SSH Keys & Github](#02-SSH-Keys-Github)
+0. Pre-req:
+
+   1. **Make sure SSH authenticated with Github, see instruction @ [0.2 SSH Keys and Github](#0.2 SSH Keys and Github)**
+
+   2. Zsh: [0.4 ZSH & oh-my-zsh](#04-ZSH-oh-my-zsh)
 
 1. Clone configurations: 
 
@@ -753,7 +769,7 @@ $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:wa
 
 4. Wait for installation. And DONE :beers:
 
-## 2.1 (Jetson) RT Kernel :yum:
+## 2.1 [Optional*] (Jetson) RT Kernel :yum:
 
 > :notebook: TAG: jetson_35.1, the public release DOES NOT HAVE RT KERNEL, SAD!!
 >
@@ -979,7 +995,9 @@ $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:wa
 > ```
 > 
 
-## 2.2 Peak Linux Driver  (Out-of-tree Linux RT Header)
+## 2.2 [:wrench: if Manual] Peak Linux Driver  (Out-of-tree Linux RT Header)
+
+> :notebook: Has been added as part of the automated script in 2.4 step on Dec. 12, 2022.
 
 Compile PCAN with this custom rt-kernel:
 
@@ -1017,9 +1035,11 @@ $ sudo dmesg | grep pcan
 
 
 
-## 2.3 Install ROS
+## 2.3 [:wrench: if Manual] Install ROS
 
 > :information_source: http://wiki.ros.org/noetic/Installation/Ubuntu
+>
+> :notebook: Has been added as part of the automated script!
 
 ```bash
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -1032,13 +1052,68 @@ sudo apt update
 sudo apt install ros-noetic-desktop-full
 ```
 
+### [TODO-fix] Configure ROS Environment:
+
+```bash
+# (Optional) Ensure ip are correct in the env.
+$ sudo vim ~/uwarl-robot_configs/summit/user_services/environment
+# Copy ROS env:
+$ sudo cp ~/uwarl-robot_configs/summit/user_services/environment ~/.ros/
+```
+
+## 2.5 [:wrench: If Manual] How to Build Libbarrett Hardware Library?
+
+> Use our `uwarl-libbarrett` with fixes to support arm based system
+>
+> :notebook: Has been added as part of the automated script!
+
+1. Clone lib: 
+
+   ```bash
+   $ cd $HOME
+   $ git clone git@github.com:UW-Advanced-Robotics-Lab/uwarl-libbarrett.git
+   # make sure it's checkout @ uwarl/noetic/dev-3.0.2
+   ```
+
+2. Install dependencies
+
+   ```bash
+   cd ~/uwarl-libbarrett/scripts && ~/uwarl-libbarrett/scripts/install_dependencies.sh
+   $ sudo reboot 0
+   ```
+
+   > :notebook: `uwarl/noetic/dev-3.0.2` is a modified version for our robot, and install libconfig into `~/JX_Linux` path, and compile with aarch64 custom header. The official version has out-dated and does not work detect arm64 arch. 
+
+3. Continue to build library and install:
+
+   ```bash
+   # install libbarrett:
+   cd ~/uwarl-libbarrett
+   export CC=/usr/bin/clang
+   export CXX=/usr/bin/clang++
+   cd ~/uwarl-libbarrett && cmake .
+   make -j$(nproc)
+   
+   sudo make install
+   
+   # build libbarrett example programs:
+   cd ~/uwarl-libbarrett/examples && cmake .
+   make -j$(nproc)
+   ```
+
+4. (Optional, this version has fixed the config in build files) copy libbarrett configurations from `uwarl-robot_configs` repo for vertical config (program assusudo make installme horizontal)
+
 
 
 ## 2.4 [:star: automated] UWARL ROS Catkin Workspace Setup
 
-### 2.4.1 ⭐ [Automated] Install Catkin Workspace + Hardware Setup + ROS Install
+> Install Catkin Workspace + Hardware Setup + ROS in one script
 
-0. Make sure SSH authenticated with Github, see instruction @ [0.2 SSH Keys & Github](#02-SSH-Keys-Github)
+0. Pre-req:
+
+   1. **Make sure SSH authenticated with Github, see instruction @ [0.2 SSH Keys and Github](#0.2 SSH Keys and Github)**
+
+   2. Zsh: [0.4 ZSH & oh-my-zsh](#04-ZSH-oh-my-zsh)
 
 1. Clone configurations: 
 
@@ -1046,7 +1121,7 @@ sudo apt install ros-noetic-desktop-full
    $ cd ~ && git clone git@github.com:UW-Advanced-Robotics-Lab/uwarl-robot_configs.git
    ```
 
-2. Install the repo with auto-script:
+2. Install the repo and configure hardware with auto-script:
 
    ```zsh
    $ cd ~ && ./uwarl-robot_configs/scripts/auto-config_UWARL_catkin_ws.zsh
@@ -1056,58 +1131,9 @@ sudo apt install ros-noetic-desktop-full
    >
    > :fire: This will install ROS Noetic for you, if you have ubuntu 20.04 focal (like Jetson) , otherwise, you have to install manually OR add a script to it as well?
 
-3. Install Hardware Package:
+3. Reboot is Required if it is the first time installing libbarrett !!
 
-   #### 2.4.1-(3) How to Build Libbarrett Hardware Library?
-
-   > Use our `uwarl-libbarrett` with fixes to support arm based system
-
-   1. Clone lib: 
-
-      ```bash
-      $ cd $HOME
-      $ git clone git@github.com:UW-Advanced-Robotics-Lab/uwarl-libbarrett.git
-      # make sure it's checkout @ uwarl/noetic/dev-3.0.2
-      ```
-
-   2. Install dependencies
-
-      ```bash
-      cd ~/uwarl-libbarrett/scripts && ~/uwarl-libbarrett/scripts/install_dependencies.sh
-      $ sudo reboot 0
-      ```
-
-      > :notebook: `uwarl/noetic/dev-3.0.2` is a modified version for our robot, and install libconfig into `~/JX_Linux` path, and compile with aarch64 custom header. The official version has out-dated and does not work detect arm64 arch. 
-
-   3. Continue to build library and install:
-
-      ```bash
-      # install libbarrett:
-      cd ~/uwarl-libbarrett
-      export CC=/usr/bin/clang
-      export CXX=/usr/bin/clang++
-      cd ~/uwarl-libbarrett && cmake .
-      make -j$(nproc)
-      
-      sudo make install
-      
-      # build libbarrett example programs:
-      cd ~/uwarl-libbarrett/examples && cmake .
-      make -j$(nproc)
-      ```
-
-   4. (Optional, this version has fixed the config in build files) copy libbarrett configurations from `uwarl-robot_configs` repo for vertical config (program assusudo make installme horizontal)
-
-   ### [TODO-fix] Configure ROS Environment:
-
-   ```bash
-   # (Optional) Ensure ip are correct in the env.
-   $ sudo vim ~/uwarl-robot_configs/summit/user_services/environment
-   # Copy ROS env:
-   $ sudo cp ~/uwarl-robot_configs/summit/user_services/environment ~/.ros/
-   ```
-   
-5. Catkin Build:    
+4. Catkin Build:    
 
    ```bash
    # source robot config env & ros
