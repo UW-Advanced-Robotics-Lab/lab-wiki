@@ -1,10 +1,12 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 12 Dec 2022 15:30:35 EST*]
+[*Last generated: Tue 13 Dec 2022 18:02:01 EST*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen:](#01-Remote-Screen)
-    - [0.1.1 XRDP SSH](#011-XRDP-SSH)
+    - [0.1.1 XRDP SSH --> Adlink](#011-XRDP-SSH-Adlink)
+    - [0.1.2 :no_entry_sign: VNC](#012-no_entry_sign-VNC)
+    - [0.1.3 :star: NO MACHINE --> Jetson Orin (for GPU acc)](#013-star-NO-MACHINE-Jetson-Orin-for-GPU-acc)
   - [0.2 SSH Keys and Github](#02-SSH-Keys-and-Github)
   - [0.3 Commonly used command:](#03-Commonly-used-command)
   - [0.4 ZSH & oh-my-zsh](#04-ZSH-oh-my-zsh)
@@ -45,6 +47,8 @@
   - [2.4 [:star: automated] UWARL ROS Catkin Workspace Setup](#24-star-automated-UWARL-ROS-Catkin-Workspace-Setup)
   - [2.5 ZED Stereo-Camera](#25-ZED-Stereo-Camera)
   - [2.6 Intel i515 Lidar Mono-Camera](#26-Intel-i515-Lidar-Mono-Camera)
+    - [2.6.1 Install:](#261-Install)
+    - [2.6.2: ROS Launch Multi Cameras](#262-ROS-Launch-Multi-Cameras)
 
 
 </toc>
@@ -59,7 +63,7 @@
 
 ## 0.1 Remote Screen:
 
-### 0.1.1 XRDP SSH
+### 0.1.1 XRDP SSH --> Adlink
 
 ```bash
 $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
@@ -68,6 +72,136 @@ $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
 > :rotating_light: Xfce is lighter, GNOME is quite heavy, not recommended for remote screen via ssh.
 >
 > :information_source: Ref: XFCE XRDP: https://www.hiroom2.com/ubuntu-2004-xrdp-xfce-en/
+>
+> :warning: No rviz, as it requires display and gpu acc, xrdp is just a network access
+
+### 0.1.2 :no_entry_sign: VNC
+
+> ref: https://www.oliverjobson.co.uk/technology/set-up-vnc-with-a-ubuntu-server-and-mac-client-simple-ssh-tunnel/
+
+1. Install on Jetson:
+
+   ```bash
+   $ sudo apt-get install x11vnc
+   # set pwd:
+   $ x11vnc -storepasswd
+   # start hosting:
+   $ x11vnc -forever -bg -usepw -httpdir /usr/share/vnc-java/ -httpport 5901 -display :1
+   $ x11vnc -forever -bg -usepw -httpdir /usr/share/vnc-java/ -httpport 5577 -display :1
+   # Kill:
+   sudo pgrep x11vnc
+   # [OUTPUT]: 1234 //process ID returned from the command, then: 
+   kill 1234
+   ```
+
+2. SSH over from Mac:
+
+   ```bash
+   $ ssh uwarl-orin@192.168.1.10 -L 5900:localhost:5900
+   ```
+
+3. Connect:
+
+   1. Click Desktop
+   2. [ CMD + K ]
+   3. Enter: `vnc://localhost`
+
+4. **without monitor <--- not possible???/ :sweat:**
+
+   Attemps:
+
+   ```bash
+   # command:
+   mkdir -p ~/.config/autostart
+   cp /usr/share/applications/vino-server.desktop ~/.config/autostart/.
+   
+   cd /usr/lib/systemd/user/graphical-session.target.wants
+   sudo ln -s ../vino-server.service ./.
+   gsettings set org.gnome.Vino prompt-enabled false
+   gsettings set org.gnome.Vino require-encryption false 
+   gsettings set org.gnome.Vino authentication-methods "['vnc']"
+   gsettings set org.gnome.Vino vnc-password $(echo -n 'arlarl'|base64)
+   
+   
+   # modify:
+   $ sudo vim /etc/X11/xorg.conf
+   # add with:
+   Section "Screen"
+      Identifier    "Default Screen"
+      Monitor       "Configured Monitor"
+      Device        "Tegra0"
+      SubSection "Display"
+          Depth    24
+          Virtual 1280 800 # Modify the resolution by editing these values
+      EndSubSection
+   EndSection
+   ```
+
+   - ref: https://forums.developer.nvidia.com/t/jetson-orin-no-monitor-vnc-only-splash-screen-until-monitor-connected/220642/6
+
+   - https://en.wikipedia.org/wiki/Xvfb
+
+     ```bash
+     sudo apt install xvfb
+     
+     export DISPLAY=:1
+     Xvfb "$DISPLAY" -screen 0 1024x768x24 &
+     fluxbox &
+     x11vnc -display "$DISPLAY" -bg -nopw -listen localhost -xkb
+     
+     
+     ssh -N -T -L 5900:localhost:5900 uwarl-orin@192.168.1.10 &
+      vncviewer -encodings 'copyrect tight zrle hextile' localhost:5900
+     ```
+
+### 0.1.3 :star: NO MACHINE --> Jetson Orin (for GPU acc)
+
+- Available: Android, IOS, Linux, Mac
+
+  - Fast and efficient and more secure than VNC, lighter than xrdp
+
+  - Virtual display , so you can run rviz without monitor
+
+  - > :notes: Since Jetson has GPU and is the main computing unit with visions, some modules require a display installed when testing and running rviz within the network. Now, it is possible with NO Machine. 
+
+- NO Machine: https://downloads.nomachine.com
+
+  - [Jetson Orin] ARMv8 aarch64:
+
+    ```bash
+    # dummy display driver {needed for display acc}:
+    $ sudo apt-get install xserver-xorg-video-dummy -y 
+    # add fake:
+    $ sudo vim /etc/X11/xorg.conf
+    # add with:
+    Section "Device"
+        Identifier  "Configured Video Device"
+        Driver      "dummy"
+    EndSection
+    Section "Monitor"
+        Identifier  "Configured Monitor"
+        HorizSync 31.5-48.5
+        VertRefresh 50-70
+    EndSection
+    Section "Screen"
+        Identifier  "Default Screen"
+        Monitor     "Configured Monitor"
+        Device      "Configured Video Device"
+        DefaultDepth 24
+        SubSection "Display"
+        Depth 24
+        Modes "1920x1080"
+        EndSubSection
+    EndSection
+    # NO Machine URDC:
+    $ cd ~/JX_Linux
+    $ wget https://download.nomachine.com/download/8.2/Arm/nomachine_8.2.3_3_arm64.deb
+    $ sudo dpkg -i nomachine_8.2.3_3_arm64.deb
+    ```
+
+  - [Mac/WIN] PC:
+
+    - Download NoMachine and open it, it will show any NoMachine available in the WLAN network
 
 ## 0.2 SSH Keys and Github
 
@@ -1027,6 +1161,10 @@ $ sudo modprobe pcan
 
 # testing:
 $ sudo dmesg | grep pcan
+
+# udef rules:
+sudo vim /etc/udev/rules.d/60-can.rules
+RUN+="/bin/reset_can.sh"
 ```
 
 > :warning: `netdev` support is needed for WAM
@@ -1162,4 +1300,67 @@ $ sudo cp ~/uwarl-robot_configs/summit/user_services/environment ~/.ros/
 
 
 ## 2.6 Intel i515 Lidar Mono-Camera
+
+### 2.6.1 Install:
+
+- https://dev.intelrealsense.com/docs/nvidia-jetson-tx2-installation
+
+1. Install `realsense` hardware lib:
+
+   ```bash
+   # linux udpate:
+   $ sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade
+   
+   # linux backend:
+   $ sudo apt-get install git libssl-dev libusb-1.0-0-dev pkg-config libgtk-3-dev
+   
+   # clone repo:
+   $ cd $HOME/JX_Linux
+   $ git clone https://github.com/IntelRealSense/librealsense.git
+   
+   $ cd librealsense
+   
+   # 1. setup udev:
+   $ ./scripts/setup_udev_rules.sh  
+   # 2. install libuvc for RSUSB
+   $ libuvc_installation.sh
+   
+   # build:
+   $ mkdir build && cd build
+   
+   # (option 1) RSUSB
+   $ cmake ../ -DCMAKE_BUILD_TYPE=Release -DBUILD_EXAMPLES=true -DFORCE_RSUSB_BACKEND=true -DBUILD_PYTHON_BINDINGS=true  -DBUILD_GRAPHICAL_EXAMPLES=true  -DBUILD_WITH_CUDA=false  -DPYTHON_EXECUTABLE=/usr/bin/python3
+   # (option 2) Kernel Patch
+   Note: NOT AVAIL for Jetpack 5
+   
+   # $ sudo make uninstall && make clean # if rebuild
+   $ make -j$(($(nproc)-1)) && sudo make install
+   ```
+
+2. Install Realsense-ROS
+
+   - ros1 legacy: https://github.com/IntelRealSense/realsense-ros/tree/ros1-legacy
+   - latest is ROS2 based: https://github.com/IntelRealSense/librealsense
+   - Local: based on workspace
+
+
+
+### 2.6.2: ROS Launch Multi Cameras
+
+1. https://www.intelrealsense.com/how-to-multiple-camera-setup-with-ros/
+
+   ```bash
+   Serial: f1320485 #EE
+   Serial: f1271800 #base
+   
+   roslaunch realsense2_camera rs_camera.launch camera:=cam_1 serial_no:=f1320485 Initial_reset:=true depth_fps:=15 color_fps:=15 color_enable_auto_exposure:=0
+   
+   # filters:=spatial,temporal,pointcloud 
+   
+   roslaunch realsense2_camera rs_camera.launch camera:=cam_2 serial_no:=f1271800 Initial_reset:=true depth_fps:=15 color_fps:=15 color_enable_auto_exposure:=0
+   ```
+
+   
+
+
 

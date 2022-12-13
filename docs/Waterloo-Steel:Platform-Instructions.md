@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Thu  1 Dec 2022 17:55:45 EST*]
+[*Last generated: Tue 13 Dec 2022 18:02:01 EST*]
 - [**1. Waterloo Steel Robot Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Launch-Instructions-construction)
   - [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC)
     - [1.1.0 Reset Workspace:](#110-Reset-Workspace)
@@ -18,6 +18,12 @@
   - [3.2 Commit and Push:](#32-Commit-and-Push)
 - [**Appendix A - File Arch**](#Appendix-A-File-Arch)
   - [A.1 xacro and launching](#A1-xacro-and-launching)
+  - [A.2 ROS](#A2-ROS)
+    - [A.2.1 ROS Profiling](#A21-ROS-Profiling)
+      - [a) GDB:](#a-GDB)
+      - [b) Valgrind:](#b-Valgrind)
+  - [A.3 Common Issues:](#A3-Common-Issues)
+    - [A.3.1 Error of catkin build: Unable to find source space ....](#A31-Error-of-catkin-build-Unable-to-find-source-space-)
 
 
 </toc>
@@ -369,4 +375,19 @@ waterloo_steel/..viz/..sim_bringup/waterloo_steeel_complete_combined.launch	>>> 
     $ sudo echo 1 > /proc/sys/kernel/core_uses_pid
     ```
 
-  - 
+    
+
+
+
+## A.3 Common Issues:
+
+### A.3.1 Error of catkin build: Unable to find source space ....
+
+```bash
+rm -rf ~/.catkin_tools
+```
+
+- [Ref](https://github.com/catkin/catkin_tools/issues/425)
+
+
+
