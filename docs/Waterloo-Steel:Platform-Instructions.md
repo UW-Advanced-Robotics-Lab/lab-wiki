@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Tue 13 Dec 2022 18:02:01 EST*]
+[*Last generated: Wed 14 Dec 2022 19:52:01 EST*]
 - [**1. Waterloo Steel Robot Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Launch-Instructions-construction)
   - [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC)
     - [1.1.0 Reset Workspace:](#110-Reset-Workspace)
@@ -124,7 +124,8 @@ $ systemctl status ds4drv.service
 $ roslaunch wam_node wam_node.launch
 
 # example commands:
-$ rosservice call /wam/go_home                                                                         $ rosservice call /wam/joint_move "joints:                                                            
+$ rosservice call /wam/go_home                                                                         
+$ rosservice call /wam/joint_move "joints:                                                            
 - 0.0
 - 0.0
 - 0.0
@@ -337,6 +338,9 @@ waterloo_steel/..viz/..sim_bringup/waterloo_steeel_complete_combined.launch	>>> 
 #### a) GDB:
 
 ```bash
+$ build_ws -DCMAKE_BUILD_TYPE=Debug
+
+# in roslaunch file:
 <launch>
   <node name="wam_node" type="wam_node" pkg="wam_node" output="screen" 
     launch-prefix="gdb -ex run --args"
@@ -365,7 +369,7 @@ waterloo_steel/..viz/..sim_bringup/waterloo_steeel_complete_combined.launch	>>> 
 - Instructions:
 
   - ```bash
-    $ catkin build -DCMAKE_BUILD_TYPE=Debug
+    $ build_ws -DCMAKE_BUILD_TYPE=Debug
     
     # enable core dumps:
     $ ulimit -a	# check limits

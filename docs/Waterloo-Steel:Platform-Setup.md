@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Tue 13 Dec 2022 18:02:01 EST*]
+[*Last generated: Wed 14 Dec 2022 19:52:01 EST*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen:](#01-Remote-Screen)
     - [0.1.1 XRDP SSH --> Adlink](#011-XRDP-SSH-Adlink)
@@ -39,6 +39,8 @@
       - [2.0.b.2 Install Jetpack SDK with SDK Manager:](#20b2-Install-Jetpack-SDK-with-SDK-Manager)
   - [2.1 [Optional*] (Jetson) RT Kernel :yum:](#21-Optional-Jetson-RT-Kernel-yum)
     - [2.1.1 Build custom kernel from source:](#211-Build-custom-kernel-from-source)
+      - [2.1.1.(A) Build on Host PC:](#211A-Build-on-Host-PC)
+      - [2.1.1.(B) Build Locally on Jetson:](#211B-Build-Locally-on-Jetson)
     - [2.1.2 Apply kernel to the boot:](#212-Apply-kernel-to-the-boot)
   - [2.2 [:wrench: if Manual] Peak Linux Driver  (Out-of-tree Linux RT Header)](#22-wrench-if-Manual-Peak-Linux-Driver-Out-of-tree-Linux-RT-Header)
   - [2.3 [:wrench: if Manual] Install ROS](#23-wrench-if-Manual-Install-ROS)
@@ -156,7 +158,7 @@ $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
 
 ### 0.1.3 :star: NO MACHINE --> Jetson Orin (for GPU acc)
 
-- Available: Android, IOS, Linux, Mac
+- Available: Android, IOS, Linux, Mac, Win
 
   - Fast and efficient and more secure than VNC, lighter than xrdp
 
@@ -914,8 +916,20 @@ $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:wa
 >  :warning: The display may not work after RT kernel, so we are reverting back to non-RT, as we need a display driver to use a certain library.
 >
 > [2022 Dec. 09, reflashing jetson back to default non-RT]
+>
+> :notebook: RT Display fix solution at cross compile time: as mentioned in step 2.1.1.(B) step #9
 
 ### 2.1.1 Build custom kernel from source:
+
+- Plan-A should be perform before Step 1
+- Plan-B can be performed after Step 1
+- After switching to RT, you need to recompile: pcan, 
+
+#### 2.1.1.(A) Build on Host PC:
+
+- Please refer Logbook on Jetson Setup (May be outdated, so do it jointly with Plan-B descriptions)
+
+#### 2.1.1.(B) Build Locally on Jetson:
 
 1. Create Driver Directories, so we can download any other drivers here
 
@@ -945,7 +959,7 @@ $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:wa
    $ export TEGRA=$HOME/JX_Linux/Linux_for_Tegra/source/public
    # extract kernel:
    $ cd $TEGRA
-   $ tar –xjf kernel_src.tbz2 
+   $ tar -xjf kernel_src.tbz2
    ```
 
    This extracts the kernel source to the `kernel/`subdirectory.
@@ -959,7 +973,7 @@ $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:wa
    #> The PREEMPT RT patches have been successfully applied!
    ```
 
-7. :no_entry_sign:**(ON NON-Jetson PC)** Cross Compile:
+7. :no_entry_sign:**(ON NON-Jetson HOST PC)** Cross Compile:
 
    ```bash
    $ export CROSS_COMPILE_AARCH64_PATH=<toolchain-path>
@@ -969,12 +983,34 @@ $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:wa
 8. Kernel out:
 
    ```bash
-   $ mkdir $HOME/JX_Linux/kernel_out
-   $ export kernel_out=$HOME/JX_Linux/kernel_out
+   $ mkdir kernel_out
+   $ export kernel_out=$TEGRA/kernel/kernel_out
    $ cd $kernel_out
    ```
 
-9. Install Dependencies for kernel build (Missing OpenSSL development package):
+9. :star: Make display module [ref-nov-04-nvidia-forum](https://forums.developer.nvidia.com/t/nvidia-kernel-display-driver-source-tbz2-not-support-real-time-kernels/228289/18):
+
+   ```bash
+   #Build display kernel:
+   $ export LOCALVERSION="-tegra"
+   $ export IGNORE_PREEMPT_RT_PRESENCE=1
+   # modify nvbuild.sh:
+   $ vim $TEGRA/nvbuild.sh
+   ## Line 105, specify these for modules in order to build display modules:
+   	"${MAKE_BIN}" -C "${source_dir}" ARCH=arm64 \
+   		LOCALVERSION="-tegra" \
+   		CROSS_COMPILE="${CROSS_COMPILE_AARCH64}" \
+   		CC="${CROSS_COMPILE_AARCH64}gcc" \
+   		LD="${CROSS_COMPILE_AARCH64}ld.bfd" \
+   		AR="${CROSS_COMPILE_AARCH64}ar" \
+   		CXX="${CROSS_COMPILE_AARCH64}g++" \
+   		OBJCOPY="${CROSS_COMPILE_AARCH64}objcopy" \
+   		TARGET_ARCH=aarch64 \
+   		"${O_OPT[@]}" -j"${NPROC}" \
+   		--output-sync=target modules
+   ```
+
+10. Install Dependencies for kernel build (Missing OpenSSL development package):
 
    ```bash
    $ sudo apt-get install libssl-dev
@@ -982,7 +1018,7 @@ $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:wa
    # $ sudo apt-get install libncurses-dev flex bison openssl libssl-dev dkms libelf-dev libudev-dev libpci-dev libiberty-dev autoconf
    ```
 
-10. Build & wait for a while :hourglass: **(~1/2 hour on orin)** 
+11. Build & wait for a while :hourglass: **(~1/2 hour on orin)** 
 
    ```bash
    $ cd $TEGRA && ./nvbuild.sh -o $kernel_out 
