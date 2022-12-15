@@ -1,4 +1,4 @@
-![UW logo vert](resources/Waterloo_Engineering_Logo_vert_rgb.png)
+![UW logo vert](./resources/Waterloo_Engineering_Logo_vert_rgb.png)
 ---
 # Table of Content
   * [:diamond_shape_with_a_dot_inside: *Home*](./Home)
@@ -7,6 +7,7 @@
     * [:diamond_shape_with_a_dot_inside: *Code of Conduct*](./Lab%3ACode-of-Conduct)
     * [:diamond_shape_with_a_dot_inside: *List of Projects and Papers*](./Lab%3AList-of-Projects-and-Papers)
     * [:diamond_shape_with_a_dot_inside: *On going Projects*](./Lab%3AOn-going-Projects)
+    * [:diamond_shape_with_a_dot_inside: *User Guide*](./Lab%3AUser-Guide)
 
   * :label: **[   Logbook   ]:**
     * [:diamond_shape_with_a_dot_inside: *Jetson Setup*](./Logbook%3AJetson-Setup)
