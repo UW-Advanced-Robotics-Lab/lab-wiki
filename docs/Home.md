@@ -1,5 +1,5 @@
 
-![UW logo vert](resources/Waterloo_Engineering_Logo_vert_rgb.png)
+![UW logo vert](resources/Waterloo_Engineering_Logo_horiz_rgb.png)
 
 ## About:
 Outline and overview of works contributed by all members and alumnis from the **University of Waterloo Advanced Robotics Lab** （aka [_Waterloo Mechanical Systems & Control Lab_](https://uwaterloo.ca/waterloo-mechanical-systems-control-lab/).
