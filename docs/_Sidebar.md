@@ -1,4 +1,4 @@
-![UW logo vert](./resources/Waterloo_Engineering_Logo_vert_rgb.png)
+![UW logo vert](https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/blob/main/docs/resources/Waterloo_Engineering_Logo_vert_rgb.png)
 ---
 # Table of Content
   * [:diamond_shape_with_a_dot_inside: *Home*](./Home)

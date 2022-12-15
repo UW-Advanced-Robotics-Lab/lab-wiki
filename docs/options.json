@@ -2,7 +2,7 @@
   "menu": {
     "item": "{{#levelRepeat}}  {{/levelRepeat}}* [:diamond_shape_with_a_dot_inside: *{{{title}}}*]({{{link}}})\n",
     "category": "\n{{#levelRepeat}}  {{/levelRepeat}}* :label: **[   {{#link}}[{{{title}}}]({{{link}}}){{/link}}{{^link}}{{{title}}}{{/link}}   ]:**\n{{{subitems}}}",
-    "category-1": "![UW logo vert](./resources/Waterloo_Engineering_Logo_vert_rgb.png)\n---\n# Table of Content\n{{{subitems}}}\n"
+    "category-1": "![UW logo vert](https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/blob/main/docs/resources/Waterloo_Engineering_Logo_vert_rgb.png)\n---\n# Table of Content\n{{{subitems}}}\n"
   },
   "rules": {
     "exclude": [],
