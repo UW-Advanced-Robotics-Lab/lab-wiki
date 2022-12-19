@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed 14 Dec 2022 19:52:01 EST*]
+[*Last generated: Mon 19 Dec 2022 17:04:50 EST*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen:](#01-Remote-Screen)
     - [0.1.1 XRDP SSH --> Adlink](#011-XRDP-SSH-Adlink)
@@ -9,7 +9,7 @@
     - [0.1.3 :star: NO MACHINE --> Jetson Orin (for GPU acc)](#013-star-NO-MACHINE-Jetson-Orin-for-GPU-acc)
   - [0.2 SSH Keys and Github](#02-SSH-Keys-and-Github)
   - [0.3 Commonly used command:](#03-Commonly-used-command)
-  - [0.4 ZSH & oh-my-zsh](#04-ZSH-oh-my-zsh)
+  - [0.4 ZSH and oh-my-zsh](#04-ZSH-and-oh-my-zsh)
   - [0.5 TMUX: virtual terminal within terminal](#05-TMUX-virtual-terminal-within-terminal)
   - [0.6 VIM:](#06-VIM)
   - [0.7 Useful Apt Tools:](#07-Useful-Apt-Tools)
@@ -34,7 +34,7 @@
   - [2.0 Flash Linux OS & Install JetPack :v:](#20-Flash-Linux-OS-Install-JetPack-v)
     - [2.0.a eMMC SD](#20a-eMMC-SD)
     - [2.0.b NVMe SSD](#20b-NVMe-SSD)
-      - [2.0.b.0 Wipe NVMe SSD](#20b0-Wipe-NVMe-SSD)
+      - [2.0.b.0 [Optional] Wipe NVMe SSD](#20b0-Optional-Wipe-NVMe-SSD)
       - [2.0.b.1 Flash Linux onto NVMe direct Boot:](#20b1-Flash-Linux-onto-NVMe-direct-Boot)
       - [2.0.b.2 Install Jetpack SDK with SDK Manager:](#20b2-Install-Jetpack-SDK-with-SDK-Manager)
   - [2.1 [Optional*] (Jetson) RT Kernel :yum:](#21-Optional-Jetson-RT-Kernel-yum)
@@ -48,9 +48,12 @@
   - [2.5 [:wrench: If Manual] How to Build Libbarrett Hardware Library?](#25-wrench-If-Manual-How-to-Build-Libbarrett-Hardware-Library)
   - [2.4 [:star: automated] UWARL ROS Catkin Workspace Setup](#24-star-automated-UWARL-ROS-Catkin-Workspace-Setup)
   - [2.5 ZED Stereo-Camera](#25-ZED-Stereo-Camera)
-  - [2.6 Intel i515 Lidar Mono-Camera](#26-Intel-i515-Lidar-Mono-Camera)
+  - [2.6 [:wrench: If Manual] Intel i515 Lidar Mono-Camera](#26-wrench-If-Manual-Intel-i515-Lidar-Mono-Camera)
     - [2.6.1 Install:](#261-Install)
     - [2.6.2: ROS Launch Multi Cameras](#262-ROS-Launch-Multi-Cameras)
+  - [2.7 [:wrench: If Manual] USB Wifi Dongle D-Link DWA 182](#27-wrench-If-Manual-USB-Wifi-Dongle-D-Link-DWA-182)
+  - [2.8 [:wrench: If Manual] Vicon](#28-wrench-If-Manual-Vicon)
+    - [2.8.1 (Don't attempt to use below) Port Forwarding](#281-Dont-attempt-to-use-below-Port-Forwarding)
 
 
 </toc>
@@ -218,7 +221,7 @@ $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
 3. `$ arp -a` : Scan Local Network Devices and IPs
 4. `$ tree -L 1`: list hierarchy of directory in depth=1,may  require: `sudo apt install tree`
 
-## 0.4 ZSH & oh-my-zsh
+## 0.4 ZSH and oh-my-zsh
 
 - install zsh first 
 
@@ -792,7 +795,7 @@ $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:wa
 
 ### 2.0.b NVMe SSD
 
-#### 2.0.b.0 Wipe NVMe SSD
+#### 2.0.b.0 [Optional] Wipe NVMe SSD
 
 - Boot with eMMC SSD Kernel
 
@@ -855,22 +858,26 @@ $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:wa
    >
    >  ![disk](resources/disk.png)
 
-3. Manually flashing OS after you see NVME drive is available on host PC:
+3. **Wipe The SSD**: by formatting the disk to remove old partitions
+
+4. Manually flashing OS after you see NVME drive is available on host PC:
 
    ```bash
+   # Pre-Requisite: nvme is now mounted as /dev/sdf on host PC, from previous step
    # In Host PC: 
    $ cd ~/{Target-HW-Image-Folder}/JetPack_5.0.2_Linux_JETSON_AGX_ORIN_TARGETS/Linux_for_Tegra
    
    # sdf has been recognized by host computer now as shown in previous step
    $ sudo BOARDID=3701 BOARDSKU=0000 FAB=TS4 ./tools/kernel_flash/l4t_initrd_flash.sh -c tools/kernel_flash/flash_l4t_external.xml --external-device sdf --direct sdf jetson-agx-orin-devkit external
    
+   ### ARCHIVED
    # flash manually:
    #$ sudo BOOTDEV=nvme0n1p1 ./flash.sh jetson-agx-orin-devkit nvme0n1p1
    # not this command:
-   #$ sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device nvme0n1p1 -c ./tools/kernel_flash/flash_l4t_external.xml -S 490 --erase-all --showlogs jetson-agx-orin-devkit nvme0n1p1
+   #$ sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device nvme0n1p1 -c ./tools/kernel_flash/flash_l4t_external.xml -S 490GiB --erase-all --showlogs jetson-agx-orin-devkit nvme0n1p1
    ```
 
-4. Plug-in DP Monitor, and manually configure ubuntu at boot with `uwarl-orin`
+5. Plug-in DP Monitor, and manually configure ubuntu at boot with `uwarl-orin`
 
    1. user name : uwarl-orin
    2. do not install chrome
@@ -889,6 +896,8 @@ $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:wa
    >  :no_good:  Last resource, to migrate onto NVMe manually in earlier releases: 
    >
    > https://github.com/jetsonhacks/rootOnNVMe (It's not booting from NVMe, but rather booting from eMMC, and switching to NVMe by a system-ctl service)
+
+6. Select Power Mode: **50W** once logged in, and reboot
 
 
 #### 2.0.b.2 Install Jetpack SDK with SDK Manager:
@@ -1335,7 +1344,7 @@ $ sudo cp ~/uwarl-robot_configs/summit/user_services/environment ~/.ros/
 
 
 
-## 2.6 Intel i515 Lidar Mono-Camera
+## 2.6 [:wrench: If Manual] Intel i515 Lidar Mono-Camera
 
 ### 2.6.1 Install:
 
@@ -1398,5 +1407,62 @@ $ sudo cp ~/uwarl-robot_configs/summit/user_services/environment ~/.ros/
 
    
 
+## 2.7 [:wrench: If Manual] USB Wifi Dongle D-Link DWA 182
+
+- Refer to https://github.com/cilynx/rtl88x2bu
+
+- Instruction:
+
+  - ```bash
+    $ cd JX_Linux
+    $ git clone https://github.com/cilynx/rtl88x2bu.git
+    $ cd rtl88x2bu
+    $ make ARCH=arm64 #Note: aarch_64 is arm64 relabel, otherwise, CMAKE does not know
+    $ sudo make install
+    $ sudo reboot 
+    
+    # Now you will see USB wifi selection besides the original PCI wifi
+    ```
+
+## 2.8 [:wrench: If Manual] Vicon 
+
+- Just use port 801, other ports require some sort network management
+
+- ```bash
+  $ roslaunch vicon_bridge vicon.launch
+  ```
+
+### 2.8.1 (Don't attempt to use below) Port Forwarding
+
+> :flashlight: You may end up with a broken :no_entry_sign: Jetson, and require to reflash again completely. Be careful with iptables, if you are going to delete any iptable configs
+
+```bash
+# check ip and port and dev
+$ ip route show | grep default
+# default via 192.168.1.1 dev eth0 proto dhcp metric 100
+# default via 129.97.71.1 dev wlan1 proto dhcp metric 600
+
+# First of all - you should check if forwarding is allowed at all:
+cat /proc/sys/net/ipv4/conf/wlan1/forwarding 
+cat /proc/sys/net/ipv4/conf/eth0/forwarding 
+# If both returns 1 it's ok. If not do the following:
+echo '1' | sudo tee /proc/sys/net/ipv4/conf/wlan1/forwarding
+echo '1' | sudo tee /proc/sys/net/ipv4/conf/eth0/forwarding
+
+# Table Rule: port wlan1 51001 to 192.168.1.10:51001
+$ sudo iptables -t nat -A PREROUTING -p udp -i wlan1 --dport 51001 -j DNAT --to-destination 192.168.1.10:51001
+
+$ sudo iptables -A FORWARD -p udp -d 192.168.1.10 --dport 51001 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 
 
+# check
+$ ip route
+```
+
+```bash
+sudo iptables -P INPUT ACCEPT
+sudo iptables -P FORWARD ACCEPT
+sudo iptables -P OUTPUT ACCEPT
+```
+
+- https://www.digitalocean.com/community/tutorials/how-to-list-and-delete-iptables-firewall-rules
