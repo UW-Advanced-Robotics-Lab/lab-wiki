@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 26 Dec 2022 10:53:36 EST*]
+[*Last generated: Mon 26 Dec 2022 11:03:02 EST*]
 - [**Writing a Paper:**](#Writing-a-Paper)
   - [Book:](#Book)
   - [Data Visualization:](#Data-Visualization)
@@ -21,7 +21,8 @@
 ---
 </toc>
 
----
+
+
 # Writing a Paper:
 
 ## Book:
@@ -82,8 +83,10 @@
 
 ---
 
+
+
 <eof>
 
 ---
-[*> Back To Top <*](#Table of Contents)
+[*> Back To Top <*](#Table-of-Contents)
 </eof>

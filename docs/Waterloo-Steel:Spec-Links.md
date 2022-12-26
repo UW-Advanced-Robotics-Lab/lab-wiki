@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 26 Dec 2022 10:53:37 EST*]
+[*Last generated: Mon 26 Dec 2022 11:03:03 EST*]
 - [**Platform Specific**](#Platform-Specific)
   - [Barrett WAM ARM](#Barrett-WAM-ARM)
   - [SUMMIT-XLS Mobile Platform](#SUMMIT-XLS-Mobile-Platform)
@@ -25,8 +25,10 @@
 - (OUR) Summit Codebase (@fwthree3): https://github.com/UW-Advanced-Robotics-Lab/summit-xls
 
 
+
+
 <eof>
 
 ---
-[*> Back To Top <*](#Table of Contents)
+[*> Back To Top <*](#Table-of-Contents)
 </eof>

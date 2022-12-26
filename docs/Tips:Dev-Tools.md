@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 26 Dec 2022 10:53:36 EST*]
+[*Last generated: Mon 26 Dec 2022 11:03:02 EST*]
 - [**Git:**](#Git)
   - [A better Git Graph:](#A-better-Git-Graph)
 - [**Linux:**](#Linux)
@@ -13,7 +13,8 @@
 ---
 </toc>
 
----
+
+
 # Git:
 
 - For introduction, please read [[Documentation/Coding-Guidelines.md]](./Documentation:Coding-Guidelines.md)
@@ -62,8 +63,10 @@ $ git lg -p
 ## Setup SSH in VM:
 
 https://rocky-chen.medium.com/setup-ssh-connection-to-your-ubuntu-vm-of-virtualbox-macos-eed4691fe08
+
+
 <eof>
 
 ---
-[*> Back To Top <*](#Table of Contents)
+[*> Back To Top <*](#Table-of-Contents)
 </eof>

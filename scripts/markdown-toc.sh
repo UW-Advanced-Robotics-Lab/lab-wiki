@@ -82,8 +82,9 @@ function markdown-eof(){
     local FILE=${1:?No file was specified as first argument}
     local TOC_TEXT="\n<eof>\n"
     TOC_TEXT+="\n---\n"
-    TOC_TEXT+="[*> Back To Top <*](#Table of Contents)"
+    TOC_TEXT+="[*> Back To Top <*](#Table-of-Contents)"
     TOC_TEXT+="\n</eof>"
+    echo "    - [x] Generated end of file back to top"
     { cat $FILE; echo -en "${TOC_TEXT}"; } > $FILE.new
     mv $FILE{.new,}
 }
@@ -108,7 +109,7 @@ function markdown_toc(){
         # now edit eof
         if [[ $(<$file) = *"<eof>"*"</eof>"* ]]; then
         # if [[ $(<$file) = *"# Table of Contents"* ]]; then
-            echo "    - [!] Already has a EoF, deleting the old ToC ..."
+            echo "    - [!] Already has a EoF, deleting the old EoF ..."
             sed '/<eof>/,/<\/eof>/d' $file > $file.new
             mv $file{.new,}
             markdown-eof $file

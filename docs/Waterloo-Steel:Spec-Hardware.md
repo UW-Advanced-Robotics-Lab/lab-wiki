@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 26 Dec 2022 10:53:37 EST*]
+[*Last generated: Mon 26 Dec 2022 11:03:03 EST*]
 - [**Barrett WAM Specs:**](#Barrett-WAM-Specs)
   - [7DOF WAM:](#7DOF-WAM)
     - [Motors (*1):](#Motors-1)
@@ -123,8 +123,10 @@ M7 | 0.00000142 |14.93 |0.000318
 *5. Review Paper Ref: [328784157_Light_Weight_Robot_Arms-An_overview#pf3](https://www.researchgate.net/publication/328784157_Light_Weight_Robot_Arms-An_overview#pf3)
 
 *6. [WAM Inertial Spec](https://web.barrett.com/support/WAM_Documentation/WAM_InertialSpecifications_AC-02.pdf)
+
+
 <eof>
 
 ---
-[*> Back To Top <*](#Table of Contents)
+[*> Back To Top <*](#Table-of-Contents)
 </eof>

@@ -1,3 +1,19 @@
+<toc>
+
+# Table of Contents
+[*Last generated: Mon 26 Dec 2022 11:03:23 EST*]
+- [**Academic Research Code of Conduct**](#Academic-Research-Code-of-Conduct)
+  - [Attribution](#Attribution)
+- [**Contributor Covenant Code of Conduct**](#Contributor-Covenant-Code-of-Conduct)
+  - [Our Pledge](#Our-Pledge)
+  - [Our Standards](#Our-Standards)
+  - [Our Responsibilities](#Our-Responsibilities)
+  - [Scope](#Scope)
+  - [Enforcement](#Enforcement)
+  - [Attribution](#Attribution)
+
+---
+</toc>
 # Academic Research Code of Conduct
 
 1. [University of Waterloo - Intellectual Property Rights - Policy 73](https://uwaterloo.ca/secretariat/policies-procedures-guidelines/policies/policy-73-intellectual-property-rights)
@@ -82,3 +98,9 @@ members of the project's leadership.
 This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4,
 available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
 
+
+<eof>
+
+---
+[*> Back To Top <*](#Table-of-Contents)
+</eof>

@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 26 Dec 2022 10:53:35 EST*]
+[*Last generated: Mon 26 Dec 2022 11:03:01 EST*]
 - [**Projects:**](#Projects)
   - [[2021-April. 2022] Demo (@akeaveny @fwthree3 @JXproject) - demostration of using elevators and traversing E7 @UW](#2021-April-2022-Demo-akeaveny-fwthree3-JXproject-demostration-of-using-elevators-and-traversing-E7-UW)
   - [[Dec. 2021] Affordance Grasping (@akeaveny)](#Dec-2021-Affordance-Grasping-akeaveny)
@@ -11,7 +11,6 @@
 ---
 </toc>
 
----
 # Projects:
 ## [2021-April. 2022] Demo (@akeaveny @fwthree3 @JXproject) - demostration of using elevators and traversing E7 @UW
   1. 7.5 DOF Manipulator WAM Supervisor/Choreography Node: https://github.com/UW-Advanced-Robotics-Lab/barrett-wam-arm/tree/demo/aurco-demo
@@ -29,13 +28,16 @@
 ## [Sept. 2021] Sequential Options Learning For Robotics Task (SEQOPT) (@SomeshDaga)
   1. Github Repo: https://github.com/UW-Advanced-Robotics-Lab/seqopt
   2. [MuJoCo](https://mujoco.org)
+
     - [DeepMind Control Suite](https://github.com/deepmind/dm_control)
     - [robosuite](https://github.com/ARISE-Initiative/robosuite)
 
 # Papers:
 [TODO]
+
+
 <eof>
 
 ---
-[*> Back To Top <*](#Table of Contents)
+[*> Back To Top <*](#Table-of-Contents)
 </eof>

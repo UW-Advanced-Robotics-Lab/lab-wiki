@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 26 Dec 2022 10:53:36 EST*]
+[*Last generated: Mon 26 Dec 2022 11:03:02 EST*]
 - [**ZED Camera Documentation**](#ZED-Camera-Documentation)
   - [How to fix ZED Camera USB 3.0 not recognized](#How-to-fix-ZED-Camera-USB-30-not-recognized)
     - [Replace the cable:](#Replace-the-cable)
@@ -10,7 +10,6 @@
 ---
 </toc>
 
----
 # ZED Camera Documentation
 ## How to fix ZED Camera USB 3.0 not recognized
 - It could be caused by the damage to the cable or loosen connector inside the camera, and need a replacement.
@@ -54,8 +53,10 @@ $ ./ZED_SDK_Tegra_L4T35.1_v3.8.2.zstd.run
 ```
 
 
+
+
 <eof>
 
 ---
-[*> Back To Top <*](#Table of Contents)
+[*> Back To Top <*](#Table-of-Contents)
 </eof>

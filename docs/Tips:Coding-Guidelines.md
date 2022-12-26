@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 26 Dec 2022 10:53:36 EST*]
+[*Last generated: Mon 26 Dec 2022 11:03:02 EST*]
 - [**0. GitHub**](#0-GitHub)
 - [**1. Git**](#1-Git)
   - [1.1 Intro. to Git](#11-Intro-to-Git)
@@ -20,7 +20,8 @@
 ---
 </toc>
 
----
+
+
 # 0. GitHub
 
 - We would like to use GitHub for progress tracking and project collaboration
@@ -202,8 +203,11 @@ class PyClass:
     ```
 
   
+
+
+
 <eof>
 
 ---
-[*> Back To Top <*](#Table of Contents)
+[*> Back To Top <*](#Table-of-Contents)
 </eof>

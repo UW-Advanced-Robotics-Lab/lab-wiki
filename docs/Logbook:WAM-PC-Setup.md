@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 26 Dec 2022 10:53:36 EST*]
+[*Last generated: Mon 26 Dec 2022 11:03:02 EST*]
 - [**Install Libbarrett hardware (external PC) direct support through PEAK USB CAN (PCAN)**](#Install-Libbarrett-hardware-external-PC-direct-support-through-PEAK-USB-CAN-PCAN)
 - [**CF WAM Internal PC Setup:**](#CF-WAM-Internal-PC-Setup)
   - [Re-Install CF:](#Re-Install-CF)
@@ -15,7 +15,6 @@
 ---
 </toc>
 
----
 # Install Libbarrett hardware (external PC) direct support through PEAK USB CAN (PCAN)
 - install ros pkg barrett from manufacture: https://support.barrett.com/wiki/WAM/InstallBarrettRosPkg
 	- install under catkin_ws/src
@@ -85,8 +84,10 @@ Only in barrett/calibration_data/wam7w: zerocal.conf.5
 > 📢 Now, available @ https://github.com/UW-Advanced-Robotics-Lab/uwarl-libbarrett 
 
 
+
+
 <eof>
 
 ---
-[*> Back To Top <*](#Table of Contents)
+[*> Back To Top <*](#Table-of-Contents)
 </eof>
