@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 25 Nov 2022 11:45:02 EST*]
+[*Last generated: Mon 26 Dec 2022 10:53:35 EST*]
 - [**Academic Research Code of Conduct**](#Academic-Research-Code-of-Conduct)
   - [Attribution](#Attribution)
 - [**Contributor Covenant Code of Conduct**](#Contributor-Covenant-Code-of-Conduct)
@@ -12,7 +12,7 @@
   - [Enforcement](#Enforcement)
   - [Attribution](#Attribution)
 
-
+---
 </toc>
 
 ---
@@ -100,3 +100,9 @@ members of the project's leadership.
 This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4,
 available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
 
+
+<eof>
+
+---
+[*> Back To Top <*](#Table of Contents)
+</eof>

@@ -1,14 +1,14 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 25 Nov 2022 11:45:02 EST*]
+[*Last generated: Mon 26 Dec 2022 10:53:35 EST*]
 - [**Projects:**](#Projects)
   - [[2021-April. 2022] Demo (@akeaveny @fwthree3 @JXproject) - demostration of using elevators and traversing E7 @UW](#2021-April-2022-Demo-akeaveny-fwthree3-JXproject-demostration-of-using-elevators-and-traversing-E7-UW)
   - [[Dec. 2021] Affordance Grasping (@akeaveny)](#Dec-2021-Affordance-Grasping-akeaveny)
   - [[Sept. 2021] Sequential Options Learning For Robotics Task (SEQOPT) (@SomeshDaga)](#Sept-2021-Sequential-Options-Learning-For-Robotics-Task-SEQOPT-SomeshDaga)
 - [**Papers:**](#Papers)
 
-
+---
 </toc>
 
 ---
@@ -34,3 +34,8 @@
 
 # Papers:
 [TODO]
+<eof>
+
+---
+[*> Back To Top <*](#Table of Contents)
+</eof>

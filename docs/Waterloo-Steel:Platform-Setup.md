@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 19 Dec 2022 17:04:50 EST*]
+[*Last generated: Mon 26 Dec 2022 10:53:37 EST*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen:](#01-Remote-Screen)
     - [0.1.1 XRDP SSH --> Adlink](#011-XRDP-SSH-Adlink)
@@ -54,8 +54,9 @@
   - [2.7 [:wrench: If Manual] USB Wifi Dongle D-Link DWA 182](#27-wrench-If-Manual-USB-Wifi-Dongle-D-Link-DWA-182)
   - [2.8 [:wrench: If Manual] Vicon](#28-wrench-If-Manual-Vicon)
     - [2.8.1 (Don't attempt to use below) Port Forwarding](#281-Dont-attempt-to-use-below-Port-Forwarding)
+- [**3. Steam Deck**](#3-Steam-Deck)
 
-
+---
 </toc>
 
 ---
@@ -1551,3 +1552,9 @@ sudo iptables -P OUTPUT ACCEPT
   ```
 
   
+
+<eof>
+
+---
+[*> Back To Top <*](#Table of Contents)
+</eof>

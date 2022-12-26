@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 25 Nov 2022 11:45:03 EST*]
+[*Last generated: Mon 26 Dec 2022 10:53:36 EST*]
 - [**0. GitHub**](#0-GitHub)
 - [**1. Git**](#1-Git)
   - [1.1 Intro. to Git](#11-Intro-to-Git)
@@ -17,7 +17,7 @@
   - [3.1 Common Header Format](#31-Common-Header-Format)
   - [3.2 Docstring](#32-Docstring)
 
-
+---
 </toc>
 
 ---
@@ -202,3 +202,8 @@ class PyClass:
     ```
 
   
+<eof>
+
+---
+[*> Back To Top <*](#Table of Contents)
+</eof>

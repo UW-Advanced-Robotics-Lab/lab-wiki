@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed 14 Dec 2022 19:52:01 EST*]
+[*Last generated: Mon 26 Dec 2022 10:53:36 EST*]
 - [**1. Waterloo Steel Robot Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Launch-Instructions-construction)
   - [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC)
     - [1.1.0 Reset Workspace:](#110-Reset-Workspace)
@@ -25,7 +25,7 @@
   - [A.3 Common Issues:](#A3-Common-Issues)
     - [A.3.1 Error of catkin build: Unable to find source space ....](#A31-Error-of-catkin-build-Unable-to-find-source-space-)
 
-
+---
 </toc>
 
 
@@ -68,8 +68,13 @@
    $ check_ws_status
    # cd into robot_configs from anywhere
    $ cd_config
+   
+   # auto-gen Table of Contents for a specific markdown file
+   $ md_toc README.md 
+   # auto-gen Table of Contents for a specific directory containing all markdown files
+   $ md_toc_dir docs
    ```
-
+   
    
 
 ## 1.1 Adlink MXE 211 (SUMMIT + Lidar PC)
@@ -81,8 +86,6 @@ $ rm -rf ~/UWARL_catkin_ws
 $ cd_config
 $ ./scripts/auto-config_UWARL_catkin_ws.zsh
 ```
-
-
 
 ### 1.1.1 PS Controller:
 
@@ -395,3 +398,11 @@ rm -rf ~/.catkin_tools
 
 
 
+
+
+
+<eof>
+
+---
+[*> Back To Top <*](#Table of Contents)
+</eof>

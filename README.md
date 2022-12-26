@@ -1,3 +1,11 @@
+<toc>
+
+# Table of Contents
+[*Last generated: Mon 26 Dec 2022 10:53:13 EST*]
+- [**Instructions on Wiki Page**](#Instructions-on-Wiki-Page)
+
+---
+</toc>
 <a href="https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/wiki" target="_blank"><img src="https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/blob/main/docs/resources/button.png" alt="Click Here to Access Lab Wiki Page and Guide"/></a>
 
 
@@ -16,16 +24,15 @@
 
       ```bash
       # This file only targets `${scritp-loc}/../docs/*.md` files
-      # - to update toc for modified/added files before committing:
-      $ bash scripts/markdown-toc.sh
+      # - to update toc for modified files before committing:
+      $ source scripts/markdown-toc.sh && markdown_toc_directory -git
       # - update all toc for all files regardless of files changes:
-      $ bash scripts/markdown-toc.sh -a
+      $ source scripts/markdown-toc.sh && markdown_toc_directory docs
       ```
-      - It will delete previous TOC block within `<toc> ... </toc>` 
-      - It will then stub the latest TOC at teh head of the markdown file
 
-3. To generate `_SideBar.md` for Wiki:
-   
-   1. Install: `$ npm install github-wiki-sidebar -g`
-   
-   2. Generate: `$ cd docs && github-wiki-sidebar --silent`
+
+<eof>
+
+---
+[*> Back To Top <*](#Table of Contents)
+</eof>
