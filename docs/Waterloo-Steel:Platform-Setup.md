@@ -227,6 +227,8 @@ $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
 
   ```bash
   $ sudo apt install zsh
+  # change to default in zsh
+  $ sudo chsh -s $(which zsh)
   ```
 
 - **Oh-my-zsh** (THE hipster dev tool + coke)
@@ -1398,11 +1400,11 @@ $ sudo cp ~/uwarl-robot_configs/summit/user_services/environment ~/.ros/
    Serial: f1320485 #EE
    Serial: f1271800 #base
    
-   roslaunch realsense2_camera rs_camera.launch camera:=cam_1 serial_no:=f1320485 Initial_reset:=true depth_fps:=15 color_fps:=15 color_enable_auto_exposure:=0
+   roslaunch realsense2_camera rs_camera.launch camera:=cam_EE serial_no:=f1320485 Initial_reset:=true depth_fps:=15 color_fps:=15 color_enable_auto_exposure:=0
    
    # filters:=spatial,temporal,pointcloud 
    
-   roslaunch realsense2_camera rs_camera.launch camera:=cam_2 serial_no:=f1271800 Initial_reset:=true depth_fps:=15 color_fps:=15 color_enable_auto_exposure:=0
+   roslaunch realsense2_camera rs_camera.launch camera:=cam_base serial_no:=f1271800 Initial_reset:=true depth_fps:=15 color_fps:=15 color_enable_auto_exposure:=0
    ```
 
    
@@ -1466,3 +1468,86 @@ sudo iptables -P OUTPUT ACCEPT
 ```
 
 - https://www.digitalocean.com/community/tutorials/how-to-list-and-delete-iptables-firewall-rules
+
+
+
+# 3. Steam Deck 
+
+- Note:
+
+  - SteamOS 3.0 is arch based. 
+  - `pacman` instead of `apt-get`
+
+- refer to https://github.com/ctu-vras/steam-deck-ros-controller
+
+  - Some keynote:
+
+  ```bash
+  # Open terminal (Konsole) from the KDE app menu->System.
+  #Set the user's password: type passwd and type your password twice. Now you can use sudo.
+  $ passwd
+  #Make the filesystem read-write: 
+  $ sudo steamos-readonly disable .
+  #Enable SSH server: 
+  $ sudo systemctl enable sshd.service && sudo systemctl start sshd.service .
+  # Now you can finally connect to the deck via SSH from your laptop.
+  ```
+
+  - ssh:
+
+  ```bash
+  # deck@steamdeck
+  $ ssh deck@192.168.5.79 
+  ```
+
+  - Config files:
+
+  ```bash
+  (deck@steamdeck JX_Linux)$ sudo cp -r steam-deck-ros-controller/etc/NetworkManager/dispatcher.d/pre-up.d/disable-wifi-power-saving.sh /etc/NetworkManager/dispatcher.d/pre-up.d/
+  (deck@steamdeck JX_Linux)$ sudo cp -r steam-deck-ros-controller/etc/systemd/logind.conf.d/* /etc/systemd/logind.conf.d/
+  ```
+
+  - > ros-noetic-global-planner-1.17.1-py38he9ab703_6 requires python 3.8.*
+
+  - Hence we need to setup 3.8 env
+
+- ```bash
+  $ cd ws 
+  $ cd ..
+  $ catkin config --extend /home/deck/mambaforge/envs/ros_env_3_8
+  ```
+
+- ```bash
+  # UWARL_catkin_ws missing:
+  $ mamba install ros-noetic-ddynamic-reconfigure
+  $ mamba install ros-noetic-robot-localization
+  $ mamba install ros-noetic-mavros
+  $ mamba install ros-noetic-joint-state-controller
+  $ mamba install ros-noetic-velocity-controllers
+  $ mamba install ros-noetic-gmapping
+  $ mamba install ros-noetic-map-server
+  mamba install -y ros-noetic-amcl
+  mamba install -y ros-noetic-twist-mux
+  mamba install -y ros-noetic-diff-drive-controller
+  ```
+
+- Computer Spec:
+
+  ```bash
+  Architecture:            x86_64
+    CPU op-mode(s):        32-bit, 64-bit
+    Address sizes:         44 bits physical, 48 bits virtual
+    Byte Order:            Little Endian
+  CPU(s):                  8
+    On-line CPU(s) list:   0-7
+  Vendor ID:               AuthenticAMD
+    Model name:            AMD Custom APU 0405
+      CPU family:          23
+      Model:               144
+      Thread(s) per core:  2
+      Core(s) per socket:  4
+      Socket(s):           1
+      Stepping:            2
+  ```
+
+  
