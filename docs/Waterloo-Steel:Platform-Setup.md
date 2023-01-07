@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri  6 Jan 2023 22:35:57 EST*]
+[*Last generated: Fri  6 Jan 2023 23:01:31 EST*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen:](#01-Remote-Screen)
     - [0.1.1 XRDP SSH --> Adlink](#011-XRDP-SSH-Adlink)
@@ -55,6 +55,13 @@
   - [2.8 [:wrench: If Manual] Vicon](#28-wrench-If-Manual-Vicon)
     - [2.8.1 (Don't attempt to use below) Port Forwarding](#281-Dont-attempt-to-use-below-Port-Forwarding)
 - [**3. Steam Deck**](#3-Steam-Deck)
+  - [3.1 Prepare the system](#31-Prepare-the-system)
+    - [3.1.1 Prepare Hardware Configuration](#311-Prepare-Hardware-Configuration)
+    - [3.1.2 Enable SSH](#312-Enable-SSH)
+    - [3.1.3 Disable Wifi Power Saving & Keep User Process](#313-Disable-Wifi-Power-Saving-Keep-User-Process)
+    - [3.1.4 Arch Linux OS pkg manager](#314-Arch-Linux-OS-pkg-manager)
+    - [3.1.4 ROS Noetic](#314-ROS-Noetic)
+  - [3.2 [:star: automated] UWARL ROS Catkin Workspace Setup](#32-star-automated-UWARL-ROS-Catkin-Workspace-Setup)
 
 ---
 </toc>
@@ -1477,60 +1484,7 @@ sudo iptables -P OUTPUT ACCEPT
   - SteamOS 3.0 is arch based. 
   - `pacman` instead of `apt-get`
 
-- refer to https://github.com/ctu-vras/steam-deck-ros-controller
-
-  - Some keynote:
-
-  ```bash
-  # Open terminal (Konsole) from the KDE app menu->System.
-  #Set the user's password: type passwd and type your password twice. Now you can use sudo.
-  $ passwd
-  #Make the filesystem read-write: 
-  $ sudo steamos-readonly disable .
-  #Enable SSH server: 
-  $ sudo systemctl enable sshd.service && sudo systemctl start sshd.service .
-  # Now you can finally connect to the deck via SSH from your laptop.
-  ```
-
-  - ssh:
-
-  ```bash
-  # deck@steamdeck
-  $ ssh deck@192.168.5.79 
-  ```
-
-  - Config files:
-
-  ```bash
-  (deck@steamdeck JX_Linux)$ sudo cp -r steam-deck-ros-controller/etc/NetworkManager/dispatcher.d/pre-up.d/disable-wifi-power-saving.sh /etc/NetworkManager/dispatcher.d/pre-up.d/
-  (deck@steamdeck JX_Linux)$ sudo cp -r steam-deck-ros-controller/etc/systemd/logind.conf.d/* /etc/systemd/logind.conf.d/
-  ```
-
-  - > ros-noetic-global-planner-1.17.1-py38he9ab703_6 requires python 3.8.*
-
-  - Hence we need to setup 3.8 env
-
-- ```bash
-  $ cd ws 
-  $ cd ..
-  $ catkin config --extend /home/deck/mambaforge/envs/ros_env_3_8
-  ```
-
-- ```bash
-  # UWARL_catkin_ws missing:
-  $ mamba install ros-noetic-ddynamic-reconfigure
-  $ mamba install ros-noetic-robot-localization
-  $ mamba install ros-noetic-mavros
-  $ mamba install ros-noetic-joint-state-controller
-  $ mamba install ros-noetic-velocity-controllers
-  $ mamba install ros-noetic-gmapping
-  $ mamba install ros-noetic-map-server
-  mamba install -y ros-noetic-amcl
-  mamba install -y ros-noetic-twist-mux
-  mamba install -y ros-noetic-diff-drive-controller
-  ```
-
-- Computer Spec:
+- Spec:
 
   ```bash
   Architecture:            x86_64
@@ -1549,7 +1503,165 @@ sudo iptables -P OUTPUT ACCEPT
       Stepping:            2
   ```
 
-  
+## 3.1 Prepare the system 
+
+- refer to https://github.com/ctu-vras/steam-deck-ros-controller, **BUT** do not follow their instructions, as their configuration files are for their system. Ours are auto-configured with step: [3.2 [:star: automated] UWARL ROS Catkin Workspace Setup](#32-star-automated-UWARL-ROS-Catkin-Workspace-Setup)
+
+> :warning: *At any time, if you are in the gaming mode, switching to desktop mode is done via the Power off menu. (after pressing physical steam button) **
+
+>  :notebook:**To summon the on-screen keyboard, press STEAM+X. To hide it, press B.*
+
+> :warning: Keep the Deck connected to a power source to prevent it from falling asleep.*
+
+### 3.1.1 Prepare Hardware Configuration
+
+1. [Set the amount of reserved GPU memory to 4 GB](https://www.youtube.com/watch?v=3iivwka513Y&t=677s) (in Desktop mode, the auto mode somehow doesn't work and VRAM is capped at 1 GB normally).
+
+2. Still in gaming mode, go to [Settings->Enable developer mode](https://tuxexplorer.com/how-to-enable-developer-mode-on-steam-deck) .
+
+3. Still in gaming mode, go to [Developer->Enable Wifi power management](https://tuxexplorer.com/wifi-power-saving-mode-on-the-steam-deck) and turn it off (it lowers the performance and make SSH sessions very sluggish). This will want a reboot. Do it.
+
+4. Switch to Desktop mode (see the notice above).
+
+5. Tap the Steam icon in taskbar, select Settings -> Controller -> Desktop configuration. This menu allows you to configure the gamepad behavior, so that the `joy_node` can read it. Press X to browse available configs. Select Templates->Gamepad->Apply configuration. Do any other adjustments you like, but do not touch the JOYSTICK MOVE areas. You can't return these values back! What I do is configure L4 as Ctrl+R, L5 as Ctrl+C, R4 as up arrow and R5 as down arrow.
+
+   > :notebook: Jack has created a custom profile that we can use shortcut buttons and touch pad as mouse trackpad while the joystick as game controller.
+
+### 3.1.2 Enable SSH
+
+1. Open terminal (Konsole) from the KDE app menu->System.
+
+2. Set the user's password: type `passwd` and type your password twice. Now you can use `sudo`.
+
+   ```bash
+   $ passwd
+   ```
+
+3. Make the filesystem read-write:
+
+   ```bash
+   $ sudo steamos-readonly disable 
+   ```
+
+4. Enable SSH server:
+
+   ```bash
+   $ sudo systemctl enable sshd.service && sudo systemctl start sshd.service .
+   # Now you can finally connect to the deck via SSH from your laptop.
+   
+   # deck@steamdeck
+   $ ssh deck@192.168.1.15
+   ```
+
+### 3.1.3 Disable Wifi Power Saving & Keep User Process
+
+- Clone the steam-deck-ros-controller repository: 
+
+  ```bash
+  $ mkdir JX_Linux
+  $ git clone https://github.com/ctu-vras/steam-deck-ros-controller
+  ```
+
+- Config files:
+
+  ```bash
+  (deck@steamdeck JX_Linux)$ sudo cp -r steam-deck-ros-controller/etc/NetworkManager/dispatcher.d/pre-up.d/disable-wifi-power-saving.sh /etc/NetworkManager/dispatcher.d/pre-up.d/
+  (deck@steamdeck JX_Linux)$ sudo cp -r steam-deck-ros-controller/etc/systemd/logind.conf.d/* /etc/systemd/logind.conf.d/
+  ```
+
+### 3.1.4 Arch Linux OS pkg manager
+
+```bash
+echo "keyserver hkps://keyserver.ubuntu.com" | sudo tee -a /etc/pacman.d/gnupg/gpg.conf
+wget https://archlinux.org/packages/core/any/archlinux-keyring/download -O ~/arch-keyring.tar.zst
+sudo pacman-key --init
+sudo pacman-key --populate
+sudo pacman-key --refresh-keys
+sudo pacman -U ~/arch-keyring.tar.zst
+yay -S base-devel
+```
+
+### 3.1.4 ROS Noetic
+
+```bash
+wget "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
+bash Mambaforge-$(uname)-$(uname -m).sh
+# follow the install steps; when finished, open a new bash console
+conda install mamba -c conda-forge
+mamba create -n ros_env_3_8 python=3.8
+conda activate ros_env_3_8 
+conda config --env --add channels conda-forge
+conda config --env --add channels robostack
+conda config --env --add channels robostack-experimental
+mamba install ros-noetic-desktop ros-noetic-image-transport-plugins
+mamba install compilers cmake pkg-config make ninja catkin_tools
+mamba install rosdep
+rosdep init # note: do not use sudo!
+rosdep update
+pip install -U vcstool
+```
+
+## 3.2 [:star: automated] UWARL ROS Catkin Workspace Setup
+
+0. Pre-req:
+
+   1. **Make sure SSH authenticated with Github, see instruction @ [0.2 SSH Keys and Github](#0.2 SSH Keys and Github)**
+
+   2. Zsh: [0.4 ZSH & oh-my-zsh](#04-ZSH-oh-my-zsh)
+
+1. Clone configurations: 
+
+   ```zsh
+   $ cd ~ && git clone git@github.com:UW-Advanced-Robotics-Lab/uwarl-robot_configs.git
+   ```
+
+2. Install the repo and configure hardware with auto-script:
+
+   ```zsh
+   $ cd ~ && ./uwarl-robot_configs/scripts/auto-config_UWARL_catkin_ws.zsh
+   ```
+
+
+3. Config ros and catkin:
+
+   >  ros-noetic-global-planner-1.17.1-py38he9ab703_6 requires python 3.8.*
+
+   1. ```bash
+      $ source_all
+      $ cd_ws 
+      $ cd ..
+      $ catkin config --extend /home/deck/mambaforge/envs/ros_env_3_8
+      ```
+
+   2. ```bash
+      # UWARL_catkin_ws missing:
+      $ mamba install ros-noetic-ddynamic-reconfigure
+      $ mamba install ros-noetic-robot-localization
+      $ mamba install ros-noetic-mavros
+      $ mamba install ros-noetic-joint-state-controller
+      $ mamba install ros-noetic-velocity-controllers
+      $ mamba install ros-noetic-gmapping
+      $ mamba install ros-noetic-map-server
+      mamba install -y ros-noetic-amcl
+      mamba install -y ros-noetic-twist-mux
+      mamba install -y ros-noetic-diff-drive-controller
+      ```
+
+4. Catkin Build:    
+
+   ```bash
+   # source robot config env & ros
+   $ source ~/.zshrc
+   # build:
+   $ build_ws # from anywhere, which will does the job for you :P (Jack is too lazy)
+   # source:
+   $ source_ws # lemme know if we should auto-source after build, :wink:
+   ```
+
+
+
+
+
 
 
 
