@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 26 Dec 2022 11:03:02 EST*]
+[*Last generated: Fri  6 Jan 2023 22:35:56 EST*]
 - [**0. GitHub**](#0-GitHub)
 - [**1. Git**](#1-Git)
   - [1.1 Intro. to Git](#11-Intro-to-Git)
@@ -203,6 +203,7 @@ class PyClass:
     ```
 
   
+
 
 
 

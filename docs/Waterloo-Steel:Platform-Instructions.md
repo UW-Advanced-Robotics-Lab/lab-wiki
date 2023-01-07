@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 26 Dec 2022 11:03:02 EST*]
+[*Last generated: Fri  6 Jan 2023 22:35:56 EST*]
 - [**1. Waterloo Steel Robot Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Launch-Instructions-construction)
   - [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC)
     - [1.1.0 Reset Workspace:](#110-Reset-Workspace)
@@ -10,6 +10,9 @@
   - [1.2 Jetson Orin (WAM + Vision PC)](#12-Jetson-Orin-WAM-Vision-PC)
     - [1.2.1 WAM:](#121-WAM)
     - [1.2.2 ZED:](#122-ZED)
+  - [1.3 Steam Deck Controller](#13-Steam-Deck-Controller)
+    - [1.3.1 Launch Pad](#131-Launch-Pad)
+    - [1.3.2 Launch Rviz](#132-Launch-Rviz)
 - [**2. Unified Development :construction:**](#2-Unified-Development-construction)
   - [2.1 How to commit:](#21-How-to-commit)
   - [2.2 How to Add a new modules under workspace/src:](#22-How-to-Add-a-new-modules-under-workspacesrc)
@@ -144,6 +147,24 @@ $ rosservice call /wam/joint_move "joints:
 
 ```bash
 $ roslaunch zed_wrapper zed.launch
+```
+
+
+
+## 1.3 Steam Deck Controller
+
+![deck](resources/deck_controller.jpg)
+
+### 1.3.1 Launch Pad 
+
+```bash
+$ roslaunch summit_xl_pad waterloo_steel_summit_deck.launch
+```
+
+### 1.3.2 Launch Rviz
+
+```bash
+$ rosrun rviz rviz
 ```
 
 
@@ -395,6 +416,7 @@ rm -rf ~/.catkin_tools
 ```
 
 - [Ref](https://github.com/catkin/catkin_tools/issues/425)
+
 
 
 

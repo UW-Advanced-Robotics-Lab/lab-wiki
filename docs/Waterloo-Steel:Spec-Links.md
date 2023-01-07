@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 26 Dec 2022 11:03:03 EST*]
+[*Last generated: Fri  6 Jan 2023 22:35:57 EST*]
 - [**Platform Specific**](#Platform-Specific)
   - [Barrett WAM ARM](#Barrett-WAM-ARM)
   - [SUMMIT-XLS Mobile Platform](#SUMMIT-XLS-Mobile-Platform)
@@ -23,6 +23,7 @@
 ## SUMMIT-XLS Mobile Platform
 - Summit Simulation: https://github.com/RobotnikAutomation/summit_xl_sim
 - (OUR) Summit Codebase (@fwthree3): https://github.com/UW-Advanced-Robotics-Lab/summit-xls
+
 
 
 

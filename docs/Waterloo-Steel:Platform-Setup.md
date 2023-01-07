@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 26 Dec 2022 11:03:03 EST*]
+[*Last generated: Fri  6 Jan 2023 22:35:57 EST*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen:](#01-Remote-Screen)
     - [0.1.1 XRDP SSH --> Adlink](#011-XRDP-SSH-Adlink)
@@ -1550,6 +1550,7 @@ sudo iptables -P OUTPUT ACCEPT
   ```
 
   
+
 
 
 
