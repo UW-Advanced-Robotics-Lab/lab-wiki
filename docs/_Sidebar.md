@@ -5,6 +5,7 @@
 
   * :label: **[   Lab   ]:**
     * [:diamond_shape_with_a_dot_inside: *Code of Conduct*](./Lab%3ACode-of-Conduct)
+    * [:diamond_shape_with_a_dot_inside: *Getting Started*](./Lab%3AGetting-Started)
     * [:diamond_shape_with_a_dot_inside: *List of Projects and Papers*](./Lab%3AList-of-Projects-and-Papers)
     * [:diamond_shape_with_a_dot_inside: *On going Projects*](./Lab%3AOn-going-Projects)
     * [:diamond_shape_with_a_dot_inside: *User Guide*](./Lab%3AUser-Guide)
