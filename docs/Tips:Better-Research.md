@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri  6 Jan 2023 22:35:56 EST*]
+[*Last generated: Sat 21 Jan 2023 12:40:46 EST*]
 - [**Writing a Paper:**](#Writing-a-Paper)
   - [Book:](#Book)
   - [Data Visualization:](#Data-Visualization)
@@ -82,6 +82,7 @@
 1. [Camera and Lenses and Artifacts with visual aids](https://ciechanow.ski/cameras-and-lenses/) #intro
 
 ---
+
 
 
 

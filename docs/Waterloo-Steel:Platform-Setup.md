@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri  6 Jan 2023 23:01:31 EST*]
+[*Last generated: Sat 21 Jan 2023 12:40:47 EST*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen:](#01-Remote-Screen)
     - [0.1.1 XRDP SSH --> Adlink](#011-XRDP-SSH-Adlink)
@@ -62,6 +62,8 @@
     - [3.1.4 Arch Linux OS pkg manager](#314-Arch-Linux-OS-pkg-manager)
     - [3.1.4 ROS Noetic](#314-ROS-Noetic)
   - [3.2 [:star: automated] UWARL ROS Catkin Workspace Setup](#32-star-automated-UWARL-ROS-Catkin-Workspace-Setup)
+  - [3.3 Utilities (ArchLinux)](#33-Utilities-ArchLinux)
+    - [3.3.1 VSCode](#331-VSCode)
 
 ---
 </toc>
@@ -1657,6 +1659,15 @@ pip install -U vcstool
    # source:
    $ source_ws # lemme know if we should auto-source after build, :wink:
    ```
+
+## 3.3 Utilities (ArchLinux)
+
+### 3.3.1 VSCode
+
+```bash
+yay -S visual-studio-code-bin
+```
+
 
 
 
