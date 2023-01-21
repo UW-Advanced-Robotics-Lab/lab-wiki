@@ -30,12 +30,12 @@
       $ source scripts/markdown-toc.sh && markdown_toc_directory docs
       ```
       
-   1. If `uwarl-robot_configs` is installed, use:
+   1. ⭐ If `uwarl-robot_configs` is installed, use:
    
       ```bash
-      $ md_toc_dir -git
-      $ md_toc_dir docs
-      $ md_toc README.md
+      $ md_toc_dir git  	# update only modified readme
+      $ md_toc_dir docs 	# update all readme in docs
+      $ md_toc README.md	# update a specific readme file
       ```
 
 
