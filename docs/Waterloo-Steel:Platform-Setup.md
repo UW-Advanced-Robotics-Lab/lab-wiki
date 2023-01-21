@@ -1,12 +1,13 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Sat 21 Jan 2023 12:54:54 EST*]
+[*Last generated: Sat 21 Jan 2023 13:22:47 EST*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen:](#01-Remote-Screen)
     - [0.1.1 XRDP SSH](#011-XRDP-SSH)
     - [0.1.2 :no_entry_sign: VNC](#012-no_entry_sign-VNC)
     - [0.1.3 :star: NO MACHINE (preferred, without monitor attached)](#013-star-NO-MACHINE-preferred-without-monitor-attached)
+    - [0.1.4 Remote Desktop Auto-Sleep and Auto-Wake Scheduling:](#014-Remote-Desktop-Auto-Sleep-and-Auto-Wake-Scheduling)
   - [0.2 SSH Keys and Github](#02-SSH-Keys-and-Github)
   - [0.3 Commonly used command:](#03-Commonly-used-command)
   - [0.4 ZSH and oh-my-zsh](#04-ZSH-and-oh-my-zsh)
@@ -222,7 +223,26 @@ $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
     $ sudo cp ~/uwarl-robot_configs/desktop/etc/X11/xorg.conf /etc/X11/xorg.conf
     ```
     
-    
+
+### 0.1.4 Remote Desktop Auto-Sleep and Auto-Wake Scheduling:
+
+```bash
+$ sudo cp ~/uwarl-robot_configs/desktop/suspend_until $HOME
+# Takes a 24hour time HH:MM as its argument
+# Example:
+#
+$ suspend_until 9:30
+#     suspend_until 18:45
+#
+# You can create a root cron job that calls this script to execute at a
+# specific time in the evening and then awake in the morning:
+#
+$ sudo crontab -e
+#
+# Now enter something like to run the suspend script at 23:30:
+#
+30 23 * * * /home/myhomefolder/suspend_until 07:30 
+```
 
 ## 0.2 SSH Keys and Github
 
@@ -1675,6 +1695,7 @@ pip install -U vcstool
 ```bash
 yay -S visual-studio-code-bin
 ```
+
 
 
 
