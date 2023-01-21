@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Sat 21 Jan 2023 12:40:47 EST*]
+[*Last generated: Sat 21 Jan 2023 12:54:54 EST*]
 - [**1. Waterloo Steel Robot Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Launch-Instructions-construction)
   - [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC)
     - [1.1.0 Reset Workspace:](#110-Reset-Workspace)
@@ -416,6 +416,8 @@ rm -rf ~/.catkin_tools
 ```
 
 - [Ref](https://github.com/catkin/catkin_tools/issues/425)
+
+
 
 
 

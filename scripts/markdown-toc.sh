@@ -124,7 +124,7 @@ function markdown_toc(){
 function markdown_toc_directory(){
     local file=${1:?No directory was specified as first argument}
     # markdown batch process:
-    if [[ $1 = "-git" ]]; then
+    if [[ $1 = "git" ]]; then
         # process only '.md' files from git status
         LIST_OF_MD=($(git diff --name-only | grep -E "\.md$"))
     else

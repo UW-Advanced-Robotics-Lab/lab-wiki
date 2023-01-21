@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Sat 21 Jan 2023 12:40:46 EST*]
+[*Last generated: Sat 21 Jan 2023 12:54:53 EST*]
 - [**Lab GitHub Usage**](#Lab-GitHub-Usage)
   - [Make your profile visible to public:](#Make-your-profile-visible-to-public)
 
@@ -17,6 +17,8 @@
 - Official Instruction Reference: https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-your-membership-in-organizations/publicizing-or-hiding-organization-membership
 
   
+
+
 
 
 
