@@ -23,6 +23,7 @@
     * [:diamond_shape_with_a_dot_inside: *Dev Tools*](./Tips%3ADev-Tools)
 
   * :label: **[   Waterloo Steel   ]:**
+    * [:diamond_shape_with_a_dot_inside: *Demo Launch Instruction*](./Waterloo-Steel%3ADemo-Launch-Instruction)
     * [:diamond_shape_with_a_dot_inside: *Platform Instructions*](./Waterloo-Steel%3APlatform-Instructions)
     * [:diamond_shape_with_a_dot_inside: *Platform Setup*](./Waterloo-Steel%3APlatform-Setup)
     * [:diamond_shape_with_a_dot_inside: *Spec Hardware*](./Waterloo-Steel%3ASpec-Hardware)

@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Sat 21 Jan 2023 13:22:47 EST*]
+[*Last generated: Tue 21 Feb 2023 12:29:38 EST*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen:](#01-Remote-Screen)
     - [0.1.1 XRDP SSH](#011-XRDP-SSH)
@@ -64,7 +64,10 @@
     - [3.1.4 ROS Noetic](#314-ROS-Noetic)
   - [3.2 [:star: automated] UWARL ROS Catkin Workspace Setup](#32-star-automated-UWARL-ROS-Catkin-Workspace-Setup)
   - [3.3 Utilities (ArchLinux)](#33-Utilities-ArchLinux)
-    - [3.3.1 VSCode](#331-VSCode)
+    - [3.3.0 Default pkg:](#330-Default-pkg)
+    - [3.3.1 fakeroot](#331-fakeroot)
+    - [3.3.2 VSCode](#332-VSCode)
+    - [3.3.3 NoMachine (Not native support)](#333-NoMachine-Not-native-support)
 
 ---
 </toc>
@@ -1567,7 +1570,7 @@ sudo iptables -P OUTPUT ACCEPT
    $ passwd
    ```
 
-3. Make the filesystem read-write:
+3. Make the filesystem read-write: :notebook: Need to disable after OS updates
 
    ```bash
    $ sudo steamos-readonly disable 
@@ -1677,7 +1680,7 @@ pip install -U vcstool
       mamba install -y ros-noetic-diff-drive-controller
       ```
 
-4. Catkin Build:    
+4. Catkin Build:
 
    ```bash
    # source robot config env & ros
@@ -1690,13 +1693,40 @@ pip install -U vcstool
 
 ## 3.3 Utilities (ArchLinux)
 
-### 3.3.1 VSCode
+### 3.3.0 Default pkg:
 
 ```bash
-yay -S visual-studio-code-bin
+$ sudo pacman -S --needed git base-devel
 ```
 
+### 3.3.1 fakeroot
 
+```bash
+# you may be missing fakeroot:
+$ sudo pacman -S fakeroot
+```
+
+### 3.3.2 VSCode
+
+- https://linuxhint.com/install_visual_studio_code_arch_linux/
+
+```bash
+$ cd ~/JX_Linux
+$ git clone https://AUR.archlinux.org/visual-studio-code-bin.git	
+$ cd visual-studio-code-bin/
+$ makepkg -s
+# install:
+$ sudo pacman -U visual-studio-code-bin-*.pkg.tar.xz
+```
+
+### 3.3.3 NoMachine (Not native support)
+
+```bash
+$ cd /usr
+$ wget https://download.nomachine.com/download/8.3/Linux/nomachine_8.3.1_1_x86_64.tar.gz
+$ sudo tar zxvf nomachine_8.3.1_1_x86_64.tar.gz
+$ sudo /usr/NX/nxserver --install redhat
+```
 
 
 
