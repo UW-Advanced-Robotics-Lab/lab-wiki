@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Tue 21 Feb 2023 12:29:35 EST*]
+[*Last generated: Wed 22 Feb 2023 16:32:54 EST*]
 - [**1. Waterloo Steel Demo**](#1-Waterloo-Steel-Demo)
   - [1.1 Powering on the robot](#11-Powering-on-the-robot)
   - [1.2 Launching the Camera](#12-Launching-the-Camera)
@@ -10,6 +10,10 @@
   - [1.5 Check Demo Rosbag Records:](#15-Check-Demo-Rosbag-Records)
 - [**A. Troubleshoot**](#A-Troubleshoot)
   - [A.1 Deck Controller Cannot Launch:](#A1-Deck-Controller-Cannot-Launch)
+- [**B. Hardware Guide**](#B-Hardware-Guide)
+  - [B.1 Steam Deck Controller Button Layout](#B1-Steam-Deck-Controller-Button-Layout)
+    - [B.1.a) Move Summit:](#B1a-Move-Summit)
+    - [B.1.b) Steam Arch Linux:](#B1b-Steam-Arch-Linux)
 
 ---
 </toc>
@@ -123,6 +127,30 @@ $ ls ~/.ros/bagfiles/waterloo_steel_demo/session_{id}/
      > ```
 
 
+
+# B. Hardware Guide
+
+## B.1 Steam Deck Controller Button Layout
+
+![steam_deck_ports_controls](resources/steam_deck_ports_controls.jpg)
+
+### B.1.a) Move Summit:
+
+- Launch the joystick controller by touching **[Launch UWARL Summit Controller]** App Icon
+
+- Button Layouts:
+  - Hold :three: **[R1]**  + Move Up/Down :one: **[L3]** : Forward/Reverse
+  - Hold :three: **[R1]**  + Move Left/Right :two: **[R3]** : CCW/CW
+
+### B.1.b) Steam Arch Linux:
+
+- :four: **[R4]** : Scroll Up
+- :five: **[R5]** : Scroll Down
+- :six: **[L5]** : Left Mouse Click for Mouse Menus
+- :seven: **[L4]** : Enter 
+- :eight: **[Left Trackpad]**  Button Click : Arrow Key Up/Down/Left/Right
+- 9️⃣ **[Right Trackpad]** : Mouse Move +  Mouse Right Click
+- :keycap_ten: **[Steam]** : Menu Selection ---> Used to switch between Steam OS / ArchLinux Mode + Power/Restart
 
 
 
