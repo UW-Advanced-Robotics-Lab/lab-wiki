@@ -118,7 +118,8 @@ $ ls ~/.ros/bagfiles/waterloo_steel_demo/session_{id}/
      > $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch
      > 
      > # stop/restart
-     > $ systemctl stop/restart --user roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch
+     > $ systemctl stop --user roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch
+     > $ systemctl restart --user roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch
      > 
      > # You may want to check if the workspace is at the right target, and built successfully:
      > $ check_ws_status
