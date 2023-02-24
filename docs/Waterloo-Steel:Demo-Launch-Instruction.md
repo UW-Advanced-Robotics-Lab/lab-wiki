@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed 22 Feb 2023 16:32:54 EST*]
+[*Last generated: Fri 24 Feb 2023 10:26:59 EST*]
 - [**1. Waterloo Steel Demo**](#1-Waterloo-Steel-Demo)
   - [1.1 Powering on the robot](#11-Powering-on-the-robot)
   - [1.2 Launching the Camera](#12-Launching-the-Camera)
@@ -10,6 +10,7 @@
   - [1.5 Check Demo Rosbag Records:](#15-Check-Demo-Rosbag-Records)
 - [**A. Troubleshoot**](#A-Troubleshoot)
   - [A.1 Deck Controller Cannot Launch:](#A1-Deck-Controller-Cannot-Launch)
+  - [A.2 ROS Testing](#A2-ROS-Testing)
 - [**B. Hardware Guide**](#B-Hardware-Guide)
   - [B.1 Steam Deck Controller Button Layout](#B1-Steam-Deck-Controller-Button-Layout)
     - [B.1.a) Move Summit:](#B1a-Move-Summit)
@@ -113,9 +114,9 @@ $ ls ~/.ros/bagfiles/waterloo_steel_demo/session_{id}/
      > $ systemctl status --user roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch
      > 
      > # [DEBUG] - print out last msg (double-check time-stamp):
-     > $ journalctl --user --user-unit=roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch > log.txt
+     > $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch.service > log.txt
      > # [DEBUG] - Live Stream:
-     > $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch
+     > $ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch.service
      > 
      > # stop/restart
      > $ systemctl stop --user roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch
@@ -128,6 +129,21 @@ $ ls ~/.ros/bagfiles/waterloo_steel_demo/session_{id}/
      > ```
 
 
+
+## A.2 ROS Testing
+
+```bash
+$ rosnode ping -c 4 rosout
+rosnode: node is [/rosout]
+pinging /rosout with a timeout of 3.0s
+xmlrpc reply from http://ann:46635/     time=1.195908ms
+xmlrpc reply from http://ann:46635/     time=1.123905ms
+xmlrpc reply from http://ann:46635/     time=1.144886ms
+xmlrpc reply from http://ann:46635/     time=1.137018ms
+ping average: 1.150429ms
+```
+
+- http://wiki.ros.org/rosnode
 
 # B. Hardware Guide
 
@@ -152,6 +168,7 @@ $ ls ~/.ros/bagfiles/waterloo_steel_demo/session_{id}/
 - :eight: **[Left Trackpad]**  Button Click : Arrow Key Up/Down/Left/Right
 - 9️⃣ **[Right Trackpad]** : Mouse Move +  Mouse Right Click
 - :keycap_ten: **[Steam]** : Menu Selection ---> Used to switch between Steam OS / ArchLinux Mode + Power/Restart
+
 
 
 
