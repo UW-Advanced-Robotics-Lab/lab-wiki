@@ -187,9 +187,13 @@ t. GET GRPC (should be 3, else SET and SAVE it again)
 
 ## 2.3 Other Components Voltage Ranges:
 
-| Item | Model | VL   | VH   | Power | Power_max |
-| ---- | ----- | ---- | ---- | ----- | --------- |
-|      |       |      |      |       |           |
+| Item Category      | Model          | Voltage   | Rated            | Peak       | Link                                                        |
+| ------------------ | -------------- | --------- | ---------------- | ---------- | ----------------------------------------------------------- |
+| Solid State Relays | Crydom D1D60   |           |                  |            |                                                             |
+| Motor Driver       | DZCANTE-040L80 | 10-80 VDC | I_continuous=20A | I_peak=40A | [datasheet](https://www.a-m-c.com/product/dzcante-040l080/) |
+|                    |                |           |                  |            |                                                             |
+|                    |                |           |                  |            |                                                             |
+|                    |                |           |                  |            |                                                             |
 
 
 
