@@ -139,13 +139,13 @@ M7 | 0.00000142 |14.93 |0.000318
 
 ### 2.1.1 LiFePo (Original)
 
-![48VLiFePo 14S](resources/battery/48VLiFePo 14S.png)
+![48VLiFePo 14S](resources/battery/48VLiFePo_14S.jpg)
 
 - [Ref of Chart](https://footprinthero.com/lifepo4-battery-voltage-charts)
 
 ### 2.1.2 LiPo (Candidate)
 
-![52VLipo 16S](resources/battery/52VLipo 16S.png)
+![52VLipo 16S](resources/battery/52VLipo_16S.jpg)
 
 - [Ref of Chart](https://goldenmotor.com/SMF/index.php?topic=7116.0)
 
