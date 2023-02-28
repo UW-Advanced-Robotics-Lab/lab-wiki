@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 27 Feb 2023 17:14:53 EST*]
+[*Last generated: Mon 27 Feb 2023 19:54:20 EST*]
 - [**1. Barrett WAM Specs:**](#1-Barrett-WAM-Specs)
   - [1.1 7DOF WAM:](#11-7DOF-WAM)
     - [1.1.1 Motors (*1):](#111-Motors-1)
@@ -11,8 +11,9 @@
   - [1.3 Barrett Hand (*3):](#13-Barrett-Hand-3)
 - [**2. Power Table**](#2-Power-Table)
   - [2.1 Battery Status](#21-Battery-Status)
-    - [2.1.1 LiFePo (Original)](#211-LiFePo-Original)
-    - [2.1.2 LiPo (Candidate)](#212-LiPo-Candidate)
+    - [2.1.1 LiFePo (40152S 15Ah) [Original Robotnik]](#211-LiFePo-40152S-15Ah-Original-Robotnik)
+    - [2.1.2 LiPo (18650) [Candidate]](#212-LiPo-18650-Candidate)
+    - [2.1.3 Original Charger for Lithium Battery](#213-Original-Charger-for-Lithium-Battery)
   - [2.2 WAM Voltage](#22-WAM-Voltage)
     - [2.2.1 WAM Voltage Safty Module](#221-WAM-Voltage-Safty-Module)
   - [2.3 Other Components Voltage Ranges:](#23-Other-Components-Voltage-Ranges)
@@ -137,17 +138,59 @@ M7 | 0.00000142 |14.93 |0.000318
 
 ## 2.1 Battery Status
 
-### 2.1.1 LiFePo (Original)
+### 2.1.1 LiFePo (40152S 15Ah) [Original Robotnik]
 
 ![48VLiFePo 14S](resources/battery/48VLiFePo_14S.jpg)
 
 - [Ref of Chart](https://footprinthero.com/lifepo4-battery-voltage-charts)
 
-### 2.1.2 LiPo (Candidate)
+- [datasheet](https://www.servovision.com/Battery/Life/Life/headway%2040152S%20specifications%2015Ah.pdf) https://www.lifepo4-battery.com/Products/Cylindrical-battery-cell/Headway-40152S-15Ah.html 
+
+  -  Lifecycle: 2000Cycles.
+
+- | Cell      | Max Current | Const Voltage | Capacity | Temperature | Nominal Voltage | Discharge <br />(fast cont/max pulse) | Cutoff | BMS Cutoff |
+  | --------- | ----------- | ------------- | -------- | ----------- | --------------- | ------------------------------------- | ------ | ---------- |
+  | 1         | 2C（30A)    | 3.6~3.7 V     | 15 Ah    | -20~60 C    | 3.2 V           | 45A /150A                             | 2.0 V  | -          |
+  | 16 series | 2C（30A)    | 57.6 V        | 15 Ah    | -20~60 C    | 51.2 V          | 45A /150A                             | 32 V   | ?? 48V?    |
+
+### 2.1.2 LiPo (18650) [Candidate]
 
 ![52VLipo 16S](resources/battery/52VLipo_16S.jpg)
 
-- [Ref of Chart](https://goldenmotor.com/SMF/index.php?topic=7116.0)
+- [Ref of Discharging Chart](https://goldenmotor.com/SMF/index.php?topic=7116.0)
+
+![image of Charging Lithium Batteries](resources/battery/image-of-charging-lithium-batteries.jpg)
+
+
+
+- [Ref of Charging Stage Chart 18650 DigiKey](https://www.digikey.com/en/maker/blogs/charging-lithium-ion-batteries)
+
+  - > The [18650 ](http://www.powerstream.com/p/LG-ICR18650HE2-REV0.pdf)is popular cylindrical lithium cell, with a capacity of 2500 mAh. The datasheet recommends a 1250 mA constant current charge, then 4.2 V constant voltage charge, and charge termination when the current drops to **50 mA**. The datasheet specifies a fast charge, which is 4000 mA constant current, then 4.2 V constant voltage, then cut off at 100 mA, which is a C/25 charge termination.
+
+- | Cell       | Const Current | Const Voltage | Capacity | Temperature                             | Nominal Voltage | Discharge Continuous<br />(std/fast/max) | Cutoff | BMS Cutoff |
+  | ---------- | ------------- | ------------- | -------- | --------------------------------------- | --------------- | ---------------------------------------- | ------ | ---------- |
+  | 1          | 1~1.25 A      | 4.2 V         | 2.5 Ah   | 0~50 C Charging<br />-20~75 C Discharge | 3.6 V           | 0.5A / 10A / 20A                         | 2.5V   | -          |
+  | 8 parallel | 8A            | -             | 20Ah     | -                                       | 3.6 V           | 4A / 80A / 160 A                         | -      | -          |
+  | 14 series  | -             | 58.8 V        | -        | -                                       | 50.4 V          | -                                        | 35 V   | -          |
+  | 52 V       | 8A            | 58.8 V        | 20Ah     | 0~50 C Charging<br />-20~75 C Discharge | 50.4 V          | 4A / 80A / 160 A                         | 35 V   | 42 V       |
+
+- > :notebook: From the chart, the V_float = 54.4V would work during stage 3
+  >
+  > :notebook: From the table, the V_const = 58.8V < 57.6V Const Voltage Charging
+  >
+  > 📓 From the table, the I_const = 8A < 6.25A Boost Const Current
+
+### 2.1.3 Original Charger for Lithium Battery 
+
+- [Model: PB-360P-48](https://www.meanwell.com/productPdf.aspx?i=24#1)
+
+- | Boost Charging V | Float Charging V | Capacity | Output Current | Over Volt Protection | Efficiency |
+  | ---------------- | ---------------- | -------- | -------------- | -------------------- | ---------- |
+  | 57.6 V           | 54.4 V           | 20~65 Ah | 6.25 A         | 59~64 V              | 87%        |
+
+- 
+
+![charging_stages_charger_PB-360P-48](resources/battery/charging_stages_charger_PB-360P-48.png)
 
 ## 2.2 WAM Voltage
 
@@ -194,6 +237,7 @@ t. GET GRPC (should be 3, else SET and SAVE it again)
 |                    |                |           |                  |            |                                                             |
 |                    |                |           |                  |            |                                                             |
 |                    |                |           |                  |            |                                                             |
+
 
 
 
