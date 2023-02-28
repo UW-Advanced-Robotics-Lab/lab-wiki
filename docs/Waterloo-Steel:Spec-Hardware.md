@@ -176,9 +176,9 @@ M7 | 0.00000142 |14.93 |0.000318
 
 - > :notebook: From the chart, the V_float = 54.4V would work during stage 3
   >
-  > :notebook: From the table, the V_const = 58.8V < 57.6V Const Voltage Charging
+  > :notebook: From the table, the V_const_max = 58.8V > 57.6V Const Voltage Charging
   >
-  > 📓 From the table, the I_const = 8A < 6.25A Boost Const Current
+  > 📓 From the table, the I_const_max = 8A > 6.25A Boost Const Current
 
 ### 2.1.3 Original Charger for Lithium Battery 
 
