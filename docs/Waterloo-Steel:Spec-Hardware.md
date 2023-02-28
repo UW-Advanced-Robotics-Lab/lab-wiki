@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 27 Feb 2023 19:54:20 EST*]
+[*Last generated: Tue 28 Feb 2023 17:10:34 EST*]
 - [**1. Barrett WAM Specs:**](#1-Barrett-WAM-Specs)
   - [1.1 7DOF WAM:](#11-7DOF-WAM)
     - [1.1.1 Motors (*1):](#111-Motors-1)
@@ -140,9 +140,9 @@ M7 | 0.00000142 |14.93 |0.000318
 
 ### 2.1.1 LiFePo (40152S 15Ah) [Original Robotnik]
 
-![48VLiFePo 14S](resources/battery/48VLiFePo_14S.jpg)
-
 - [Ref of Chart](https://footprinthero.com/lifepo4-battery-voltage-charts)
+
+  - ![48VLiFePo 14S](resources/battery/48VLiFePo_14S.jpg)
 
 - [datasheet](https://www.servovision.com/Battery/Life/Life/headway%2040152S%20specifications%2015Ah.pdf) https://www.lifepo4-battery.com/Products/Cylindrical-battery-cell/Headway-40152S-15Ah.html 
 
@@ -155,17 +155,19 @@ M7 | 0.00000142 |14.93 |0.000318
 
 ### 2.1.2 LiPo (18650) [Candidate]
 
-![52VLipo 16S](resources/battery/52VLipo_16S.jpg)
-
 - [Ref of Discharging Chart](https://goldenmotor.com/SMF/index.php?topic=7116.0)
 
-![image of Charging Lithium Batteries](resources/battery/image-of-charging-lithium-batteries.jpg)
+  - ![52VLipo 16S](resources/battery/52VLipo_16S.jpg)
 
+- Ours:
 
+  ![52V_battery_rosbag](resources/battery/52V_battery_rosbag.png)
 
 - [Ref of Charging Stage Chart 18650 DigiKey](https://www.digikey.com/en/maker/blogs/charging-lithium-ion-batteries)
 
   - > The [18650 ](http://www.powerstream.com/p/LG-ICR18650HE2-REV0.pdf)is popular cylindrical lithium cell, with a capacity of 2500 mAh. The datasheet recommends a 1250 mA constant current charge, then 4.2 V constant voltage charge, and charge termination when the current drops to **50 mA**. The datasheet specifies a fast charge, which is 4000 mA constant current, then 4.2 V constant voltage, then cut off at 100 mA, which is a C/25 charge termination.
+
+  - ![image of Charging Lithium Batteries](resources/battery/image-of-charging-lithium-batteries.jpg)
 
 - | Cell       | Const Current | Const Voltage | Capacity | Temperature                             | Nominal Voltage | Discharge Continuous<br />(std/fast/max) | Cutoff | BMS Cutoff |
   | ---------- | ------------- | ------------- | -------- | --------------------------------------- | --------------- | ---------------------------------------- | ------ | ---------- |
@@ -188,9 +190,7 @@ M7 | 0.00000142 |14.93 |0.000318
   | ---------------- | ---------------- | -------- | -------------- | -------------------- | ---------- |
   | 57.6 V           | 54.4 V           | 20~65 Ah | 6.25 A         | 59~64 V              | 87%        |
 
-- 
-
-![charging_stages_charger_PB-360P-48](resources/battery/charging_stages_charger_PB-360P-48.png)
+- ![charging_stages_charger_PB-360P-48](resources/battery/charging_stages_charger_PB-360P-48.png)
 
 ## 2.2 WAM Voltage
 
@@ -237,6 +237,7 @@ t. GET GRPC (should be 3, else SET and SAVE it again)
 |                    |                |           |                  |            |                                                             |
 |                    |                |           |                  |            |                                                             |
 |                    |                |           |                  |            |                                                             |
+
 
 
 
