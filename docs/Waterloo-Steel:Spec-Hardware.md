@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Tue 28 Feb 2023 17:10:34 EST*]
+[*Last generated: Thu  2 Mar 2023 15:56:30 EST*]
 - [**1. Barrett WAM Specs:**](#1-Barrett-WAM-Specs)
   - [1.1 7DOF WAM:](#11-7DOF-WAM)
     - [1.1.1 Motors (*1):](#111-Motors-1)
@@ -17,6 +17,8 @@
   - [2.2 WAM Voltage](#22-WAM-Voltage)
     - [2.2.1 WAM Voltage Safty Module](#221-WAM-Voltage-Safty-Module)
   - [2.3 Other Components Voltage Ranges:](#23-Other-Components-Voltage-Ranges)
+- [**3. Sensors**](#3-Sensors)
+  - [3.1 L515 Sensor](#31-L515-Sensor)
 
 ---
 </toc>
@@ -238,6 +240,39 @@ t. GET GRPC (should be 3, else SET and SAVE it again)
 |                    |                |           |                  |            |                                                             |
 |                    |                |           |                  |            |                                                             |
 
+
+
+# 3. Sensors
+
+## 3.1 L515 Sensor
+
+- Allan Variance Based on 3 Hour Idling Camera IMU
+
+```bash
+$ rosrun allan_variance_ros analysis.py --data data/allan_variance.csv
+ACCELEROMETER:
+X Velocity Random Walk:  0.00137 m/s/sqrt(s)  0.08200 m/s/sqrt(hr)
+Y Velocity Random Walk:  0.00179 m/s/sqrt(s)  0.10751 m/s/sqrt(hr)
+Z Velocity Random Walk:  0.00200 m/s/sqrt(s)  0.11988 m/s/sqrt(hr)
+X Bias Instability:  0.00030 m/s^2  3869.16005 m/hr^2
+Y Bias Instability:  0.00055 m/s^2  7163.72035 m/hr^2
+Z Bias Instability:  0.00030 m/s^2  3869.13542 m/hr^2
+X Accel Random Walk:  0.00004 m/s^2/sqrt(s)
+Y Accel Random Walk:  0.00015 m/s^2/sqrt(s)
+Z Accel Random Walk:  0.00009 m/s^2/sqrt(s)
+GYROSCOPE:
+X Angle Random Walk:  0.00863 deg/sqrt(s)  0.51793 deg/sqrt(hr)
+Y Angle Random Walk:  0.00611 deg/sqrt(s)  0.36681 deg/sqrt(hr)
+Z Angle Random Walk:  0.00460 deg/sqrt(s)  0.27610 deg/sqrt(hr)
+X Bias Instability:  0.00161 deg/s  5.79476 deg/hr
+Y Bias Instability:  0.00111 deg/s  3.99853 deg/hr
+Z Bias Instability:  0.00037 deg/s  1.33671 deg/hr
+X Rate Random Walk:  0.00041 deg/s/sqrt(s)
+Y Rate Random Walk:  0.00027 deg/s/sqrt(s)
+Z Rate Random Walk:  0.00007 deg/s/sqrt(s)
+Writing Kalibr imu.yaml file.
+Make sure to update rostopic and rate.
+```
 
 
 
