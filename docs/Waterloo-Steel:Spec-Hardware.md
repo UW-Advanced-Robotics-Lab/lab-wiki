@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Thu  2 Mar 2023 15:56:30 EST*]
+[*Last generated: Mon  6 Mar 2023 12:20:49 EST*]
 - [**1. Barrett WAM Specs:**](#1-Barrett-WAM-Specs)
   - [1.1 7DOF WAM:](#11-7DOF-WAM)
     - [1.1.1 Motors (*1):](#111-Motors-1)
@@ -14,9 +14,15 @@
     - [2.1.1 LiFePo (40152S 15Ah) [Original Robotnik]](#211-LiFePo-40152S-15Ah-Original-Robotnik)
     - [2.1.2 LiPo (18650) [Candidate]](#212-LiPo-18650-Candidate)
     - [2.1.3 Original Charger for Lithium Battery](#213-Original-Charger-for-Lithium-Battery)
+    - [2.1.4 Comparison Table (online)](#214-Comparison-Table-online)
+    - [2.1.5 Comparison Table (Actual Collection)](#215-Comparison-Table-Actual-Collection)
+      - [2.1.5.a) Discharge vs Charging with Summit:](#215a-Discharge-vs-Charging-with-Summit)
+      - [2.1.5.b) Discharge with Summit and WAM:](#215b-Discharge-with-Summit-and-WAM)
+      - [####](#)
   - [2.2 WAM Voltage](#22-WAM-Voltage)
     - [2.2.1 WAM Voltage Safty Module](#221-WAM-Voltage-Safty-Module)
   - [2.3 Other Components Voltage Ranges:](#23-Other-Components-Voltage-Ranges)
+  - [2.4 DC-DC 48V Regulator For WAM](#24-DC-DC-48V-Regulator-For-WAM)
 - [**3. Sensors**](#3-Sensors)
   - [3.1 L515 Sensor](#31-L515-Sensor)
 
@@ -142,9 +148,7 @@ M7 | 0.00000142 |14.93 |0.000318
 
 ### 2.1.1 LiFePo (40152S 15Ah) [Original Robotnik]
 
-- [Ref of Chart](https://footprinthero.com/lifepo4-battery-voltage-charts)
-
-  - ![48VLiFePo 14S](resources/battery/48VLiFePo_14S.jpg)
+- [Ref of Discharging Chart](https://footprinthero.com/lifepo4-battery-voltage-charts)
 
 - [datasheet](https://www.servovision.com/Battery/Life/Life/headway%2040152S%20specifications%2015Ah.pdf) https://www.lifepo4-battery.com/Products/Cylindrical-battery-cell/Headway-40152S-15Ah.html 
 
@@ -159,17 +163,9 @@ M7 | 0.00000142 |14.93 |0.000318
 
 - [Ref of Discharging Chart](https://goldenmotor.com/SMF/index.php?topic=7116.0)
 
-  - ![52VLipo 16S](resources/battery/52VLipo_16S.jpg)
-
-- Ours:
-
-  ![52V_battery_rosbag](resources/battery/52V_battery_rosbag.png)
-
 - [Ref of Charging Stage Chart 18650 DigiKey](https://www.digikey.com/en/maker/blogs/charging-lithium-ion-batteries)
 
   - > The [18650 ](http://www.powerstream.com/p/LG-ICR18650HE2-REV0.pdf)is popular cylindrical lithium cell, with a capacity of 2500 mAh. The datasheet recommends a 1250 mA constant current charge, then 4.2 V constant voltage charge, and charge termination when the current drops to **50 mA**. The datasheet specifies a fast charge, which is 4000 mA constant current, then 4.2 V constant voltage, then cut off at 100 mA, which is a C/25 charge termination.
-
-  - ![image of Charging Lithium Batteries](resources/battery/image-of-charging-lithium-batteries.jpg)
 
 - | Cell       | Const Current | Const Voltage | Capacity | Temperature                             | Nominal Voltage | Discharge Continuous<br />(std/fast/max) | Cutoff | BMS Cutoff |
   | ---------- | ------------- | ------------- | -------- | --------------------------------------- | --------------- | ---------------------------------------- | ------ | ---------- |
@@ -192,7 +188,34 @@ M7 | 0.00000142 |14.93 |0.000318
   | ---------------- | ---------------- | -------- | -------------- | -------------------- | ---------- |
   | 57.6 V           | 54.4 V           | 20~65 Ah | 6.25 A         | 59~64 V              | 87%        |
 
-- ![charging_stages_charger_PB-360P-48](resources/battery/charging_stages_charger_PB-360P-48.png)
+### 2.1.4 Comparison Table (online)
+
+|      | Discharging Table                                            | Charging Stages                                              |
+| ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 48V  | [Ref of Discharging Chart](https://footprinthero.com/lifepo4-battery-voltage-charts)<br />![48VLiFePo 14S](Waterloo-Steel:Spec-Hardware.assets/48VLiFePo_14S.jpg) | [Model: PB-360P-48](https://www.meanwell.com/productPdf.aspx?i=24#1)![charging_stages_charger_PB-360P-48](Waterloo-Steel:Spec-Hardware.assets/charging_stages_charger_PB-360P-48.png)<br /> |
+| 52V  | [Ref of Discharging Chart](https://goldenmotor.com/SMF/index.php?topic=7116.0)<br />![52VLipo 16S](Waterloo-Steel:Spec-Hardware.assets/52VLipo_16S.jpg) | [Ref of Charging Stage Chart 18650 DigiKey](https://www.digikey.com/en/maker/blogs/charging-lithium-ion-batteries)<br />![image of Charging Lithium Batteries](Waterloo-Steel:Spec-Hardware.assets/image-of-charging-lithium-batteries.jpg) |
+
+
+
+
+
+### 2.1.5 Comparison Table (Actual Collection)
+
+#### 2.1.5.a) Discharge vs Charging with Summit:
+
+|      | Discharge with Summit ON Only                                | Charge with Summit ON Only                                   |
+| ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 48V  | ![48v_lifepo](resources/battery/48v_lifepo.png)              |                                                              |
+| 52V  | ![52v_lipo_full_discharge](resources/battery/52v_lipo_full_discharge.png) | ![52V_Lipo_charge_summit](resources/battery/52V_Lipo_charge_summit.png) |
+
+#### 2.1.5.b) Discharge with Summit and WAM:
+
+|      | Discharge with Summit ON and WAM_node | Discharge with Summit ON and WAM_node Op.                    |
+| ---- | ------------------------------------- | ------------------------------------------------------------ |
+| 48V  |                                       |                                                              |
+| 52V  |                                       | ![52V_battery_rosbag](Waterloo-Steel:Spec-Hardware.assets/52V_battery_rosbag.png) |
+
+#### 
 
 ## 2.2 WAM Voltage
 
@@ -240,7 +263,29 @@ t. GET GRPC (should be 3, else SET and SAVE it again)
 |                    |                |           |                  |            |                                                             |
 |                    |                |           |                  |            |                                                             |
 
+## 2.4 DC-DC 48V Regulator For WAM
 
+- We need a DC-DC Regulator for WAM at 48V and 10A or more 
+
+  - (Current Fuse Max at 10A)
+  - Rated load at 120 W with 2kg load and BHand
+  - Max Peak at 800 W
+  - Old: 50V * 10A = 500 W, and never had blown the fuse
+  - WAM Software Protection @48V: 54V Warning, 57V Cut-off
+
+  | Item                                                         | Type                                                     | Price                                                        | DCV_i         | V_o                    | I_o_rate | Regulator Topology  | Notes                                                        | Efficiency          |
+  | ------------------------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------ | ------------- | ---------------------- | -------- | ------------------- | ------------------------------------------------------------ | ------------------- |
+  | [Digikey](https://www.digikey.ca/en/products/detail/renesas-electronics-america-inc/ISL81801EVAL2Z/13681268?s=N4IgjCBcoCwBxVAYygMwIYBsDOBTANCAPZQDaIATBQGxgUwgC6hADgC5QgDKbATgJYA7AOYgAvmMIUyIACIBhALQKABADUimNumG4mYoA) - [ISL81801EVAL2Z](https://www.renesas.com/us/en/document/mat/isl81801eval2z-user-manual) | Dev Board                                                | $189.86                                                      | 32~80         | 48V                    | 5A       | Buck-Boost @ 200kHz | UV/OV/OC/OT protection                                       | >95% when  >1A <60V |
+  | [Mouser](https://www.mouser.ca/ProductDetail/CUI-Inc/VFK400W-Q48-S48-DIN?qs=WyjlAZoYn52XeugfCMaxmA%3D%3D) - [VFK400W-DIN](https://www.mouser.ca/datasheet/2/670/vfk400w_din-1774615.pdf) | Rail Mount Enclosed                                      | $904.23                                                      | 18~75         | 48V                    | 8.3A     | 250kHz              | UV/OV/OC/OT protection, isolated, heat sink                  | 87%                 |
+  | Not-stock [Mouser](https://www.mouser.ca/ProductDetail/CUI-Inc/VFK600-D48-S48-DIN?qs=WyjlAZoYn50L%2FqNpVJj4Cw%3D%3D) - [VFK600-D48-S48-DIN]() | Rail Mount Enclosed                                      | $838.02                                                      | 36~75         | 48V                    | 12.5A    |                     | UV/OV(x1.15-1.4)/OC/OT protection, isolated, heat sink       | 92%                 |
+  | **19 in stock [Digikey](https://www.digikey.ca/en/products/detail/cui-inc/VFK600-D48-S48/2770684) - [VFK600-D48-S48](https://www.cui.com/product/resource/vfk600.pdf)** | 7.84" L x 4.99" W x 1.54" H (199.1mm x 126.8mm x 39.1mm) | $714.65                                                      | -             | -                      | -        | -                   | -                                                            | -                   |
+  | **153 in stock<br />[Digikey](https://www.digikey.ca/en/products/detail/mean-well-usa-inc/SD-500L-48/7706541) - [SD-500L-48](https://www.meanwellusa.com/upload/pdf/SD-500/SD-500-spec.pdf)** | 8.46" L x 4.53" W x 1.97" H (215.0mm x 115.0mm x 50.0mm) | 239.57<br/>[$**229.45 (Mouser)**](https://www.mouser.ca/ProductDetail/MEAN-WELL/SD-500L-48?qs=umBTOZqEewis66%252Betk6pyQ%3D%3D) | 19~72         | adjustable<br />46~60V | 10.5A    | Isolated DC-DC      | forced air cooling, OV 62~68V, Remote-ON/OFF with 4-10V wire signal | 89%                 |
+  | [DDR-480C-48](https://www.meanwell.com/webapp/product/search.aspx?prod=DDR-480#1) [Mouser - 29 in stock](https://www.mouser.ca/ProductDetail/MEAN-WELL/DDR-480C-48?qs=sGAEpiMZZMsc0tfZmXiUnRRWZIj0J6UIre%252Bjcsip6HnCpoeqQekHCw%3D%3D) vs [Digikey](https://www.digikey.ca/en/products/detail/mean-well-usa-inc/DDR-480C-48/12333792) | Isoltated DIN Rail<br /> 129mm x 85.5 mm x 125.2 mm      | 306.86<br/>[**$291.90 (Digikey)**](https://www.digikey.ca/en/products/detail/mean-well-usa-inc/DDR-480C-48/12333792) | 33.6 ~ 67.2 V | adjustable<br />48~56V | 10A      | Isolated DC-DC      | All Protections, Isoltated, Remote ON-OFF, Current Sharing   | 92%                 |
+  | 3 in stock<br />RSD-500C-48<br />[Digikey](https://www.digikey.ca/en/products/detail/mean-well-usa-inc/RSD-500C-48/12341363)<br />[Mouser](https://www.mouser.ca/ProductDetail/MEAN-WELL/RSD-500C-48?qs=7MVldsJ5Uayd3YnjdzDmvg%3D%3D) | 9.33" L x 3.94" W x 1.61" H (237.0mm x 100.0mm x 41.0mm) | 364.57<br/>$**340.56 (Mouser)**                              | 33.6~67.2     | 48V                    | 9.6A     |                     | Isolated                                                     | 93%                 |
+  | **13 In Stock** [Digikey](https://www.digikey.ca/en/products/detail/analog-devices-inc/DC2456A/8544124) - [DC2456A](https://www.analog.com/media/en/technical-documentation/data-sheets/ltc3779.pdf) [Dev Board](https://www.analog.com/media/en/technical-documentation/user-guides/dc2456af.pdf) | Dev. Board                                               | **$363.74**<br />**[$348.39 (Mouser)](https://www.mouser.ca/ProductDetail/Analog-Devices/DC2456A?qs=r5DSvlrkXmIarCeA%252BwJ5mw%3D%3D)** | 16V ~ 120V    | 48V                    | 10A      | Buck-Boost @ 200kHz | Dev. Board                                                   | 98.7%               |
+  |                                                              |                                                          |                                                              |               |                        |          |                     |                                                              |                     |
+
+  
 
 # 3. Sensors
 
@@ -273,6 +318,7 @@ Z Rate Random Walk:  0.00007 deg/s/sqrt(s)
 Writing Kalibr imu.yaml file.
 Make sure to update rostopic and rate.
 ```
+
 
 
 
