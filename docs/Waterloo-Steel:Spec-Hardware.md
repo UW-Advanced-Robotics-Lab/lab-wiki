@@ -192,8 +192,8 @@ M7 | 0.00000142 |14.93 |0.000318
 
 |      | Discharging Table                                            | Charging Stages                                              |
 | ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 48V  | [Ref of Discharging Chart](https://footprinthero.com/lifepo4-battery-voltage-charts)<br />![48VLiFePo 14S](Waterloo-Steel:Spec-Hardware.assets/48VLiFePo_14S.jpg) | [Model: PB-360P-48](https://www.meanwell.com/productPdf.aspx?i=24#1)![charging_stages_charger_PB-360P-48](Waterloo-Steel:Spec-Hardware.assets/charging_stages_charger_PB-360P-48.png)<br /> |
-| 52V  | [Ref of Discharging Chart](https://goldenmotor.com/SMF/index.php?topic=7116.0)<br />![52VLipo 16S](Waterloo-Steel:Spec-Hardware.assets/52VLipo_16S.jpg) | [Ref of Charging Stage Chart 18650 DigiKey](https://www.digikey.com/en/maker/blogs/charging-lithium-ion-batteries)<br />![image of Charging Lithium Batteries](Waterloo-Steel:Spec-Hardware.assets/image-of-charging-lithium-batteries.jpg) |
+| 48V  | [Ref of Discharging Chart](https://footprinthero.com/lifepo4-battery-voltage-charts)<br />![48VLiFePo 14S](resources/battery/48VLiFePo_14S.jpg) | [Model: PB-360P-48](https://www.meanwell.com/productPdf.aspx?i=24#1)![charging_stages_charger_PB-360P-48](resources/battery/charging_stages_charger_PB-360P-48.png)<br /> |
+| 52V  | [Ref of Discharging Chart](https://goldenmotor.com/SMF/index.php?topic=7116.0)<br />![52VLipo 16S](resources/battery/52VLipo_16S.jpg) | [Ref of Charging Stage Chart 18650 DigiKey](https://www.digikey.com/en/maker/blogs/charging-lithium-ion-batteries)<br />![image of Charging Lithium Batteries](resources/battery/image-of-charging-lithium-batteries.jpg) |
 
 
 
@@ -213,7 +213,7 @@ M7 | 0.00000142 |14.93 |0.000318
 |      | Discharge with Summit ON and WAM_node | Discharge with Summit ON and WAM_node Op.                    |
 | ---- | ------------------------------------- | ------------------------------------------------------------ |
 | 48V  |                                       |                                                              |
-| 52V  |                                       | ![52V_battery_rosbag](Waterloo-Steel:Spec-Hardware.assets/52V_battery_rosbag.png) |
+| 52V  |                                       | ![52V_battery_rosbag](resources/battery/52V_battery_rosbag.png) |
 
 #### 
 
