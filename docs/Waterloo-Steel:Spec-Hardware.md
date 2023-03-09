@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon  6 Mar 2023 12:20:49 EST*]
+[*Last generated: Thu  9 Mar 2023 12:16:12 EST*]
 - [**1. Barrett WAM Specs:**](#1-Barrett-WAM-Specs)
   - [1.1 7DOF WAM:](#11-7DOF-WAM)
     - [1.1.1 Motors (*1):](#111-Motors-1)
@@ -205,15 +205,15 @@ M7 | 0.00000142 |14.93 |0.000318
 
 |      | Discharge with Summit ON Only                                | Charge with Summit ON Only                                   |
 | ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 48V  | ![48v_lifepo](resources/battery/48v_lifepo.png)              |                                                              |
+| 48V  | ![48v_lifepo](resources/battery/48v_lifepo.png)              | ![48V_LiFePo_charge](resources/battery/48V_LiFePo_charge.png) |
 | 52V  | ![52v_lipo_full_discharge](resources/battery/52v_lipo_full_discharge.png) | ![52V_Lipo_charge_summit](resources/battery/52V_Lipo_charge_summit.png) |
 
 #### 2.1.5.b) Discharge with Summit and WAM:
 
-|      | Discharge with Summit ON and WAM_node | Discharge with Summit ON and WAM_node Op.                    |
-| ---- | ------------------------------------- | ------------------------------------------------------------ |
-| 48V  |                                       |                                                              |
-| 52V  |                                       | ![52V_battery_rosbag](resources/battery/52V_battery_rosbag.png) |
+|      | Discharge with Demo Programs                                 | Discharge with Summit ON and WAM_node Op.                    |
+| ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 48V  | ![48V_demos](resources/battery/48V_demos.png)<br />- [5] Joystick interfere to avoid collision.<br />- [2] [5] : demo 14 , moving fwd, wam pointing fwd<br />- [0] [3] : demo 12 , spinning, wam swinging up and down<br />- [1] : demo 13, going circles, wam swinging up and down |                                                              |
+| 52V  |                                                              | ![52V_battery_rosbag](resources/battery/52V_battery_rosbag.png) |
 
 #### 
 
@@ -318,6 +318,7 @@ Z Rate Random Walk:  0.00007 deg/s/sqrt(s)
 Writing Kalibr imu.yaml file.
 Make sure to update rostopic and rate.
 ```
+
 
 
 
