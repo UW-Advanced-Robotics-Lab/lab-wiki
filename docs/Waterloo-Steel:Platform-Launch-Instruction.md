@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 24 Feb 2023 10:26:59 EST*]
+[*Last generated: Fri 17 Mar 2023 15:16:35 EDT*]
 - [**1. Waterloo Steel Demo**](#1-Waterloo-Steel-Demo)
   - [1.1 Powering on the robot](#11-Powering-on-the-robot)
   - [1.2 Launching the Camera](#12-Launching-the-Camera)
@@ -168,6 +168,7 @@ ping average: 1.150429ms
 - :eight: **[Left Trackpad]**  Button Click : Arrow Key Up/Down/Left/Right
 - 9️⃣ **[Right Trackpad]** : Mouse Move +  Mouse Right Click
 - :keycap_ten: **[Steam]** : Menu Selection ---> Used to switch between Steam OS / ArchLinux Mode + Power/Restart
+
 
 
 
