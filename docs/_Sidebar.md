@@ -24,8 +24,8 @@
 
   * :label: **[   Waterloo Steel   ]:**
     * [:diamond_shape_with_a_dot_inside: *Demo Launch Instruction*](./Waterloo-Steel%3ADemo-Launch-Instruction)
+    * [:diamond_shape_with_a_dot_inside: *Platform Hardware Setup*](./Waterloo-Steel%3APlatform-Hardware-Setup)
     * [:diamond_shape_with_a_dot_inside: *Platform Instructions*](./Waterloo-Steel%3APlatform-Instructions)
-    * [:diamond_shape_with_a_dot_inside: *Platform Setup*](./Waterloo-Steel%3APlatform-Setup)
     * [:diamond_shape_with_a_dot_inside: *Platform Workstation Setup*](./Waterloo-Steel%3APlatform-Workstation-Setup)
     * [:diamond_shape_with_a_dot_inside: *Spec Hardware*](./Waterloo-Steel%3ASpec-Hardware)
     * [:diamond_shape_with_a_dot_inside: *Spec Links*](./Waterloo-Steel%3ASpec-Links)
