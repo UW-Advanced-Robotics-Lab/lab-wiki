@@ -243,6 +243,10 @@ $ deb-get upgrade
 
    1. Define Package Dependency:
 
+      > :warning: Please add submodules iff you needed them to reduce overall `build_ws` compile time for different workstation with different purposes.
+
+      > :notebook: These will tell the script everytime you call `update_ws` what submodules to download from, else it will just be an empty folder under `UWARL_catkin_ws/src` without any contents.
+
       ```bash
       # $USER = "oem":
       SUBMODULES_FOR_JX_OEM=(
