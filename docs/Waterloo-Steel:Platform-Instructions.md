@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Sat 21 Jan 2023 12:54:54 EST*]
+[*Last generated: Fri 17 Mar 2023 14:01:45 EDT*]
 - [**1. Waterloo Steel Robot Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Launch-Instructions-construction)
   - [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC)
     - [1.1.0 Reset Workspace:](#110-Reset-Workspace)
@@ -19,6 +19,9 @@
 - [**3. ROS UWARL_catkin_ws Usage Guide:**](#3-ROS-UWARL_catkin_ws-Usage-Guide)
   - [3.1 Modifications:](#31-Modifications)
   - [3.2 Commit and Push:](#32-Commit-and-Push)
+  - [3.3 Pull latest repo:](#33-Pull-latest-repo)
+  - [3.4 Restart over the catkin workspace:](#34-Restart-over-the-catkin-workspace)
+  - [3.5 Shortcuts:](#35-Shortcuts)
 - [**Appendix A - File Arch**](#Appendix-A-File-Arch)
   - [A.1 xacro and launching](#A1-xacro-and-launching)
   - [A.2 ROS](#A2-ROS)
@@ -290,18 +293,62 @@ $ rosrun rviz rviz
 # 3. ROS UWARL_catkin_ws Usage Guide:
 
 ## 3.1 Modifications:
+
 1. switch workspace : `git checkout {branch-name}`
 2. add modules: `$ git submodule add {git-repo}`
 3. remove submodules: `$ git submodule deinit {git-repo}` and you may need delete the submodules in `.gitmodules` file
 4. Create a new branch of workspace: `git checkout -b waterloo_steel/adlink-mxe211-melodic/{node}/{feature}`
 
 ## 3.2 Commit and Push:
+
 1. Commit all changes under submodules
 2. Make sure you run this: `$ ./git-status-all.sh` to log all status into `git-status-all.log`
 3. commit all current workspace changes: `$ git add . && git commit -a`
 4. Push workspace `$ git push` or upload a branch `$ git push -u {your-branch-name}`
 
+## 3.3 Pull latest repo:
 
+```bash
+$ cd_ws/src && git status # make sure no local changes
+$ update_ws
+```
+
+## 3.4 Restart over the catkin workspace:
+
+```bash
+# delete current workspace
+$ cd $HOME
+$ rm -rf UWARL_catkin_ws 
+# reinstall everything and build:
+$ cd_config
+$ ./scripts/auto-config_UWARL_catkin_ws.zsh
+$ build_ws
+$ source_ws
+```
+
+## 3.5 Shortcuts:
+
+```bash
+# update (pull recursively in a batch) of the entire workspace with all required submodules (as noted in common.sh) from anywhere
+$ update_ws
+# build ws from anywhere
+$ build_ws
+# source ws from anywhere
+$ src_ws
+# source ~/.zshrc from anywhere
+$ src_zsh
+# cd into workspace from anywhere
+$ cd_ws
+# check wworkspace status from anywhere
+$ check_ws_status
+# cd into robot_configs from anywhere
+$ cd_config
+
+# auto-gen Table of Contents for a specific markdown file
+$ md_toc README.md 
+# auto-gen Table of Contents for a specific directory containing all markdown files
+$ md_toc_dir docs
+```
 
 ---
 
@@ -416,6 +463,7 @@ rm -rf ~/.catkin_tools
 ```
 
 - [Ref](https://github.com/catkin/catkin_tools/issues/425)
+
 
 
 

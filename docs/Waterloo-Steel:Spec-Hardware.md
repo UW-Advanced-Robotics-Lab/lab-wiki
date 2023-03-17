@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Thu  9 Mar 2023 12:16:12 EST*]
+[*Last generated: Fri 17 Mar 2023 14:01:45 EDT*]
 - [**1. Barrett WAM Specs:**](#1-Barrett-WAM-Specs)
   - [1.1 7DOF WAM:](#11-7DOF-WAM)
     - [1.1.1 Motors (*1):](#111-Motors-1)
@@ -18,7 +18,6 @@
     - [2.1.5 Comparison Table (Actual Collection)](#215-Comparison-Table-Actual-Collection)
       - [2.1.5.a) Discharge vs Charging with Summit:](#215a-Discharge-vs-Charging-with-Summit)
       - [2.1.5.b) Discharge with Summit and WAM:](#215b-Discharge-with-Summit-and-WAM)
-      - [####](#)
   - [2.2 WAM Voltage](#22-WAM-Voltage)
     - [2.2.1 WAM Voltage Safty Module](#221-WAM-Voltage-Safty-Module)
   - [2.3 Other Components Voltage Ranges:](#23-Other-Components-Voltage-Ranges)
@@ -205,7 +204,7 @@ M7 | 0.00000142 |14.93 |0.000318
 
 |      | Discharge with Summit ON Only                                | Charge with Summit ON Only                                   |
 | ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 48V  | ![48v_lifepo](resources/battery/48v_lifepo.png)              | ![48V_LiFePo_charge](resources/battery/48V_LiFePo_charge.png) |
+| 48V  | ![48v_lifepo](resources/battery/48v_lifepo.png)              | ![48V_LiFePo_charge](resources/battery/48V_LiFePo_full_charge.png) |
 | 52V  | ![52v_lipo_full_discharge](resources/battery/52v_lipo_full_discharge.png) | ![52V_Lipo_charge_summit](resources/battery/52V_Lipo_charge_summit.png) |
 
 #### 2.1.5.b) Discharge with Summit and WAM:
@@ -215,7 +214,7 @@ M7 | 0.00000142 |14.93 |0.000318
 | 48V  | ![48V_demos](resources/battery/48V_demos.png)<br />- [5] Joystick interfere to avoid collision.<br />- [2] [5] : demo 14 , moving fwd, wam pointing fwd<br />- [0] [3] : demo 12 , spinning, wam swinging up and down<br />- [1] : demo 13, going circles, wam swinging up and down |                                                              |
 | 52V  |                                                              | ![52V_battery_rosbag](resources/battery/52V_battery_rosbag.png) |
 
-#### 
+
 
 ## 2.2 WAM Voltage
 
@@ -281,7 +280,7 @@ t. GET GRPC (should be 3, else SET and SAVE it again)
   | **19 in stock [Digikey](https://www.digikey.ca/en/products/detail/cui-inc/VFK600-D48-S48/2770684) - [VFK600-D48-S48](https://www.cui.com/product/resource/vfk600.pdf)** | 7.84" L x 4.99" W x 1.54" H (199.1mm x 126.8mm x 39.1mm) | $714.65                                                      | -             | -                      | -        | -                   | -                                                            | -                   |
   | **153 in stock<br />[Digikey](https://www.digikey.ca/en/products/detail/mean-well-usa-inc/SD-500L-48/7706541) - [SD-500L-48](https://www.meanwellusa.com/upload/pdf/SD-500/SD-500-spec.pdf)** | 8.46" L x 4.53" W x 1.97" H (215.0mm x 115.0mm x 50.0mm) | 239.57<br/>[$**229.45 (Mouser)**](https://www.mouser.ca/ProductDetail/MEAN-WELL/SD-500L-48?qs=umBTOZqEewis66%252Betk6pyQ%3D%3D) | 19~72         | adjustable<br />46~60V | 10.5A    | Isolated DC-DC      | forced air cooling, OV 62~68V, Remote-ON/OFF with 4-10V wire signal | 89%                 |
   | [DDR-480C-48](https://www.meanwell.com/webapp/product/search.aspx?prod=DDR-480#1) [Mouser - 29 in stock](https://www.mouser.ca/ProductDetail/MEAN-WELL/DDR-480C-48?qs=sGAEpiMZZMsc0tfZmXiUnRRWZIj0J6UIre%252Bjcsip6HnCpoeqQekHCw%3D%3D) vs [Digikey](https://www.digikey.ca/en/products/detail/mean-well-usa-inc/DDR-480C-48/12333792) | Isoltated DIN Rail<br /> 129mm x 85.5 mm x 125.2 mm      | 306.86<br/>[**$291.90 (Digikey)**](https://www.digikey.ca/en/products/detail/mean-well-usa-inc/DDR-480C-48/12333792) | 33.6 ~ 67.2 V | adjustable<br />48~56V | 10A      | Isolated DC-DC      | All Protections, Isoltated, Remote ON-OFF, Current Sharing   | 92%                 |
-  | 3 in stock<br />RSD-500C-48<br />[Digikey](https://www.digikey.ca/en/products/detail/mean-well-usa-inc/RSD-500C-48/12341363)<br />[Mouser](https://www.mouser.ca/ProductDetail/MEAN-WELL/RSD-500C-48?qs=7MVldsJ5Uayd3YnjdzDmvg%3D%3D) | 9.33" L x 3.94" W x 1.61" H (237.0mm x 100.0mm x 41.0mm) | 364.57<br/>$**340.56 (Mouser)**                              | 33.6~67.2     | 48V                    | 9.6A     |                     | Isolated                                                     | 93%                 |
+  | **3 in stock<br />RSD-500C-48<br />[Digikey](https://www.digikey.ca/en/products/detail/mean-well-usa-inc/RSD-500C-48/12341363)<br />[Mouser**](https://www.mouser.ca/ProductDetail/MEAN-WELL/RSD-500C-48?qs=7MVldsJ5Uayd3YnjdzDmvg%3D%3D) | 9.33" L x 3.94" W x 1.61" H (237.0mm x 100.0mm x 41.0mm) | 364.57<br/>$**340.56 (Mouser)**                              | 33.6~67.2     | 48V                    | 9.6A     |                     | Isolated                                                     | 93%                 |
   | **13 In Stock** [Digikey](https://www.digikey.ca/en/products/detail/analog-devices-inc/DC2456A/8544124) - [DC2456A](https://www.analog.com/media/en/technical-documentation/data-sheets/ltc3779.pdf) [Dev Board](https://www.analog.com/media/en/technical-documentation/user-guides/dc2456af.pdf) | Dev. Board                                               | **$363.74**<br />**[$348.39 (Mouser)](https://www.mouser.ca/ProductDetail/Analog-Devices/DC2456A?qs=r5DSvlrkXmIarCeA%252BwJ5mw%3D%3D)** | 16V ~ 120V    | 48V                    | 10A      | Buck-Boost @ 200kHz | Dev. Board                                                   | 98.7%               |
   |                                                              |                                                          |                                                              |               |                        |          |                     |                                                              |                     |
 
@@ -318,6 +317,7 @@ Z Rate Random Walk:  0.00007 deg/s/sqrt(s)
 Writing Kalibr imu.yaml file.
 Make sure to update rostopic and rate.
 ```
+
 
 
 
