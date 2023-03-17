@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 17 Mar 2023 16:19:14 EDT*]
+[*Last generated: Fri 17 Mar 2023 16:32:59 EDT*]
 - [**1. Ubuntu**](#1-Ubuntu)
   - [1.1 Install Ubuntu](#11-Install-Ubuntu)
     - [1.1.1 Bootable USB](#111-Bootable-USB)
@@ -22,8 +22,8 @@
   - [1.4 [:star:] UWARL ROS Catkin Workspace Setup](#14-star-UWARL-ROS-Catkin-Workspace-Setup)
     - [1.4.1 Clone configurations:](#141-Clone-configurations)
     - [1.4.2 Select Configuration Branch:](#142-Select-Configuration-Branch)
-    - [1.4.3 **Register your PC ** in `common.sh`:](#143-Register-your-PC-in-commonsh)
-    - [1.4.4 **Register PC Submodules Mapping** in `auto-config_UWARL_catkin_ws.zsh`](#144-Register-PC-Submodules-Mapping-in-auto-config_UWARL_catkin_wszsh)
+    - [1.4.3 :hot_pepper: Register your PC  in `common.sh`:](#143-hot_pepper-Register-your-PC-in-commonsh)
+    - [1.4.4 :hot_pepper: Register PC Submodules Mapping in `auto-config_UWARL_catkin_ws.zsh`](#144-hot_pepper-Register-PC-Submodules-Mapping-in-auto-config_UWARL_catkin_wszsh)
     - [1.4.5 Install the repo and configure hardware with auto-script:](#145-Install-the-repo-and-configure-hardware-with-auto-script)
     - [1.4.6 *Reboot is Required if it is the first time installing libbarrett !!](#146-Reboot-is-Required-if-it-is-the-first-time-installing-libbarrett-)
     - [1.4.7 Catkin Build:](#147-Catkin-Build)
@@ -245,7 +245,7 @@ $ git branch -a
 $ git checkout universal/ros1/data-analysis/session-feb-2023
 ```
 
-### 1.4.3 **Register your PC ** in `common.sh`:
+### 1.4.3 :hot_pepper: Register your PC  in `common.sh`:
 
 ```bash
 $ vim ~/uwarl-robot_configs/scripts/common.sh
@@ -322,7 +322,7 @@ $ vim ~/uwarl-robot_configs/scripts/common.sh
       ```
 
 
-### 1.4.4 **Register PC Submodules Mapping** in `auto-config_UWARL_catkin_ws.zsh`
+### 1.4.4 :hot_pepper: Register PC Submodules Mapping in `auto-config_UWARL_catkin_ws.zsh`
 
 - add attributes as below after **line 80**
 
@@ -469,6 +469,7 @@ $ md_toc_dir docs
 # 3. Windows
 
 [TODO]
+
 
 
 
