@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 17 Mar 2023 14:01:56 EDT*]
+[*Last generated: Fri 17 Mar 2023 16:19:14 EDT*]
 - [**1. Ubuntu**](#1-Ubuntu)
   - [1.1 Install Ubuntu](#11-Install-Ubuntu)
     - [1.1.1 Bootable USB](#111-Bootable-USB)
@@ -20,6 +20,14 @@
     - [1.3.3 SSH Keys & Github](#133-SSH-Keys-Github)
     - [1.3.4 VSCode Remote SSH:](#134-VSCode-Remote-SSH)
   - [1.4 [:star:] UWARL ROS Catkin Workspace Setup](#14-star-UWARL-ROS-Catkin-Workspace-Setup)
+    - [1.4.1 Clone configurations:](#141-Clone-configurations)
+    - [1.4.2 Select Configuration Branch:](#142-Select-Configuration-Branch)
+    - [1.4.3 **Register your PC ** in `common.sh`:](#143-Register-your-PC-in-commonsh)
+    - [1.4.4 **Register PC Submodules Mapping** in `auto-config_UWARL_catkin_ws.zsh`](#144-Register-PC-Submodules-Mapping-in-auto-config_UWARL_catkin_wszsh)
+    - [1.4.5 Install the repo and configure hardware with auto-script:](#145-Install-the-repo-and-configure-hardware-with-auto-script)
+    - [1.4.6 *Reboot is Required if it is the first time installing libbarrett !!](#146-Reboot-is-Required-if-it-is-the-first-time-installing-libbarrett-)
+    - [1.4.7 Catkin Build:](#147-Catkin-Build)
+    - [1.4.8 Commit Config settings:](#148-Commit-Config-settings)
   - [1.5 How to use Configuration Toolchain:](#15-How-to-use-Configuration-Toolchain)
     - [1.5.1 Modifications:](#151-Modifications)
     - [1.5.2 Commit and Push:](#152-Commit-and-Push)
@@ -215,71 +223,75 @@ $ deb-get upgrade
 
 0. :rotating_light: Pre-req:
 
-    1. **Make sure SSH authenticated with Github, see instruction @ **
+     1. **Make sure SSH authenticated with Github, see instruction @ **
 
-    2. **ZSH as default Shell**
+     2. **ZSH as default Shell**
 
-1. Clone configurations: 
+     
 
-   ```zsh
-   $ cd ~ && git clone git@github.com:UW-Advanced-Robotics-Lab/uwarl-robot_configs.git
-   ```
+### 1.4.1 Clone configurations: 
 
-2. Select Configuration Branch:
+```zsh
+$ cd ~ && git clone git@github.com:UW-Advanced-Robotics-Lab/uwarl-robot_configs.git
+```
+
+### 1.4.2 Select Configuration Branch:
+
+```bash
+$ cd ~/uwarl-robot_configs
+# check all available branches:
+$ git branch -a
+# EX: select `universal/ros1/data-analysis/session-feb-2023`:
+$ git checkout universal/ros1/data-analysis/session-feb-2023
+```
+
+### 1.4.3 **Register your PC ** in `common.sh`:
+
+```bash
+$ vim ~/uwarl-robot_configs/scripts/common.sh
+```
+
+1. Define Package Dependency:
+
+   > :warning: Please add submodules iff you needed them to reduce overall `build_ws` compile time for different workstation with different purposes.
+
+   > :notebook: These will tell the script everytime you call `update_ws` what submodules to download from, else it will just be an empty folder under `UWARL_catkin_ws/src` without any contents.
 
    ```bash
-   $ cd ~/uwarl-robot_configs
-   # check all available branches:
-   $ git branch -a
-   # EX: select `universal/ros1/data-analysis/session-feb-2023`:
-   $ git checkout universal/ros1/data-analysis/session-feb-2023
+   # $USER = "oem":
+   SUBMODULES_FOR_JX_OEM=(
+       ## SUMMIT Side:
+       "multimap_server_msgs"
+       "system_monitor"
+       "uwarl-multimap_server"
+       "uwarl-robot_localization_utils"
+       # "uwarl-robotnik_base_hw"  # not needed for simulation !  # [x86_64 only]
+       "uwarl-robotnik_msgs"
+       "uwarl-robotnik_sensors"
+       # "uwarl-summit_xl_common"
+       "uwarl-summit_xl_robot"
+       "waterloo_steel"
+       ## WAM Side:
+       "uwarl-barrett_wam_hw"      # : Enabled for local dev.  # [x86_64, aarch64/arm64]
+       "uwarl-barrett_wam_msgs"
+       "uwarl-realsense_ros"       # [L515 Support]
+   )
    ```
 
-3. :hot_pepper: **Register your PC ** in `common.sh`:
+2. Define New PC and Network Parameters:
 
    ```bash
-   $ vim ~/uwarl-robot_configs/scripts/common.sh
+   export ROS_JX_OEM_PC_IP=10.42.0.1
+   export ROS_JX_OEM_PC_HOSTNAME=10.42.0.1
+   export ROS_JX_OEM_PC_DISTRO=noetic
    ```
 
-   1. Define Package Dependency:
+3. In `function source_ros() ` , register PC as below:
 
-      > :warning: Please add submodules iff you needed them to reduce overall `build_ws` compile time for different workstation with different purposes.
-
-      > :notebook: These will tell the script everytime you call `update_ws` what submodules to download from, else it will just be an empty folder under `UWARL_catkin_ws/src` without any contents.
+   1. Out of network:
 
       ```bash
-      # $USER = "oem":
-      SUBMODULES_FOR_JX_OEM=(
-          ## SUMMIT Side:
-          "multimap_server_msgs"
-          "system_monitor"
-          "uwarl-multimap_server"
-          "uwarl-robot_localization_utils"
-          # "uwarl-robotnik_base_hw"  # not needed for simulation !  # [x86_64 only]
-          "uwarl-robotnik_msgs"
-          "uwarl-robotnik_sensors"
-          # "uwarl-summit_xl_common"
-          "uwarl-summit_xl_robot"
-          "waterloo_steel"
-          ## WAM Side:
-          "uwarl-barrett_wam_hw"      # : Enabled for local dev.  # [x86_64, aarch64/arm64]
-          "uwarl-barrett_wam_msgs"
-          "uwarl-realsense_ros"       # [L515 Support]
-      )
-      ```
-
-   2. Define New PC and Network Parameters:
-
-      ```bash
-      export ROS_JX_OEM_PC_IP=10.42.0.1
-      export ROS_JX_OEM_PC_HOSTNAME=10.42.0.1
-      export ROS_JX_OEM_PC_DISTRO=noetic
-      ```
-
-   3. In `function source_ros() ` , register Out-of-network as below:
-
-      ```bash
-          elif [[ $USER = "oem" ]] && [[ $LOCAL_PC_IP = "$ROS_JX_OEM_PC_IP" ]]; then
+          elif [[ $USER = "oem" ]]; then
               ic_wrn " - NON-Robot PC User [Jack's Parallel VM] detected!"
               ic_wrn " > We have detected a registered out-of-network PC, now forcing local host for ROS_MASTER_URI !"
               ros_core_sync "LOCAL-HOSTS"
@@ -292,63 +304,81 @@ $ deb-get upgrade
               export PYTHONPATH=$PYTHONPATH_ROS
       ```
 
-4. :hot_pepper: **Register PC Submodules Mapping** in `auto-config_UWARL_catkin_ws.zsh`
+   2. In-network PC, where the PC IP is binded to a specific IP, and connected to `UWARL_171102A_5G`
 
-   - add attributes as below after **line 80**
+      ```bash
+          # jetson in-robot-network PC:
+          elif [[ $USER = "uwarl-orin" ]] && [[ $LOCAL_PC_IP = "$ROS_WAM_IP" ]]; then
+              ic_wrn " - Jetson Orin WAM PC detected!"
+              ic_wrn " > We have detected a registered in-network PC, now applying configs from common.sh !"
+              ros_core_sync $ROS_CORE_HOSTER # <---- make sure it is sync with ROS_CORE
+              export ROS_IP=$ROS_WAM_IP
+              export ROS_HOSTNAME=$ROS_WAM_HOSTNAME
+              export ROS_MASTER_URI=$ROS_WAM_MASTER_URI
+              export ROS_DISTRO=$ROS_WAM_DISTRO
+              export DISPLAY=$DISPLAY_WAM
+              export PYTHONPATH_ROS=/usr/bin/python3
+              export PYTHONPATH=$PYTHONPATH_ROS
+      ```
 
-     > [Optional]:
-     >
-     > - You may uncomment `install_misc_utilities # misc apt ` 
-     >   - to install some apt packages (tree, tmux, git, zsh, vim)
-     > - You may uncomment `install_librealsense_if_not`
-     >   - to install driver for librealsense cameras
-     > - You may install PCAN by adding:
-     >   - NETDEV:  `install_pcan_if_not NETDEV_SUPPORT`
-     >   - NON_NETDEV: `install_pcan_if_not NETDEV_SUPPORT`
-     > - You may install Dlink Dongle for wifi dongle provided in the lab:
-     >   - `install_dlink_dongle`
-     > - You may add `install_libbarrett_if_not` for `wam_node` hardware dependency
 
-   ```bash
-       elif [[ $USER = "oem" ]] && [[ $LOCAL_PC_IP = "$ROS_JX_OEM_PC_IP" ]]; then
-           ic " > Loading parallels workspace submodules:"
-           # install_misc_utilities # misc apt 
-           # install_librealsense_if_not # for Intel Sensors
-           load_submodules "${SUBMODULES_FOR_JX_OEM[@]}"
-   ```
+### 1.4.4 **Register PC Submodules Mapping** in `auto-config_UWARL_catkin_ws.zsh`
 
-5. Install the repo and configure hardware with auto-script:
+- add attributes as below after **line 80**
 
-   ```zsh
-   $ cd ~ && ./uwarl-robot_configs/scripts/auto-config_UWARL_catkin_ws.zsh
-   ```
+  > [Optional]:
+  >
+  > - You may uncomment `install_misc_utilities # misc apt ` 
+  >   - to install some apt packages (tree, tmux, git, zsh, vim)
+  > - You may uncomment `install_librealsense_if_not`
+  >   - to install driver for librealsense cameras
+  > - You may install PCAN by adding:
+  >   - NETDEV:  `install_pcan_if_not NETDEV_SUPPORT`
+  >   - NON_NETDEV: `install_pcan_if_not NETDEV_SUPPORT`
+  > - You may install Dlink Dongle for wifi dongle provided in the lab:
+  >   - `install_dlink_dongle`
+  > - You may add `install_libbarrett_if_not` for `wam_node` hardware dependency
 
-   > :notebook: this script will install automatically based on the **user name** (e.g. uwarl-orin) to identify the PC space
-   >
-   > :fire: This will install ROS Noetic for you, if you have ubuntu 20.04 focal (like Jetson) , otherwise, you have to install manually OR add a script to it as well?
+```bash
+    elif [[ $USER = "oem" ]]; then
+        ic " > Loading parallels workspace submodules:"
+        # install_misc_utilities # misc apt 
+        # install_librealsense_if_not # for Intel Sensors
+        load_submodules "${SUBMODULES_FOR_JX_OEM[@]}"
+```
 
-6. Reboot is Required if it is the first time installing libbarrett !!
+### 1.4.5 Install the repo and configure hardware with auto-script:
 
-7. Catkin Build:    
+```zsh
+$ cd ~ && ./uwarl-robot_configs/scripts/auto-config_UWARL_catkin_ws.zsh
+```
 
-   ```bash
-   # source robot config env & ros
-   $ source ~/.zshrc
-   # build:
-   $ build_ws # from anywhere, which will does the job for you :P (Jack is too lazy)
-   # source:
-   $ source_ws # lemme know if we should auto-source after build, :wink:
-   ```
+> :notebook: this script will install automatically based on the **user name** (e.g. uwarl-orin) to identify the PC space
+>
+> :fire: This will install ROS Noetic for you, if you have ubuntu 20.04 focal (like Jetson) , otherwise, you have to install manually OR add a script to it as well?
 
-8. Commit Config settings:
+### 1.4.6 *Reboot is Required if it is the first time installing libbarrett !!
 
-   ```bash
-   $ cd_config
-   $ git status
-   $ git commit -a
-   # push to remote:
-   $ git push
-   ```
+### 1.4.7 Catkin Build:    
+
+```bash
+# source robot config env & ros
+$ source ~/.zshrc
+# build:
+$ build_ws # from anywhere, which will does the job for you :P (Jack is too lazy)
+# source:
+$ source_ws # lemme know if we should auto-source after build, :wink:
+```
+
+### 1.4.8 Commit Config settings:
+
+```bash
+$ cd_config
+$ git status
+$ git commit -a
+# push to remote:
+$ git push
+```
 
 
 ## 1.5 How to use Configuration Toolchain:
@@ -439,6 +469,7 @@ $ md_toc_dir docs
 # 3. Windows
 
 [TODO]
+
 
 
 <eof>
