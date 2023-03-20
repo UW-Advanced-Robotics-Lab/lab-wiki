@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 17 Mar 2023 16:32:59 EDT*]
+[*Last generated: Mon 20 Mar 2023 11:58:46 EDT*]
 - [**1. Ubuntu**](#1-Ubuntu)
   - [1.1 Install Ubuntu](#11-Install-Ubuntu)
     - [1.1.1 Bootable USB](#111-Bootable-USB)
@@ -9,7 +9,8 @@
     - [1.2.1 Basic Tools:](#121-Basic-Tools)
       - [1.2.1.a) Net-tools:](#121a-Net-tools)
       - [1.2.1.b) Open-SSH](#121b-Open-SSH)
-      - [1.2.1.c) NoMachine:](#121c-NoMachine)
+      - [1.2.1.c)* (Optional) NoMachine (see hardware-setup guide common):](#121c-Optional-NoMachine-see-hardware-setup-guide-common)
+      - [1.2.2.d)* (optional) Remote Desktop Auto-Sleep and Auto-Wake Scheduling:](#122d-optional-Remote-Desktop-Auto-Sleep-and-Auto-Wake-Scheduling)
     - [1.2.2 Optional Advanced Tools:](#122-Optional-Advanced-Tools)
       - [1.2.2.a) Zenith](#122a-Zenith)
     - [1.2.x Note:](#12x-Note)
@@ -85,7 +86,7 @@ $ sudo systemctl status ssh
   $ ip a 
   ```
 
-#### 1.2.1.c) NoMachine:
+#### 1.2.1.c)* (Optional) NoMachine (see hardware-setup guide common):
 
 - NO Machine: https://downloads.nomachine.com
 
@@ -95,7 +96,13 @@ $ sudo systemctl status ssh
     $ arch
     ```
 
-- See detailed setup **without monitor** in **[Waterloo-Steel/Platform-Setup.md]** 
+- See detailed setup **without monitor** in **[[Waterloo-Steel/Platform-Hardware-Setup.md]](https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/wiki/Waterloo-Steel%3APlatform-Hardware-Setup#013-star-NO-MACHINE-preferred-without-monitor-attached)** 
+
+  > 📣 You will see all available local NoMachine through the APP, and allow us to remote screen from **Mac, WIN, Ipad, and Ubuntu.**
+
+#### 1.2.2.d)* (optional) Remote Desktop Auto-Sleep and Auto-Wake Scheduling:
+
+- Please see detailed guide in [[Waterloo-Steel/Platform-Hardware-Setup.md]](https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/wiki/Waterloo-Steel%3APlatform-Hardware-Setup#014-remote-desktop-auto-sleep-and-auto-wake-scheduling)
 
 ### 1.2.2 Optional Advanced Tools:
 
@@ -109,8 +116,6 @@ $ deb-get install zenith
 $ deb-get update
 $ deb-get upgrade
 ```
-
-
 
 ### 1.2.x Note:
 
@@ -469,6 +474,7 @@ $ md_toc_dir docs
 # 3. Windows
 
 [TODO]
+
 
 
 
