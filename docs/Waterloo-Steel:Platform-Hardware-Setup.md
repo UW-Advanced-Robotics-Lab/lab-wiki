@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Thu  2 Mar 2023 15:56:30 EST*]
+[*Last generated: Mon 10 Apr 2023 17:25:15 EDT*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen:](#01-Remote-Screen)
     - [0.1.1 XRDP SSH](#011-XRDP-SSH)
@@ -27,6 +27,7 @@
       - [1.4.1-(3) How to Build Hardware Package?](#141-3-How-to-Build-Hardware-Package)
     - [1.4.2 Setup Auto-launch at the boot:](#142-Setup-Auto-launch-at-the-boot)
       - [1.4.2.1 How to use/stop/log auto-launch](#1421-How-to-usestoplog-auto-launch)
+      - [1.4.2.2 :star: Automated Scripts:](#1422-star-Automated-Scripts)
   - [1.5 Sony PS PAD Controller](#15-Sony-PS-PAD-Controller)
   - [1.6 Pixhawk PX4 Flight Controller - Chassis IMU](#16-Pixhawk-PX4-Flight-Controller-Chassis-IMU)
   - [1.7 Velodyn (VLP 16)](#17-Velodyn-VLP-16)
@@ -588,19 +589,30 @@ $ rosrun rviz rviz
 
 ```bash
 # check system:
-$ systemctl --user status roscorelaunch@waterloo_steel_bringup:waterloo_steel_summit.launch.service
+$ systemctl --user status roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch
 
 # restart:
-$ systemctl --user restart roscorelaunch@waterloo_steel_bringup:waterloo_steel_summit.launch.service
+$ systemctl --user restart roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch
 
 # stop:
-$ systemctl --user stop roscorelaunch@waterloo_steel_bringup:waterloo_steel_summit.launch.service
+$ systemctl --user stop roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch
 
 # check log:
-$ journalctl --user --user-unit=roscorelaunch@waterloo_steel_bringup:waterloo_steel_summit.launch.service
+$ journalctl --user --user-unit=roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch.service
 # live:
-$ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_bringup:waterloo_steel_summit.launch.service
+$ journalctl --follow --user --user-unit=roscorelaunch@waterloo_steel_summit_bringup:waterloo_steel_summit.launch.service
 ```
+
+#### 1.4.2.2 :star: Automated Scripts:
+
+```bash
+# install roscore service:
+$ source ~/uwarl-robot_configs/scripts/git_functions.sh && install_roscore_systemctl_service
+# use roscore service shortcuts:
+$ summit_systemctl [mode: reinstall, status, restart, stop, history, follow]
+```
+
+
 
 ## 1.5 Sony PS PAD Controller
 
@@ -1729,6 +1741,7 @@ $ wget https://download.nomachine.com/download/8.3/Linux/nomachine_8.3.1_1_x86_6
 $ sudo tar zxvf nomachine_8.3.1_1_x86_64.tar.gz
 $ sudo /usr/NX/nxserver --install redhat
 ```
+
 
 
 

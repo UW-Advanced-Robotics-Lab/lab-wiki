@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 20 Mar 2023 11:58:46 EDT*]
+[*Last generated: Mon 10 Apr 2023 17:25:16 EDT*]
 - [**1. Ubuntu**](#1-Ubuntu)
   - [1.1 Install Ubuntu](#11-Install-Ubuntu)
     - [1.1.1 Bootable USB](#111-Bootable-USB)
@@ -15,6 +15,7 @@
       - [1.2.2.a) Zenith](#122a-Zenith)
     - [1.2.x Note:](#12x-Note)
   - [1.3 Ubuntu Workspace Setup:](#13-Ubuntu-Workspace-Setup)
+    - [1.3.0 (Desktop) Share Wifi Through Ethernet:](#130-Desktop-Share-Wifi-Through-Ethernet)
     - [1.3.1 ZSH and oh-my-zsh](#131-ZSH-and-oh-my-zsh)
     - [1.3.2 TMUX: virtual terminal within terminal](#132-TMUX-virtual-terminal-within-terminal)
     - [1.3.2 VIM:](#132-VIM)
@@ -124,6 +125,13 @@ $ deb-get upgrade
 
 
 ## 1.3 Ubuntu Workspace Setup:
+
+### 1.3.0 (Desktop) Share Wifi Through Ethernet:
+
+- This is the preferred environment. PCW computers will be using Ubuntu 20.04. [Reference](https://docs.phillycommunitywireless.org/en/latest/device-configs/shared-connection/)
+  1. Open your Settings > Network.
+  2. Under the Wired section, click the plus sign to create a new settings profile. Name the profile "Shared" or whatever you want.
+  3. In the IPv4 tab, choose "Shared to other computers". Click Apply. Your computer should now be networked with the AP. 10.42.0.0/24 is the default subnet used by Ubuntu for this setup, but there's not necessarily a guarantee that your computer will use that subnet. If the next step returns no results, run ip address or ifconfig and look for the IP of your Ethernet interface (usually eth0) there.
 
 ### 1.3.1 ZSH and oh-my-zsh
 
@@ -474,6 +482,7 @@ $ md_toc_dir docs
 # 3. Windows
 
 [TODO]
+
 
 
 
