@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 10 Apr 2023 17:25:15 EDT*]
+[*Last generated: Mon 17 Apr 2023 11:58:06 EDT*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen:](#01-Remote-Screen)
     - [0.1.1 XRDP SSH](#011-XRDP-SSH)
@@ -38,7 +38,11 @@
     - [2.0.b NVMe SSD](#20b-NVMe-SSD)
       - [2.0.b.0 [Optional] Wipe NVMe SSD](#20b0-Optional-Wipe-NVMe-SSD)
       - [2.0.b.1 Flash Linux onto NVMe direct Boot:](#20b1-Flash-Linux-onto-NVMe-direct-Boot)
-      - [2.0.b.2 Install Jetpack SDK with SDK Manager:](#20b2-Install-Jetpack-SDK-with-SDK-Manager)
+      - [2.0.b.2 :no_entry_sign: [NO LONGER NEEDED] In case of fail to install on NVME:](#20b2-no_entry_sign-NO-LONGER-NEEDED-In-case-of-fail-to-install-on-NVME)
+      - [2.0.b.3 Install Jetpack SDK with SDK Manager:](#20b3-Install-Jetpack-SDK-with-SDK-Manager)
+    - [2.0.c 🆘 TROUBLESHOOT JETSON:](#20c-TROUBLESHOOT-JETSON)
+      - [2.0.c.1 What if the Jetson is not available:](#20c1-What-if-the-Jetson-is-not-available)
+      - [2.0.c.2 What if the Jetson is not booting up from NVMe, and it kept rebooting and failed.](#20c2-What-if-the-Jetson-is-not-booting-up-from-NVMe-and-it-kept-rebooting-and-failed)
   - [2.1 [Optional*] (Jetson) RT Kernel :yum:](#21-Optional-Jetson-RT-Kernel-yum)
     - [2.1.1 Build custom kernel from source:](#211-Build-custom-kernel-from-source)
       - [2.1.1.(A) Build on Host PC:](#211A-Build-on-Host-PC)
@@ -844,9 +848,10 @@ $ summit_systemctl [mode: reinstall, status, restart, stop, history, follow]
   password: xxxxxx
   ```
 
-- If you are going to use NVMe SSD mainly, please skip the SDK installation once it flashes OS.
+-  If you are going to use NVMe SSD mainly, please skip the SDK installation once it flashes OS.
   - eMMC is still a default kernel booting directory, even if BIOS change
   - Proceed with step 2.0.b below
+  - No need to wait for expensive installation of Jetpack, we will install them on NVMe SSD
 
 ### 2.0.b NVMe SSD
 
@@ -857,7 +862,7 @@ $ summit_systemctl [mode: reinstall, status, restart, stop, history, follow]
   - Open [Disk] 
   - Delete all partitions, and make sure entire volume is fee
 
-- Configure free ssd:
+- :no_entry_sign: [No longer needed] Configure free ssd:
 
   1. SSH into the Jetson Orin from eMMC boot `$ ssh uwarl-orin@192.168.1.10`
 
@@ -907,15 +912,18 @@ $ summit_systemctl [mode: reinstall, status, restart, stop, history, follow]
    password: xxxxxx
    ```
 
-   >  :warning: It will fail at Flashing!!! At least it will prepare and compile all installation files. (R35.1), dunno if it will be fixed. To note, NVMe support and UEFI Boot Manager were only introduced after JetPack 5.
-   >
-   >  - But at least you will see on your host PC:
-   >
-   >  ![disk](resources/disk.png)
 
-3. **Wipe The SSD**: by formatting the disk to remove old partitions
+#### 2.0.b.2 :no_entry_sign: [NO LONGER NEEDED] In case of fail to install on NVME:
 
-4. Manually flashing OS after you see NVME drive is available on host PC:
+>  :warning: It will fail at Flashing!!! At least it will prepare and compile all installation files. (R35.1), dunno if it will be fixed. To note, NVMe support and UEFI Boot Manager were only introduced after JetPack 5.
+>
+>  - But at least you will see on your host PC:
+>
+>  ![disk](resources/disk.png)
+
+1. **Wipe The SSD**: by formatting the disk to remove old partitions
+
+2. Manually flashing OS after you see NVME drive is available on host PC:
 
    ```bash
    # Pre-Requisite: nvme is now mounted as /dev/sdf on host PC, from previous step
@@ -932,7 +940,7 @@ $ summit_systemctl [mode: reinstall, status, restart, stop, history, follow]
    #$ sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device nvme0n1p1 -c ./tools/kernel_flash/flash_l4t_external.xml -S 490GiB --erase-all --showlogs jetson-agx-orin-devkit nvme0n1p1
    ```
 
-5. Plug-in DP Monitor, and manually configure ubuntu at boot with `uwarl-orin`
+3. Plug-in DP Monitor, and manually configure ubuntu at boot with `uwarl-orin`
 
    1. user name : uwarl-orin
    2. do not install chrome
@@ -952,22 +960,54 @@ $ summit_systemctl [mode: reinstall, status, restart, stop, history, follow]
    >
    > https://github.com/jetsonhacks/rootOnNVMe (It's not booting from NVMe, but rather booting from eMMC, and switching to NVMe by a system-ctl service)
 
-6. Select Power Mode: **50W** once logged in, and reboot
+4. Select Power Mode: **50W** once logged in, and reboot
 
 
-#### 2.0.b.2 Install Jetpack SDK with SDK Manager:
+#### 2.0.b.3 Install Jetpack SDK with SDK Manager:
 
 1. After flashing OS, unplug the flashing USB cable, and launch SDK Manager 
 
    > Assuming Host PC and Jetson is under the same network (plug host PC WAN into the LAN port of the robot)
 
-2. Skip the Jetson Linux Flashing Interface (by cancelling the selection)
+2. Plug in Ethernet, and make sure your laptop is sharing to another computer under IPv4 network setting
 
-3. Configure Ethernet for installing Jetson SDK:
+   1. at your host pc, check ethernet IPv4: `$ arp -a` and enter the network info into Jetson SDK manager 
+
+3. [**if in discrete steps**] Skip the Jetson Linux Flashing Interface (by cancelling the selection)
+
+4. Configure Ethernet for installing Jetson SDK:
 
    ![SDK_config](resources/SDK_config.png)
 
-4. Wait for installation. And DONE :beers:
+5. Wait for installation. And DONE :beers:
+
+### 2.0.c 🆘 TROUBLESHOOT JETSON:
+
+#### 2.0.c.1 What if the Jetson is not available:
+
+1. make sure the jetson is on
+   1. else, reboot the robot
+   2. Else, reset the Jetson
+   3. Else, proceed the next troubleshoot: 2.0.c.2 
+2. make sure computer is connected to network
+
+#### 2.0.c.2 What if the Jetson is not booting up from NVMe, and it kept rebooting and failed.
+
+- Possible issues:
+  - NVMe SSD failed (Encountered once on April 15 2023)
+  - Jetson is toasted (have not yet encountered, issue warranty)
+- Resoltutions:
+  1. :notebook: If NVMe SSD failed, connect keyboard and monitor, 
+  2. and press **F11** at the bootup
+  3. @BIOS, select the eMMc to boot into eMMc OS
+  4. Boot into Ubuntu
+     1. If failed, meaning eMMC OS image may be also corrupted 
+        1. Remove NVMe SSD
+        2. Reinstall Jetpack with Nvidia SDK Manager via USB C (only one USB C is able to do the flashing)
+     2. We can wipe NVMe by deleting all partitions0
+  5. reinstall OS with usb C on external PC
+     1. select NVMe
+     2. proceed with 2.0.b.1 and 2.0.b.3 for detailed instructions
 
 ## 2.1 [Optional*] (Jetson) RT Kernel :yum:
 
@@ -1741,6 +1781,7 @@ $ wget https://download.nomachine.com/download/8.3/Linux/nomachine_8.3.1_1_x86_6
 $ sudo tar zxvf nomachine_8.3.1_1_x86_64.tar.gz
 $ sudo /usr/NX/nxserver --install redhat
 ```
+
 
 
 

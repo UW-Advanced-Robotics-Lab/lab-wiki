@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 10 Apr 2023 17:25:16 EDT*]
+[*Last generated: Mon 17 Apr 2023 11:58:06 EDT*]
 - [**1. Ubuntu**](#1-Ubuntu)
   - [1.1 Install Ubuntu](#11-Install-Ubuntu)
     - [1.1.1 Bootable USB](#111-Bootable-USB)
@@ -141,6 +141,7 @@ $ deb-get upgrade
   $ sudo apt install zsh
   # change to default in zsh
   $ sudo chsh -s $(which zsh)
+  $ sudo chsh -s $(which zsh) $USER
   ```
 
 - **Oh-my-zsh** (THE hipster dev tool + coke)
@@ -294,44 +295,39 @@ $ vim ~/uwarl-robot_configs/scripts/common.sh
 2. Define New PC and Network Parameters:
 
    ```bash
-   export ROS_JX_OEM_PC_IP=10.42.0.1
-   export ROS_JX_OEM_PC_HOSTNAME=10.42.0.1
-   export ROS_JX_OEM_PC_DISTRO=noetic
+   export ROS_JX_IN_NETWORK_PARALLEL_PC_IP=192.168.1.100
    ```
-
+   
 3. In `function source_ros() ` , register PC as below:
 
    1. Out of network:
 
       ```bash
-          elif [[ $USER = "oem" ]]; then
-              ic_wrn " - NON-Robot PC User [Jack's Parallel VM] detected!"
-              ic_wrn " > We have detected a registered out-of-network PC, now forcing local host for ROS_MASTER_URI !"
-              ros_core_sync "LOCAL-HOSTS"
-              export ROS_IP=$ROS_JX_OEM_PC_IP
-              export ROS_HOSTNAME=$ROS_JX_OEM_PC_HOSTNAME
-              export ROS_MASTER_URI=http://localhost:11311/
-              export ROS_DISTRO=$ROS_JX_OEM_PC_DISTRO
+          elif [[ $USER = "jx" ]]; then
+              # manual config:
+              export UWARL_ROBOT_PC_NAME="JX_DESKTOP_JACK"
+              export ROS_DISTRO=noetic
               export DISPLAY=$DISPLAY_DEFAULT
               export PYTHONPATH_ROS=/usr/bin/python3
               export PYTHONPATH=$PYTHONPATH_ROS
+              # welcome:
+              ic_wrn " - NON-Robot PC User [$UWARL_ROBOT_PC_NAME] detected!"
+              # ros core:
+              sync_ros_core_if_in_robot_network_else_localhost $ROS_EXTERNAL_PC_IN_NETWORK_IP 
       ```
 
    2. In-network PC, where the PC IP is binded to a specific IP, and connected to `UWARL_171102A_5G`
 
       ```bash
-          # jetson in-robot-network PC:
-          elif [[ $USER = "uwarl-orin" ]] && [[ $LOCAL_PC_IP = "$ROS_WAM_IP" ]]; then
-              ic_wrn " - Jetson Orin WAM PC detected!"
-              ic_wrn " > We have detected a registered in-network PC, now applying configs from common.sh !"
-              ros_core_sync $ROS_CORE_HOSTER # <---- make sure it is sync with ROS_CORE
-              export ROS_IP=$ROS_WAM_IP
-              export ROS_HOSTNAME=$ROS_WAM_HOSTNAME
-              export ROS_MASTER_URI=$ROS_WAM_MASTER_URI
-              export ROS_DISTRO=$ROS_WAM_DISTRO
-              export DISPLAY=$DISPLAY_WAM
-              export PYTHONPATH_ROS=/usr/bin/python3
-              export PYTHONPATH=$PYTHONPATH_ROS
+      ### [ Robot Network: UWARL-171102A_5G Wifi ] ###
+      # DHCP , may change:
+      export ROS_JX_IN_NETWORK_PARALLEL_PC_IP=192.168.1.100
+      # export ROS_P51_IN_NETWORK_LENOVO_PC_IP=192.168.1.x
+      # export ROS_JX_IN_NETWORK_OEM_PC_IP=192.168.1.x
+      # export ROS_P50s_IN_NETWORK_LENOVO_PC_IP=192.168.1.x
+      
+      # [USER:] please change this one if you want to direct it to your own PC to host ROSCORE:
+      export ROS_EXTERNAL_PC_IN_NETWORK_IP=$ROS_JX_IN_NETWORK_PARALLEL_PC_IP 
       ```
 
 
@@ -353,11 +349,12 @@ $ vim ~/uwarl-robot_configs/scripts/common.sh
   > - You may add `install_libbarrett_if_not` for `wam_node` hardware dependency
 
 ```bash
-    elif [[ $USER = "oem" ]]; then
-        ic " > Loading parallels workspace submodules:"
-        # install_misc_utilities # misc apt 
-        # install_librealsense_if_not # for Intel Sensors
-        load_submodules "${SUBMODULES_FOR_JX_OEM[@]}"
+    "JX_DESKTOP_JACK")
+        load_submodules "${SUBMODULES_FOR_JX_DESKTOP[@]}"
+        install_misc_utilities # misc apt 
+        install_libbarrett_if_not
+        install_librealsense_if_not # for Intel Sensors
+    ;;
 ```
 
 ### 1.4.5 Install the repo and configure hardware with auto-script:
@@ -482,6 +479,7 @@ $ md_toc_dir docs
 # 3. Windows
 
 [TODO]
+
 
 
 
