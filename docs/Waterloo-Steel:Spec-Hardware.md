@@ -20,8 +20,9 @@
       - [2.1.5.b) Discharge with Summit and WAM:](#215b-Discharge-with-Summit-and-WAM)
   - [2.2 WAM Voltage](#22-WAM-Voltage)
     - [2.2.1 WAM Voltage Safty Module](#221-WAM-Voltage-Safty-Module)
-  - [2.3 Other Components Voltage Ranges:](#23-Other-Components-Voltage-Ranges)
-  - [2.4 DC-DC 48V Regulator For WAM](#24-DC-DC-48V-Regulator-For-WAM)
+  - [2.3 Other Components Voltage Ranges](#23-Other-Components-Voltage-Ranges)
+  - [2.4 Power Consumption Table](#23-Power-Consumption-Table)
+  - [2.5 DC-DC 48V Regulator For WAM](#25-DC-DC-48V-Regulator-For-WAM)
 - [**3. Sensors**](#3-Sensors)
   - [3.1 L515 Sensor](#31-L515-Sensor)
 
@@ -256,13 +257,57 @@ t. GET GRPC (should be 3, else SET and SAVE it again)
 
 | Item Category      | Model          | Voltage   | Rated            | Peak       | Link                                                        |
 | ------------------ | -------------- | --------- | ---------------- | ---------- | ----------------------------------------------------------- |
-| Solid State Relays | Crydom D1D60   |           |                  |            |                                                             |
-| Motor Driver       | DZCANTE-040L80 | 10-80 VDC | I_continuous=20A | I_peak=40A | [datasheet](https://www.a-m-c.com/product/dzcante-040l080/) |
-|                    |                |           |                  |            |                                                             |
-|                    |                |           |                  |            |                                                             |
-|                    |                |           |                  |            |                                                             |
+|Solid State Relays|Crydom D1D60|1-72VDC|60A|180A|[datasheet](https://www.mouser.ca/datasheet/2/657/sensata_1_dc_series_panel_mount_datasheet-2933622.pdf)|
+|Motor Driver|DZCANTE-040L80|10-80VDC|20A|40A|[datasheet](https://www.a-m-c.com/product/dzcante-040l080/)|
+|Switch|Omron A16S-2N-2L||||[datasheet](https://octopart.com/datasheet/a16s-2n-2l-omron-1412927)|
+|Switch|Omron A16-2||||[datasheet](https://octopart.com/datasheet/a16s-2n-2l-omron-1412927)|
+|Power Relay|Finder 40.52.7.048.0000|5-115VDC|8A|15A|[datasheet](https://us.rs-online.com/m/d/c29b7ebd007f39dcfba28a257273bea3.pdf)|
+|DC/DC Converter|URB4805xD-10WR2A2S|||||
+|DC/DC Converter|WAF 15048S12W|18-75VDC|12.5A|20A|[datasheet](https://www.pduke.com/product_d/126/WAF%28D%29150W%20Datasheet.pdf)|
+|Universal Battery Eliminator Circuit|TR-UBEC7.5|8-42V|5A|7.5A|[user manual](https://cdn-global-hk.hobbyking.com/media/file/213694508X973530X2.jpg)|
+|Motor|Elifebike QQ-M85F|||||
+|Through Bore Encoder|15T-04-SF-1000-NC-HV-5V-G2-ST-IP50||||[datasheet](https://encoder.co.uk/core/files/encoder/products/ce7f311ea263465cd07a37663f00eca8.pdf)|
+|Sensor|Axis M5013|3V Lithium Ion Battery|||[user manual](https://www.axis.com/dam/public/18/46/1b/axis-m5013--user-manual-en-US-98369.pdf)|
+|Sensor|Orbbec Astra|||||
+|Sensor|Velodyne LIDAR VLP-16|-15-15VDC|||[user manual](https://velodynelidar.com/wp-content/uploads/2019/12/63-9243-Rev-E-VLP-16-User-Manual.pdf)|
+|Sensor|PIXHAWK|2-12S Battery||90A|[user manual](https://download.hkwezhan.cn/contents/sitefiles3604/18021148/files/65499..pdf?response-content-disposition=inline%3Bfilename%3DPIXHAWK%2520User%2520Manual_20210628.pdf&response-content-type=application%2Fpdf&auth_key=1678819622-4bfc376ba5d84acb81077ed4a133b613-0-331139777df317e7ea7018155d5e2bda)|
+|Connector|Binder 09-0412-80-04|Rated:125V Peak:1500V|3A|4A|[datasheet](https://www.farnell.com/datasheets/576764.pdf?_ga=2.109021762.1726585941.1682346718-1866203147.1678113515&_gac=1.112799094.1678980967.CjwKCAjw_MqgBhAGEiwAnYOAenHc6lZFb8ekd0lZDxP8gacqlufCyj8XWF8MkVtp-4ihlBGIvZF8ARoCuzEQAvD_BwE)|
+|Connector|VS-08-BU-RJ45/BU Pheonix contact|150VDC|1.5A||[datasheet](https://www.farnell.com/datasheets/2327249.pdf)|
+|Bluetooth Dongle|CSBLUEKEY200|||||
+|Switch|Netgear GS108GE|||||
+|PC|Mitac PD10BI|8-19VDC via DC Jack|||[datasheet](https://download.mitacmct.com/Files/datasheets/motherboards/PD10BI.pdf)|
+||TP-Link AC-1750|12VDC|2.5A||[product specifications](https://www.tp-link.com/ca/home-networking/wifi-router/archer-c7/#specifications)|
+|Hardware|WAM|||||
+|Computer|MXE-211|3-36VDC|||[datasheet](https://www.adlinktech.com/Products/DownloadMDownload.aspx?lang=en&pdNo=1699&kind=D)|
+|Computer|Jetson Orin|7-20VDC|||[developer wiki](https://developer.ridgerun.com/wiki/index.php/NVIDIA_Jetson_Orin/Introduction/Carrier_Boards/NVIDIA_developer_kit)|
+|||||||
 
-## 2.4 DC-DC 48V Regulator For WAM
+## 2.4 Power Consumption Table
+|Category | Item                 | Power Consumption (W) | Link|
+|---------| -------------------- | --------------------- |-----|
+|Hardware| WAM (4DOF, Idle)     | 18                    |[User guide](https://uofwaterloo.sharepoint.com/sites/tm-eng-roboticsteamsoojeon/Shared%20Documents/Forms/AllItems.aspx?FolderCTID=0x01200008FB7123DE102640A799461CB7060FB6&id=%2Fsites%2Ftm%2Deng%2Droboticsteamsoojeon%2FShared%20Documents%2FGeneral%2FDocumentations%2FBarrett%20Research%2FWam%20Arm%2FWAM%5FUsersGuide%5FAE%2D00%2Epdf&viewid=1d06a9bc%2Dbf67%2D4953%2Db9b5%2Ddf4aadc83428&parent=%2Fsites%2Ftm%2Deng%2Droboticsteamsoojeon%2FShared%20Documents%2FGeneral%2FDocumentations%2FBarrett%20Research%2FWam%20Arm)|
+|Hardware| WAM (7DOF, Idle)     | 27                    |[User guide](https://uofwaterloo.sharepoint.com/sites/tm-eng-roboticsteamsoojeon/Shared%20Documents/Forms/AllItems.aspx?FolderCTID=0x01200008FB7123DE102640A799461CB7060FB6&id=%2Fsites%2Ftm%2Deng%2Droboticsteamsoojeon%2FShared%20Documents%2FGeneral%2FDocumentations%2FBarrett%20Research%2FWam%20Arm%2FWAM%5FUsersGuide%5FAE%2D00%2Epdf&viewid=1d06a9bc%2Dbf67%2D4953%2Db9b5%2Ddf4aadc83428&parent=%2Fsites%2Ftm%2Deng%2Droboticsteamsoojeon%2FShared%20Documents%2FGeneral%2FDocumentations%2FBarrett%20Research%2FWam%20Arm)|
+|Hardware| WAM (4DOF, Max)      | 600                   |[User guide](https://uofwaterloo.sharepoint.com/sites/tm-eng-roboticsteamsoojeon/Shared%20Documents/Forms/AllItems.aspx?FolderCTID=0x01200008FB7123DE102640A799461CB7060FB6&id=%2Fsites%2Ftm%2Deng%2Droboticsteamsoojeon%2FShared%20Documents%2FGeneral%2FDocumentations%2FBarrett%20Research%2FWam%20Arm%2FWAM%5FUsersGuide%5FAE%2D00%2Epdf&viewid=1d06a9bc%2Dbf67%2D4953%2Db9b5%2Ddf4aadc83428&parent=%2Fsites%2Ftm%2Deng%2Droboticsteamsoojeon%2FShared%20Documents%2FGeneral%2FDocumentations%2FBarrett%20Research%2FWam%20Arm)|
+|Hardware| WAM (7DOF, Max)      | 800                   |[User guide](https://uofwaterloo.sharepoint.com/sites/tm-eng-roboticsteamsoojeon/Shared%20Documents/Forms/AllItems.aspx?FolderCTID=0x01200008FB7123DE102640A799461CB7060FB6&id=%2Fsites%2Ftm%2Deng%2Droboticsteamsoojeon%2FShared%20Documents%2FGeneral%2FDocumentations%2FBarrett%20Research%2FWam%20Arm%2FWAM%5FUsersGuide%5FAE%2D00%2Epdf&viewid=1d06a9bc%2Dbf67%2D4953%2Db9b5%2Ddf4aadc83428&parent=%2Fsites%2Ftm%2Deng%2Droboticsteamsoojeon%2FShared%20Documents%2FGeneral%2FDocumentations%2FBarrett%20Research%2FWam%20Arm)|
+|Hardware| Elifebike QQ-M85F                | 250*4 = 1000          |[Circuit diagram](https://uofwaterloo.sharepoint.com/sites/tm-eng-roboticsteamsoojeon/Shared%20Documents/Forms/AllItems.aspx?FolderCTID=0x01200008FB7123DE102640A799461CB7060FB6&id=%2Fsites%2Ftm%2Deng%2Droboticsteamsoojeon%2FShared%20Documents%2FGeneral%2FDocumentations%2FRobotnik%2F171102A%20%2D%20Steel%20%2D%20Waterloo%2Epdf&viewid=1d06a9bc%2Dbf67%2D4953%2Db9b5%2Ddf4aadc83428&parent=%2Fsites%2Ftm%2Deng%2Droboticsteamsoojeon%2FShared%20Documents%2FGeneral%2FDocumentations%2FRobotnik)
+|Computer| Jetson Orin          | 60                    |[datasheet](https://www.nvidia.com/content/dam/en-zz/Solutions/gtcf21/jetson-orin/nvidia-jetson-agx-orin-technical-brief.pdf)|
+|Router| TP-Link AC-1750      | 18                      |[product specifications](https://www.tp-link.com/ca/home-networking/wifi-router/archer-c7/#specifications)|
+|Computer| MXE-211              | 40                    |[product specifications](https://www.tp-link.com/ca/home-networking/wifi-router/archer-c7/#specifications)|
+|Sensor| Intel Realsense L515 | 3.3*2 = 6.6             |[datasheet](https://dev.intelrealsense.com/docs/lidar-camera-l515-datasheet)|
+|Sensor| Velodyne Lidar VLP-16      | 8                 |[product specifications](https://www.amtechs.co.jp/product/VLP-16-Puck.pdf)|
+|Solid State Relays|Crydom D1D60|0.535|[datasheet](https://www.mouser.ca/datasheet/2/657/sensata_1_dc_series_panel_mount_datasheet-2933622.pdf)||
+|Motor Driver|DZCANTE-040L80|1520|[product specification](https://www.servo2go.com/dzcante-040l080/)|
+|Power Relay|Finder 40.52.7.048.0000|0.3|[datasheet](https://us.rs-online.com/m/d/c29b7ebd007f39dcfba28a257273bea3.pdf)|
+|DC/DC Converter|WAF 15048S12W|2.52|[datasheet](https://www.heliosps.com/wp-content/uploads/wpallimport/files/HPS-DCDCONVERTERS-INDUSTRIAL-WAF(D)150W.pdf)|
+|Universal Battery Eliminator Circuit|TR-UBEC7.5|0.84|[user manual](https://cdn-global-hk.hobbyking.com/media/file/213694508X973530X2.jpg)|
+|Through Bore Encoder|15T-04-SF-1000-NC-HV-5V-G2-ST-IP50|0.5|[datasheet](https://encoder.co.uk/core/files/encoder/products/ce7f311ea263465cd07a37663f00eca8.pdf)|
+|Sensor|Orbbec Astra|2.4|[datasheet](https://www.mybotshop.de/Datasheet/Orbbec_Astra_S.pdf)|
+|Sensor|PIXHAWK|||
+|Switch|Netgear GS108GE|4.92|[product details](https://www.cdw.com/product/netgear-8-port-gigabit-ethernet-switch-plug-and-play-gs108/3507399)|
+|Computer|Mitac PD10BI|60|[product specification](https://www.mini-box.com/MITAC-PD10BI-Mini-ITX-Motherboard-DN2800MT)|
+
+
+## 2.5 DC-DC 48V Regulator For WAM
 
 - We need a DC-DC Regulator for WAM at 48V and 10A or more 
 
