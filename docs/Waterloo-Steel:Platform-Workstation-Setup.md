@@ -1,7 +1,13 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 17 Apr 2023 11:58:06 EDT*]
+[*Last generated: Fri 12 May 2023 11:28:27 EDT*]
+- [**0. Common**](#0-Common)
+  - [0.1 Remote & Collaboration](#01-Remote-Collaboration)
+    - [0.1.a AnyDesk : remote screen & remote VPN ssh](#01a-AnyDesk-remote-screen-remote-VPN-ssh)
+    - [0.1.b NoMachine : Local Network Remote Screen](#01b-NoMachine-Local-Network-Remote-Screen)
+    - [0.1.c TeamViewers : remote screen only](#01c-TeamViewers-remote-screen-only)
+    - [0.1.d Remote Desktop : remote screen](#01d-Remote-Desktop-remote-screen)
 - [**1. Ubuntu**](#1-Ubuntu)
   - [1.1 Install Ubuntu](#11-Install-Ubuntu)
     - [1.1.1 Bootable USB](#111-Bootable-USB)
@@ -45,6 +51,30 @@
 ---
 </toc>
 > :speaking_head: In this page, you may find useful step-by-step instructions to set-up your workstation:
+
+# 0. Common
+
+## 0.1 Remote & Collaboration
+
+### 0.1.a AnyDesk : remote screen & remote VPN ssh
+
+- For details, see in https://anydesk.com/en
+
+### 0.1.b NoMachine : Local Network Remote Screen 
+
+- We use this tool to access Jetson Orin without monitor with GUI
+- Best for local network
+- minimal computer resources needed
+
+### 0.1.c TeamViewers : remote screen only
+
+- Basic, but recommend AnyDesk over TeamViewers
+
+### 0.1.d Remote Desktop : remote screen
+
+- Worst in terms of performance
+- high cost on computer resources
+- Best for windows???
 
 # 1. Ubuntu
 
@@ -479,6 +509,7 @@ $ md_toc_dir docs
 # 3. Windows
 
 [TODO]
+
 
 
 

@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 17 Apr 2023 11:58:06 EDT*]
+[*Last generated: Fri 12 May 2023 11:28:26 EDT*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen:](#01-Remote-Screen)
     - [0.1.1 XRDP SSH](#011-XRDP-SSH)
@@ -188,7 +188,7 @@ $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
 
 - NO Machine: https://downloads.nomachine.com
 
-  - [Jetson Orin] ARMv8 aarch64:
+  - **[Jetson Orin]** ARMv8 aarch64:
 
     ```bash
     # dummy display driver {needed for display acc}:
@@ -217,20 +217,23 @@ $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
     EndSection
     # NO Machine URDC:
     $ cd ~/JX_Linux
-    $ wget https://download.nomachine.com/download/8.2/Arm/nomachine_8.2.3_3_arm64.deb
-    $ sudo dpkg -i nomachine_8.2.3_3_arm64.deb
+    # update link from https://downloads.nomachine.com/download/?id=114&distro=ARM
+    $ wget https://download.nomachine.com/download/8.4/Arm/nomachine_8.4.2_1_arm64.deb
+    $ sudo dpkg -i nomachine_8.4.2_1_arm64.deb
     ```
-
-  - [Mac/WIN] PC:
-
+  
+    - Other notes: https://kb.nomachine.com/AR02R01074
+  
+  - **[Mac/WIN] PC:**
+  
     - Download NoMachine and open it, it will show any NoMachine available in the WLAN network
     - For headless monitor configuration, copy it from the config (with lots settings on resolution):
-    
+  
     ```bash
     $ sudo apt-get install xserver-xorg-video-dummy -y 
     $ sudo cp ~/uwarl-robot_configs/desktop/etc/X11/xorg.conf /etc/X11/xorg.conf
     ```
-    
+  
 
 ### 0.1.4 Remote Desktop Auto-Sleep and Auto-Wake Scheduling:
 
@@ -1781,6 +1784,7 @@ $ wget https://download.nomachine.com/download/8.3/Linux/nomachine_8.3.1_1_x86_6
 $ sudo tar zxvf nomachine_8.3.1_1_x86_64.tar.gz
 $ sudo /usr/NX/nxserver --install redhat
 ```
+
 
 
 
