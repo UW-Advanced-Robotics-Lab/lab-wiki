@@ -1,12 +1,15 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 12 May 2023 11:28:26 EDT*]
+[*Last generated: Wed 24 May 2023 10:33:41 EDT*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen:](#01-Remote-Screen)
     - [0.1.1 XRDP SSH](#011-XRDP-SSH)
     - [0.1.2 :no_entry_sign: VNC](#012-no_entry_sign-VNC)
     - [0.1.3 :star: NO MACHINE (preferred, without monitor attached)](#013-star-NO-MACHINE-preferred-without-monitor-attached)
+      - [0.1.3.a **[Jetson Orin]** ARMv8 aarch64:](#013a-Jetson-Orin-ARMv8-aarch64)
+      - [0.1.3.b **[Adlink Summit PC]**](#013b-Adlink-Summit-PC)
+      - [0.1.3.c **[Mac/WIN] PC:**](#013c-MacWIN-PC)
     - [0.1.4 Remote Desktop Auto-Sleep and Auto-Wake Scheduling:](#014-Remote-Desktop-Auto-Sleep-and-Auto-Wake-Scheduling)
   - [0.2 SSH Keys and Github](#02-SSH-Keys-and-Github)
   - [0.3 Commonly used command:](#03-Commonly-used-command)
@@ -188,52 +191,62 @@ $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
 
 - NO Machine: https://downloads.nomachine.com
 
-  - **[Jetson Orin]** ARMv8 aarch64:
 
-    ```bash
-    # dummy display driver {needed for display acc}:
-    $ sudo apt-get install xserver-xorg-video-dummy -y 
-    # add fake:
-    $ sudo vim /etc/X11/xorg.conf
-    # add with:
-    Section "Device"
-        Identifier  "Configured Video Device"
-        Driver      "dummy"
-    EndSection
-    Section "Monitor"
-        Identifier  "Configured Monitor"
-        HorizSync 31.5-48.5
-        VertRefresh 50-70
-    EndSection
-    Section "Screen"
-        Identifier  "Default Screen"
-        Monitor     "Configured Monitor"
-        Device      "Configured Video Device"
-        DefaultDepth 24
-        SubSection "Display"
-        Depth 24
-        Modes "1920x1080"
-        EndSubSection
-    EndSection
-    # NO Machine URDC:
-    $ cd ~/JX_Linux
-    # update link from https://downloads.nomachine.com/download/?id=114&distro=ARM
-    $ wget https://download.nomachine.com/download/8.4/Arm/nomachine_8.4.2_1_arm64.deb
-    $ sudo dpkg -i nomachine_8.4.2_1_arm64.deb
-    ```
-  
-    - Other notes: https://kb.nomachine.com/AR02R01074
-  
-  - **[Mac/WIN] PC:**
-  
-    - Download NoMachine and open it, it will show any NoMachine available in the WLAN network
-    - For headless monitor configuration, copy it from the config (with lots settings on resolution):
-  
-    ```bash
-    $ sudo apt-get install xserver-xorg-video-dummy -y 
-    $ sudo cp ~/uwarl-robot_configs/desktop/etc/X11/xorg.conf /etc/X11/xorg.conf
-    ```
-  
+#### 0.1.3.a **[Jetson Orin]** ARMv8 aarch64:
+
+```bash
+# dummy display driver {needed for display acc}:
+$ sudo apt-get install xserver-xorg-video-dummy -y 
+# add fake:
+$ sudo vim /etc/X11/xorg.conf
+# add with:
+Section "Device"
+    Identifier  "Configured Video Device"
+    Driver      "dummy"
+EndSection
+Section "Monitor"
+    Identifier  "Configured Monitor"
+    HorizSync 31.5-48.5
+    VertRefresh 50-70
+EndSection
+Section "Screen"
+    Identifier  "Default Screen"
+    Monitor     "Configured Monitor"
+    Device      "Configured Video Device"
+    DefaultDepth 24
+    SubSection "Display"
+    Depth 24
+    Modes "1920x1080"
+    EndSubSection
+EndSection
+# NO Machine URDC:
+$ cd ~/JX_Linux
+# update link from https://downloads.nomachine.com/download/?id=114&distro=ARM
+$ wget https://download.nomachine.com/download/8.4/Arm/nomachine_8.4.2_1_arm64.deb
+$ sudo dpkg -i nomachine_8.4.2_1_arm64.deb
+```
+
+- Other notes: https://kb.nomachine.com/AR02R01074
+
+#### 0.1.3.b **[Adlink Summit PC]**
+
+```bash
+# NO Machine URDC:
+$ cd ~/JX_Linux
+# update link from x86_64 / amd64
+$ wget https://download.nomachine.com/download/8.5/Linux/nomachine_8.5.3_1_amd64.deb
+$ sudo dpkg -i nomachine_8.5.3_1_amd64.deb
+```
+
+#### 0.1.3.c **[Mac/WIN] PC:**
+
+- Download NoMachine and open it, it will show any NoMachine available in the WLAN network
+- For headless monitor configuration, copy it from the config (with lots settings on resolution):
+
+```bash
+$ sudo apt-get install xserver-xorg-video-dummy -y 
+$ sudo cp ~/uwarl-robot_configs/desktop/etc/X11/xorg.conf /etc/X11/xorg.conf
+```
 
 ### 0.1.4 Remote Desktop Auto-Sleep and Auto-Wake Scheduling:
 
@@ -1784,6 +1797,7 @@ $ wget https://download.nomachine.com/download/8.3/Linux/nomachine_8.3.1_1_x86_6
 $ sudo tar zxvf nomachine_8.3.1_1_x86_64.tar.gz
 $ sudo /usr/NX/nxserver --install redhat
 ```
+
 
 
 
