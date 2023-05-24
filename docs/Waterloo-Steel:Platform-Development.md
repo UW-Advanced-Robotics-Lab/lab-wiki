@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 17 Mar 2023 15:16:27 EDT*]
+[*Last generated: Wed 24 May 2023 17:45:00 EDT*]
 - [**1. Waterloo Steel Robot Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Launch-Instructions-construction)
   - [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC)
     - [1.1.0 Reset Workspace:](#110-Reset-Workspace)
@@ -60,6 +60,10 @@
 3. All shortcuts came with auto-configuration:
 
    ```bash
+   # sync across multi platform:
+   #   - but make sure the config is pointing at the same branch across platforms
+   $ sync_latest 
+   
    # update (pull recursively in a batch) of the entire workspace with all required submodules (as noted in common.sh) from anywhere
    $ update_ws
    # build ws from anywhere
@@ -463,6 +467,7 @@ rm -rf ~/.catkin_tools
 ```
 
 - [Ref](https://github.com/catkin/catkin_tools/issues/425)
+
 
 
 
