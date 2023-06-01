@@ -41,9 +41,9 @@ Outline and overview of works contributed by all members and alumnis from the **
 
 ## Hardware System Architecture
 
-<img src="resources/Waterloo_steel_arch_v2_final.jpg" alt="Hardware Architecture Diagram V2 Final"></img>
+<img src="resources/Overall_Hardware_Architecture_Rev_3-1_2023-06-01_high.jpg" alt="Hardware Architecture Diagram V3.1 Final"></img>
 
-| [Clicke Here to Download PDF Version](resources/Hardware_Architecture_v2_final_(high-res).pdf) |
+| [Clicke Here to Download PDF Version](https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/tree/main/PDF/Overall_Hardware_Architecture_Rev_3-1_2023-06-01.pdf) |
 | :----------------------------------------------------------: |
 
 ## Demo Videos:
