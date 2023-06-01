@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 17 Mar 2023 15:16:35 EDT*]
+[*Last generated: Thu  1 Jun 2023 10:48:37 EDT*]
 - [**1. Waterloo Steel Demo**](#1-Waterloo-Steel-Demo)
   - [1.1 Powering on the robot](#11-Powering-on-the-robot)
   - [1.2 Launching the Camera](#12-Launching-the-Camera)
@@ -158,6 +158,7 @@ ping average: 1.150429ms
 - Button Layouts:
   - Hold :three: **[R1]**  + Move Up/Down :one: **[L3]** : Forward/Reverse
   - Hold :three: **[R1]**  + Move Left/Right :two: **[R3]** : CCW/CW
+  - Hold :three: **[R1]**  + Press **(11)** **[Options]** : Omni / Skid Mode
 
 ### B.1.b) Steam Arch Linux:
 
@@ -168,6 +169,7 @@ ping average: 1.150429ms
 - :eight: **[Left Trackpad]**  Button Click : Arrow Key Up/Down/Left/Right
 - 9️⃣ **[Right Trackpad]** : Mouse Move +  Mouse Right Click
 - :keycap_ten: **[Steam]** : Menu Selection ---> Used to switch between Steam OS / ArchLinux Mode + Power/Restart
+
 
 
 
