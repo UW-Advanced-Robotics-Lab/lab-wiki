@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed 24 May 2023 17:45:00 EDT*]
+[*Last generated: Fri 30 Jun 2023 12:28:39 EDT*]
 - [**1. Waterloo Steel Robot Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Launch-Instructions-construction)
   - [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC)
     - [1.1.0 Reset Workspace:](#110-Reset-Workspace)
@@ -14,14 +14,7 @@
     - [1.3.1 Launch Pad](#131-Launch-Pad)
     - [1.3.2 Launch Rviz](#132-Launch-Rviz)
 - [**2. Unified Development :construction:**](#2-Unified-Development-construction)
-  - [2.1 How to commit:](#21-How-to-commit)
-  - [2.2 How to Add a new modules under workspace/src:](#22-How-to-Add-a-new-modules-under-workspacesrc)
-- [**3. ROS UWARL_catkin_ws Usage Guide:**](#3-ROS-UWARL_catkin_ws-Usage-Guide)
-  - [3.1 Modifications:](#31-Modifications)
-  - [3.2 Commit and Push:](#32-Commit-and-Push)
-  - [3.3 Pull latest repo:](#33-Pull-latest-repo)
-  - [3.4 Restart over the catkin workspace:](#34-Restart-over-the-catkin-workspace)
-  - [3.5 Shortcuts:](#35-Shortcuts)
+- [**3. Usage Guide With Tool Chain and Workspace:**](#3-Usage-Guide-With-Tool-Chain-and-Workspace)
 - [**Appendix A - File Arch**](#Appendix-A-File-Arch)
   - [A.1 xacro and launching](#A1-xacro-and-launching)
   - [A.2 ROS](#A2-ROS)
@@ -178,181 +171,11 @@ $ rosrun rviz rviz
 
 # 2. Unified Development :construction:
 
-> 🔥 (hot-takes) on **[Hardware v2]** : A unified multi-platform configuration
->
-> - `UWARL_catkin_ws/src`:  A single common catkin workspace that can be deployed dynamically across multiple platforms. This repository will track other ROS components as submodules on particular commit hask token (without tracking physical files and changes).
-> - `uwarl-robot_configs`: An all-star installation toolkit that will configure any hardware automatically with simple bash scripts.
-> - Supported OS: **Ubuntu 18.04** and **Ubuntu 20.04**
+- **See up-to-date details from:** [***\*2. ⭐ Unified Development :construction:  [Local PC / Summit / WAM] (Melodic/Noetic):\****](https://github.com/UW-Advanced-Robotics-Lab/uwarl-robot_configs#2--unified-development-construction--local-pc--summit--wam-melodicnoetic)
 
-1. Install Git and configure the environment necessary from previous section, and SSH authenticated with Github, see instruction @ [0.2 SSH Keys & Github](#02-SSH-Keys-Github)
+# 3. Usage Guide With Tool Chain and Workspace:
 
-2. Clone configurations: 
-
-    ```zsh
-    $ cd ~ && git clone git@github.com:UW-Advanced-Robotics-Lab/uwarl-robot_configs.git
-    ```
-
-3. Install the repo with auto-script:
-
-    ```zsh
-    $ cd ~ && ./uwarl-robot_configs/scripts/auto-config_UWARL_catkin_ws.zsh
-    ```
-
-    > :notebook: this script will install automatically based on the **user name** (e.g. uwarl-orin) to identify the PC space
-    >
-    > :hot_pepper: It will install ROS Noetic for Ubuntu 20.04 automatically if your system does not have yet!
-
-4. Build: 
-
-    ```bash
-    # update (pull recursively in a batch) of the entire workspace with all required submodules (as noted in common.sh) from anywhere
-    $ update_ws
-    # build ws from anywhere
-    $ build_ws
-    # source ws from anywhere
-    $ src_ws
-    ```
-
-5. (*) For hardware platform setup, please refer to [ [Waterloo-Steel:Platform-Setup.md](./Waterloo-Steel:Platform-Setup.md) ]
-
-## 2.1 How to commit:
-
-1. check every status of subdirectories of the Catkin Workspace:
-
-   ```bash
-   $ check_ws_status 
-   ```
-
-2. commit changes for every sub-directory (submodule)
-
-   ```bash
-   $ cd uwarl-barrrett-ros-pkg 
-   $ git status 
-   $ git commit -a 
-   $ git push
-   ```
-
-3. Once you are satisfied with the current version of the workspace, you may commit this specific combination of submodules
-
-   ```bash
-   $ check_ws_status # let's update local log file that automatically track workspace status upon checking the status, so we will know if the commit for workspace has any local commits that have not yet been tracked.
-   $ cd_ws
-   $ git status
-   $ git commit -a 
-   $ git push
-   ```
-
-## 2.2 How to Add a new modules under workspace/src:
-
-1. Add module into workspace
-   ```bash
-   $ cd_ws
-   $ git submodule add git@github.com:UW-Advanced-Robotics-Lab/uwarl-zed_ros_wrapper.git
-   $ git commit ### commit: [New Submodule] : zed ros wrapper
-   $ git push
-   ```
-
-2. Add module name into `uwarl-robot_configs/scripts/common.sh`
-
-   ```bash
-   $ cd_config
-   $ vim scripts/common.sh
-   ## Ex: add zed ros wrapper to wam module
-   SUBMODULES_FOR_WAM=(
-       "uwarl-barrett-ros-pkg" 
-       "uwarl-zed_ros_wrapper" # <----- just added/uncomment
-   )
-   ```
-
-   1. Remove/Commenting-out the module:
-
-      ```bash
-      $ cd_ws
-      $ rm -rf uwarl-zed_ros_wrapper/* # delete local cache
-      $ cd_config
-      $ vim scripts/common.sh
-      ## Ex: comment out zed ros wrapper to wam module
-      SUBMODULES_FOR_WAM=(
-          "uwarl-barrett-ros-pkg" 
-          #"uwarl-zed_ros_wrapper" # <----- just added
-      )
-      ```
-
-      
-
-3. Update workspace and install ros dependencies:
-
-   ```bash
-   $ update_ws
-   ```
-
-4. Build:
-
-   ```bash
-   $ build_ws
-   ```
-
-   
-
-# 3. ROS UWARL_catkin_ws Usage Guide:
-
-## 3.1 Modifications:
-
-1. switch workspace : `git checkout {branch-name}`
-2. add modules: `$ git submodule add {git-repo}`
-3. remove submodules: `$ git submodule deinit {git-repo}` and you may need delete the submodules in `.gitmodules` file
-4. Create a new branch of workspace: `git checkout -b waterloo_steel/adlink-mxe211-melodic/{node}/{feature}`
-
-## 3.2 Commit and Push:
-
-1. Commit all changes under submodules
-2. Make sure you run this: `$ ./git-status-all.sh` to log all status into `git-status-all.log`
-3. commit all current workspace changes: `$ git add . && git commit -a`
-4. Push workspace `$ git push` or upload a branch `$ git push -u {your-branch-name}`
-
-## 3.3 Pull latest repo:
-
-```bash
-$ cd_ws/src && git status # make sure no local changes
-$ update_ws
-```
-
-## 3.4 Restart over the catkin workspace:
-
-```bash
-# delete current workspace
-$ cd $HOME
-$ rm -rf UWARL_catkin_ws 
-# reinstall everything and build:
-$ cd_config
-$ ./scripts/auto-config_UWARL_catkin_ws.zsh
-$ build_ws
-$ source_ws
-```
-
-## 3.5 Shortcuts:
-
-```bash
-# update (pull recursively in a batch) of the entire workspace with all required submodules (as noted in common.sh) from anywhere
-$ update_ws
-# build ws from anywhere
-$ build_ws
-# source ws from anywhere
-$ src_ws
-# source ~/.zshrc from anywhere
-$ src_zsh
-# cd into workspace from anywhere
-$ cd_ws
-# check wworkspace status from anywhere
-$ check_ws_status
-# cd into robot_configs from anywhere
-$ cd_config
-
-# auto-gen Table of Contents for a specific markdown file
-$ md_toc README.md 
-# auto-gen Table of Contents for a specific directory containing all markdown files
-$ md_toc_dir docs
-```
+- **See up-to-date details from:**  [***\*3. ROS UWARL_catkin_ws Usage Guide:\****](https://github.com/UW-Advanced-Robotics-Lab/uwarl-robot_configs#3-ros-uwarl_catkin_ws-usage-guide)
 
 ---
 
@@ -360,42 +183,7 @@ $ md_toc_dir docs
 
 ## A.1 xacro and launching
 
-[TODO: below is not up-to-date]
-
-````bash
-# waterloo_steel
-Private repo that contains the mobile manipulator configuration for both hw and sim. 
-
-```
-[2022 Nov 05]
-..xl_robot/../waterloo_steel_summit.launch              >>> Physical robot launching
-| ---> summit_xl_state_robot.launch                     >>> ROS Parameter Server
-    |----> xacro robot model
-
-summit_xl_rviz.launch           >>> rviz
-rviz.launch                     >>> rviz
-wam_launch.launch               >>> wam launch file???
-
-waterloo_steel/..viz/..sim_bringup/waterloo_steeel_complete.launch          >>> complete
-|---> waterloo_steel_gazebo.launch
-    |---> waterloo_steel/..viz/..gazebo/waterloo_steeel_one_robot.launch    >>> one robot
-
-[xacro robot model: .env variable]
-    |----> summit_xls_171102A.urdf.xacro
-        |----> all_sensors.urdf.xacro
-        |----> {waterloo_steel_description}/../omni_wheel.urdf.xacro
-        |----> {waterloo_steel_description}/../summit_xls_base_waterloo.urdf.xacro
-            |----> {waterloo_steel_description}/summit_xl_base.gazebo.urdf.xacro
-                |---> *.so ros controller/driver
-            |----> *.stl
-	
-waterloo_steel/..viz/..sim_bringup/waterloo_steeel_complete_combined.launch	>>> wagon + robot
-    |----> waterloo_steel/..viz/..sim_bringup/waterloo_steeel_complete.launch	
-
-```
-````
-
-
+[TODO]
 
 
 
@@ -467,6 +255,7 @@ rm -rf ~/.catkin_tools
 ```
 
 - [Ref](https://github.com/catkin/catkin_tools/issues/425)
+
 
 
 
