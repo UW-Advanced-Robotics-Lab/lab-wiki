@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed 24 May 2023 10:33:41 EDT*]
+[*Last generated: Mon 21 Aug 2023 14:05:16 EDT*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen:](#01-Remote-Screen)
     - [0.1.1 XRDP SSH](#011-XRDP-SSH)
@@ -11,6 +11,7 @@
       - [0.1.3.b **[Adlink Summit PC]**](#013b-Adlink-Summit-PC)
       - [0.1.3.c **[Mac/WIN] PC:**](#013c-MacWIN-PC)
     - [0.1.4 Remote Desktop Auto-Sleep and Auto-Wake Scheduling:](#014-Remote-Desktop-Auto-Sleep-and-Auto-Wake-Scheduling)
+    - [0.1.5 Remote Desktop Recalculate and Set Auto-Wake upon shutdown:](#015-Remote-Desktop-Recalculate-and-Set-Auto-Wake-upon-shutdown)
   - [0.2 SSH Keys and Github](#02-SSH-Keys-and-Github)
   - [0.3 Commonly used command:](#03-Commonly-used-command)
   - [0.4 ZSH and oh-my-zsh](#04-ZSH-and-oh-my-zsh)
@@ -262,11 +263,48 @@ $ suspend_until 9:30
 # specific time in the evening and then awake in the morning:
 #
 $ sudo crontab -e
-#
+
+# ---------------------------------------------
 # Now enter something like to run the suspend script at 23:30:
 #
-30 23 * * * /home/myhomefolder/suspend_until 07:30 
+30 23 * * * /home/jx/suspend_until 09:30
 ```
+
+- This script is used to auto-sleep if you left the computer on for the day.
+
+- > :warning: So make sure to disable, if you have overnight session.
+
+- Alternatively, use **[0.1.5 Remote Desktop Auto-Wake upon shutdown:]** to allow scheduling upon a manual shutdown triggered.
+
+### 0.1.5 Remote Desktop Recalculate and Set Auto-Wake upon shutdown:
+
+- Instruction:
+
+```bash
+# Let's create a system service:
+$ sudo vim /etc/systemd/system/run-before-shutdown.service
+
+#---- Copy Below & modify home directory:
+[Unit]
+Description=Setup auto-wake at 9am upon shutdown
+DefaultDependencies=no
+Before=shutdown.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/jx/uwarl-robot_configs/desktop/auto_wake_at 09:00
+TimeoutStartSec=0
+
+[Install]
+WantedBy=shutdown.target
+
+#---- Now reload and enable shutdown service:
+$ systemctl daemon-reload
+$ systemctl enable run-before-shutdown.service
+$ systemctl status run-before-shutdown.service
+```
+
+- [[cite: run script before shutdown](https://www.golinuxcloud.com/run-script-with-systemd-before-shutdown-linux/)]
 
 ## 0.2 SSH Keys and Github
 
@@ -372,9 +410,17 @@ $ tree -L 2
 
 ```bash
 $ sudo apt-get install ros-noetic-rviz
-
-# workaround for no display and qt error
-export QT_QPA_PLATFORM=offscreen 
+$ rosrun rviz rviz
+####################
+# IF ERROR: qt.qpa.plugin: Could not find the Qt platform plugin "xcf" in ""
+# - possible resolutions:
+### a) display indexing error
+    export DISPLAY=:0
+### b) maybe try with xcb
+    export QT_QPA_PLATFORM=xcb
+### c) workaround for no display and qt error
+		export QT_QPA_PLATFORM=offscreen 
+# - try again:
 $ rosrun rviz rviz
 ```
 
@@ -1797,6 +1843,7 @@ $ wget https://download.nomachine.com/download/8.3/Linux/nomachine_8.3.1_1_x86_6
 $ sudo tar zxvf nomachine_8.3.1_1_x86_64.tar.gz
 $ sudo /usr/NX/nxserver --install redhat
 ```
+
 
 
 
