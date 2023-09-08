@@ -12,6 +12,8 @@
 
 # Instructions on Wiki Page
 
+> :warning: Please Clone the Wiki Repository to maintain the changes and merge the changes. The Repository Actions will overwrite anything edited directly on Wiki, upon the next push onto the main branch.
+
 1. [> Setup GitHub <](https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/wiki/Waterloo-Steel%3APlatform-Workstation-Setup#133-ssh-keys--github)
 
 2. Clone the Wiki: 
