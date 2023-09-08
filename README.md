@@ -73,9 +73,28 @@
 
 8. Merge your changes to main --> Publish to Wiki
 
-   - the script inside GitHub Actions will publish your changes modified inside "./docs" to the wiki page
+   - Create a PR like: [PR example](https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/pull/3)
+     - Tag Reviewers [jaku-jaku] or anyone you want to review
+     - Once review is done, you may hit the button **[MERGE]**
+
+   - Once, it is merged, the script inside GitHub Actions will publish your changes modified inside "./docs" to the wiki page.
    - check your published status: [Status-of-publish](https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/actions) 
    - View your published wiki: [wiki page](https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/wiki)
+
+9. You should also update your local main:
+
+   ```bash
+   $ git checkout main
+   $ git pull
+   # [OPTIONAL] delete old branch:
+   $ git branch -D user/jack/edit-2023-09-08
+   # [OPTIONAL] rebase to latest:
+   $ git checkout user/jack/edit-2023-09-08
+   $ git rebase main
+   $ git push 
+   ```
+
+   
 
 <eof>
 
