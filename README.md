@@ -1,8 +1,10 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 26 Dec 2022 11:03:19 EST*]
+[*Last generated: Fri  8 Sep 2023 15:21:22 EDT*]
 - [**Instructions on Wiki Page**](#Instructions-on-Wiki-Page)
+- [**Tips**](#Tips)
+  - [Recommended Editors:](#Recommended-Editors)
 
 ---
 </toc>
@@ -94,7 +96,19 @@
    $ git push 
    ```
 
-   
+
+
+
+# Tips
+
+## Recommended Editors:
+
+1. [VS Code with Extension](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one): free, all OS, as long as you have VSCode
+2. [Typora](https://typora.io), great but no longer free
+3. [Obsidian](https://obsidian.md), should be free
+
+
+
 
 <eof>
 
