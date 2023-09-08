@@ -51,17 +51,26 @@
       ```bash
       $ md_toc_dir git  	# update only modified readme
       $ md_toc_dir docs 	# update all readme in docs
-      $ md_toc README.md	# update a specific readme file
+      $ md_toc docs/README.md	# update a specific readme file
       ```
 
-6. Push your changes:
+6. To generate Sidebar Header for Github Wiki:
+
+   - install via https://github.com/adriantanasa/github-wiki-sidebar
+
+   ```bash
+   $ cd docs
+   $ github-wiki-sidebar --silent
+   ```
+
+7. Push your changes:
 
    ```bash
    $ git commit .
    $ git push -u origin user/jack/edit-2023-09-08
    ```
 
-7. Merge your changes to main --> Publish to Wiki
+8. Merge your changes to main --> Publish to Wiki
 
    - the script inside GitHub Actions will publish your changes modified inside "./docs" to the wiki page
    - check your published status: [Status-of-publish](https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/actions) 
