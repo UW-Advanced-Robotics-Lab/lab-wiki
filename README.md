@@ -56,7 +56,8 @@
 
 6. To generate Sidebar Header for Github Wiki:
 
-   - install via https://github.com/adriantanasa/github-wiki-sidebar
+   - if-not* install via https://github.com/adriantanasa/github-wiki-sidebar
+   - (advanced*) config via: `docs/options.json` 
 
    ```bash
    $ cd docs
