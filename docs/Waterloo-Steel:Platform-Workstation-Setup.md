@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 12 May 2023 11:28:27 EDT*]
+[*Last generated: Wed 13 Sep 2023 17:06:42 EDT*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote & Collaboration](#01-Remote-Collaboration)
     - [0.1.a AnyDesk : remote screen & remote VPN ssh](#01a-AnyDesk-remote-screen-remote-VPN-ssh)
@@ -322,15 +322,9 @@ $ vim ~/uwarl-robot_configs/scripts/common.sh
    )
    ```
 
-2. Define New PC and Network Parameters:
-
-   ```bash
-   export ROS_JX_IN_NETWORK_PARALLEL_PC_IP=192.168.1.100
-   ```
-   
 3. In `function source_ros() ` , register PC as below:
 
-   1. Out of network:
+   1. If Out of network, apply registration and edit below as needed:
 
       ```bash
           elif [[ $USER = "jx" ]]; then
@@ -346,20 +340,28 @@ $ vim ~/uwarl-robot_configs/scripts/common.sh
               sync_ros_core_if_in_robot_network_else_localhost $ROS_EXTERNAL_PC_IN_NETWORK_IP 
       ```
 
-   2. In-network PC, where the PC IP is binded to a specific IP, and connected to `UWARL_171102A_5G`
+   2. **[OPTIONAL]** If you also plan to use as In-network PC as well, where the PC IP is binded to a specific IP in the robot network, and connected to `UWARL_171102A_5G`
 
-      ```bash
-      ### [ Robot Network: UWARL-171102A_5G Wifi ] ###
-      # DHCP , may change:
-      export ROS_JX_IN_NETWORK_PARALLEL_PC_IP=192.168.1.100
-      # export ROS_P51_IN_NETWORK_LENOVO_PC_IP=192.168.1.x
-      # export ROS_JX_IN_NETWORK_OEM_PC_IP=192.168.1.x
-      # export ROS_P50s_IN_NETWORK_LENOVO_PC_IP=192.168.1.x
-      
-      # [USER:] please change this one if you want to direct it to your own PC to host ROSCORE:
-      export ROS_EXTERNAL_PC_IN_NETWORK_IP=$ROS_JX_IN_NETWORK_PARALLEL_PC_IP 
-      ```
-
+      1. Define New PC and Network Parameters:
+   
+         ```bash
+         export ROS_JX_IN_NETWORK_PARALLEL_PC_IP=192.168.1.100
+         ```
+   
+      2. Apply the Parameters so that it will connect to the roscore in the network when connected to the robot wifi:
+   
+         ```bash
+         ### [ Robot Network: UWARL-171102A_5G Wifi ] ###
+         # DHCP , may change:
+         export ROS_JX_IN_NETWORK_PARALLEL_PC_IP=192.168.1.100
+         # export ROS_P51_IN_NETWORK_LENOVO_PC_IP=192.168.1.x
+         # export ROS_JX_IN_NETWORK_OEM_PC_IP=192.168.1.x
+         # export ROS_P50s_IN_NETWORK_LENOVO_PC_IP=192.168.1.x
+         
+         # [USER:] please change this one if you want to direct it to your own PC to host ROSCORE:
+         export ROS_EXTERNAL_PC_IN_NETWORK_IP=$ROS_JX_IN_NETWORK_PARALLEL_PC_IP 
+         ```
+   
 
 ### 1.4.4 :hot_pepper: Register PC Submodules Mapping in `auto-config_UWARL_catkin_ws.zsh`
 
@@ -509,6 +511,7 @@ $ md_toc_dir docs
 # 3. Windows
 
 [TODO]
+
 
 
 
