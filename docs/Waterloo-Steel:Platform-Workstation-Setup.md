@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed 13 Sep 2023 17:06:42 EDT*]
+[*Last generated: Fri 15 Sep 2023 10:14:52 EDT*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote & Collaboration](#01-Remote-Collaboration)
     - [0.1.a AnyDesk : remote screen & remote VPN ssh](#01a-AnyDesk-remote-screen-remote-VPN-ssh)
@@ -30,7 +30,7 @@
   - [1.4 [:star:] UWARL ROS Catkin Workspace Setup](#14-star-UWARL-ROS-Catkin-Workspace-Setup)
     - [1.4.1 Clone configurations:](#141-Clone-configurations)
     - [1.4.2 Select Configuration Branch:](#142-Select-Configuration-Branch)
-    - [1.4.3 :hot_pepper: Register your PC  in `common.sh`:](#143-hot_pepper-Register-your-PC-in-commonsh)
+    - [1.4.3 :hot_pepper: Register your PC in `common.h`:](#143-hot_pepper-Register-your-PC-in-commonh)
     - [1.4.4 :hot_pepper: Register PC Submodules Mapping in `auto-config_UWARL_catkin_ws.zsh`](#144-hot_pepper-Register-PC-Submodules-Mapping-in-auto-config_UWARL_catkin_wszsh)
     - [1.4.5 Install the repo and configure hardware with auto-script:](#145-Install-the-repo-and-configure-hardware-with-auto-script)
     - [1.4.6 *Reboot is Required if it is the first time installing libbarrett !!](#146-Reboot-is-Required-if-it-is-the-first-time-installing-libbarrett-)
@@ -289,7 +289,7 @@ $ git branch -a
 $ git checkout universal/ros1/data-analysis/session-feb-2023
 ```
 
-### 1.4.3 :hot_pepper: Register your PC  in `common.sh`:
+### 1.4.3 :hot_pepper: Register your PC in `common.h`:
 
 ```bash
 $ vim ~/uwarl-robot_configs/scripts/common.sh
@@ -326,6 +326,9 @@ $ vim ~/uwarl-robot_configs/scripts/common.sh
 
    1. If Out of network, apply registration and edit below as needed:
 
+      1. Find you user name by entering in terminal: `> echo $USER`
+   
+   
       ```bash
           elif [[ $USER = "jx" ]]; then
               # manual config:
@@ -337,29 +340,40 @@ $ vim ~/uwarl-robot_configs/scripts/common.sh
               # welcome:
               ic_wrn " - NON-Robot PC User [$UWARL_ROBOT_PC_NAME] detected!"
               # ros core:
-              sync_ros_core_if_in_robot_network_else_localhost $ROS_EXTERNAL_PC_IN_NETWORK_IP 
+              sync_ros_core_if_in_robot_network_else_localhost $ROS_IN_NETWORK_EXTERNAL_PC_IP_BLOCKED 
+              
+          ### TEMPLATE:
+          # elif [[ $USER = "{$USER}" ]]; then
+          #     export UWARL_ROBOT_PC_NAME="{ENTER HERE}"
+          #     # manual config:
+          #     export ROS_DISTRO=noetic
+          #     export DISPLAY=$DISPLAY_DEFAULT
+          #     export PYTHONPATH_ROS=/usr/bin/python3
+          #     export PYTHONPATH=$PYTHONPATH_ROS
+          #     # welcome:
+          #     ic_wrn " - NON-Robot PC User [$UWARL_ROBOT_PC_NAME] detected!"
+          #     # ros core:
+          #     sync_ros_core_if_in_robot_network_else_localhost $ROS_IN_NETWORK_EXTERNAL_PC_IP_BLOCKED 
       ```
-
+   
    2. **[OPTIONAL]** If you also plan to use as In-network PC as well, where the PC IP is binded to a specific IP in the robot network, and connected to `UWARL_171102A_5G`
-
+   
       1. Define New PC and Network Parameters:
    
          ```bash
-         export ROS_JX_IN_NETWORK_PARALLEL_PC_IP=192.168.1.100
-         ```
-   
-      2. Apply the Parameters so that it will connect to the roscore in the network when connected to the robot wifi:
-   
-         ```bash
          ### [ Robot Network: UWARL-171102A_5G Wifi ] ###
-         # DHCP , may change:
+         ...
+         # - Known PC IP:
          export ROS_JX_IN_NETWORK_PARALLEL_PC_IP=192.168.1.100
+         # - Unknown PC IP, to register into the robot network:
+         #   - Once you connect to the robot network, and `$ ifconfig | grep 192.168.1` to check your IP
+         #   - Uncomment, and apply the IP
+         #   - Move to the Known PC IP section, once you have confirmed your IP.
+         #   - And replace the ROS_IN_NETWORK_EXTERNAL_PC_IP_BLOCKED with your IP:
+         # export ROS_AJ_IN_NETWORK_DESKTOP_PC_IP=192.168.1.x
          # export ROS_P51_IN_NETWORK_LENOVO_PC_IP=192.168.1.x
          # export ROS_JX_IN_NETWORK_OEM_PC_IP=192.168.1.x
          # export ROS_P50s_IN_NETWORK_LENOVO_PC_IP=192.168.1.x
-         
-         # [USER:] please change this one if you want to direct it to your own PC to host ROSCORE:
-         export ROS_EXTERNAL_PC_IN_NETWORK_IP=$ROS_JX_IN_NETWORK_PARALLEL_PC_IP 
          ```
    
 
@@ -461,6 +475,8 @@ $ source_ws
 
 ### 1.5.5 Shortcuts:
 
+> :hot_pepper: Fore up-to-date shortcuts, you may find in the [> uwarl-robot_config/README.md <](https://github.com/UW-Advanced-Robotics-Lab/uwarl-robot_configs#35-shortcuts)
+
 ```bash
 # update (pull recursively in a batch) of the entire workspace with all required submodules (as noted in common.sh) from anywhere
 $ update_ws
@@ -511,6 +527,11 @@ $ md_toc_dir docs
 # 3. Windows
 
 [TODO]
+
+
+
+
+
 
 
 
