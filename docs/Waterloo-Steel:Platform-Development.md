@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 30 Jun 2023 12:28:39 EDT*]
+[*Last generated: Wed 27 Sep 2023 14:09:00 EDT*]
 - [**1. Waterloo Steel Robot Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Launch-Instructions-construction)
   - [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC)
     - [1.1.0 Reset Workspace:](#110-Reset-Workspace)
@@ -21,6 +21,7 @@
     - [A.2.1 ROS Profiling](#A21-ROS-Profiling)
       - [a) GDB:](#a-GDB)
       - [b) Valgrind:](#b-Valgrind)
+    - [A.2.2 ROS Profiling with rosrun:](#A22-ROS-Profiling-with-rosrun)
   - [A.3 Common Issues:](#A3-Common-Issues)
     - [A.3.1 Error of catkin build: Unable to find source space ....](#A31-Error-of-catkin-build-Unable-to-find-source-space-)
 
@@ -242,7 +243,53 @@ $ build_ws -DCMAKE_BUILD_TYPE=Debug
     $ sudo echo 1 > /proc/sys/kernel/core_uses_pid
     ```
 
-    
+
+### A.2.2 ROS Profiling with rosrun:
+
+Instructions:
+
+- ```bash
+  # make sure build with debug:
+  $ build_ws -DCMAKE_BUILD_TYPE=Debug
+  # OR:
+  $ build_ws_debug
+  
+  # normal program run:
+  $ rosrun vins vins_node $cam_config_file_path
+  
+  # run with valgrind:
+  $ rosrun_valgrind vins vins_node $cam_config_file_path
+  
+  # -> check error causing memory dump:
+  $ cat $HOME/valgrind_log.txt
+  ##### OUTPUT:
+  ==134393== Memcheck, a memory error detector
+  ==134393== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+  ==134393== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+  ==134393== Command: /home/parallels/UWARL_catkin_ws/devel/lib/vins/vins_node /home/parallels/UWARL_catkin_ws/src/vins-research-pkg/VINS-Fusion/config/uwarl_d455/mono_rgb_imu_config_dual.yaml
+  ==134393== Parent PID: 134030
+  ==134393==
+  ==134393== Thread 7:
+  ==134393== Invalid read of size 8
+  ==134393==    at 0x4936B20: shared_count (shared_count.hpp:433)
+  ==134393==    by 0x4936B20: shared_ptr (shared_ptr.hpp:422)
+  ==134393==    by 0x4936B20: FeatureTracker::trackImage(double, cv::Mat const&, cv::Mat const&) (feature_tracker.cpp:199)
+  ==134393==    by 0x48B184B: Estimator::inputImage(double, cv::Mat const&, cv::Mat const&) (estimator.cpp:167)
+  ==134393==    by 0x19BCAB: sync_process() (rosNodeTest.cpp:126)
+  ==134393==    by 0x56B2FAB: ??? (in /usr/lib/aarch64-linux-gnu/libstdc++.so.6.0.28)
+  ==134393==    by 0x4E72623: start_thread (pthread_create.c:477)
+  ==134393==    by 0x596B49B: thread_start (clone.S:78)
+  ==134393==  Address 0x8 is not stack'd, malloc'd or (recently) free'd
+  ==134393==
+  ```
+
+- ```bash
+  # options:
+  $ rosrun_gdb
+  $ rosrun_valgrind
+  ```
+
+
 
 
 
@@ -255,6 +302,7 @@ rm -rf ~/.catkin_tools
 ```
 
 - [Ref](https://github.com/catkin/catkin_tools/issues/425)
+
 
 
 
