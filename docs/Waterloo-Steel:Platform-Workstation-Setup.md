@@ -356,7 +356,26 @@ $ vim ~/uwarl-robot_configs/scripts/common.sh
           #     sync_ros_core_if_in_robot_network_else_localhost $ROS_IN_NETWORK_EXTERNAL_PC_IP_BLOCKED 
       ```
    
-   2. **[OPTIONAL]** If you also plan to use as In-network PC as well, where the PC IP is binded to a specific IP in the robot network, and connected to `UWARL_171102A_5G`
+   2. **[OPTIONAL]** to better switch the ros log level: (new feature, added Sept 29, 2023)
+   
+      1. You may copy the default config:
+   
+         ```bash
+         $ cp $UWARL_CONFIGS/scripts/configs/uwarl-rosconsole.config $UWARL_CONFIGS/scripts/configs/uwarl-rosconsole_{user}.config
+         ```
+   
+      2. Add this config to your PC registration:
+   
+         ```bash 
+                 # console config:
+                 export ROSCONSOLE_CONFIG_FILE=$UWARL_CONFIGS/scripts/configs/uwarl-rosconsole.config # debug level
+         ```
+   
+      3. Every time, you change this config file, the roscore console will output different level of logging messages
+   
+      4. For additional details, please refer to http://library.isr.ist.utl.pt/docs/roswiki/rosconsole.html
+   
+   3. **[OPTIONAL]** If you also plan to use as In-network PC as well, where the PC IP is binded to a specific IP in the robot network, and connected to `UWARL_171102A_5G`
    
       1. Define New PC and Network Parameters:
    
