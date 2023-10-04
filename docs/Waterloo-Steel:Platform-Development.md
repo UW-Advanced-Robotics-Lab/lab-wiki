@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed 27 Sep 2023 14:09:00 EDT*]
+[*Last generated: Wed  4 Oct 2023 11:52:26 EDT*]
 - [**1. Waterloo Steel Robot Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Launch-Instructions-construction)
   - [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC)
     - [1.1.0 Reset Workspace:](#110-Reset-Workspace)
@@ -11,8 +11,10 @@
     - [1.2.1 WAM:](#121-WAM)
     - [1.2.2 ZED:](#122-ZED)
   - [1.3 Steam Deck Controller](#13-Steam-Deck-Controller)
-    - [1.3.1 Launch Pad](#131-Launch-Pad)
-    - [1.3.2 Launch Rviz](#132-Launch-Rviz)
+    - [1.3.1 Launch through Icons:](#131-Launch-through-Icons)
+    - [1.3.2 Launch through terminals:](#132-Launch-through-terminals)
+      - [1.3.2.1 Launch Pad](#1321-Launch-Pad)
+      - [1.3.2.2 Launch Rviz](#1322-Launch-Rviz)
 - [**2. Unified Development :construction:**](#2-Unified-Development-construction)
 - [**3. Usage Guide With Tool Chain and Workspace:**](#3-Usage-Guide-With-Tool-Chain-and-Workspace)
 - [**Appendix A - File Arch**](#Appendix-A-File-Arch)
@@ -28,9 +30,7 @@
 ---
 </toc>
 
-
-
-<img src="resources/Waterloo_steel_arch_v2_final.jpg" alt="Hardware Architecture Diagram V2 Final"></img>
+<img src="resources/Overall_Hardware_Architecture_Rev_3-1_2023-06-01_low.jpeg" alt="Hardware Architecture Diagram V3 Final"></img>
 
 # 1. Waterloo Steel Robot Launch Instructions :construction:
 
@@ -156,13 +156,24 @@ $ roslaunch zed_wrapper zed.launch
 
 ![deck](resources/deck_controller.jpg)
 
-### 1.3.1 Launch Pad 
+### 1.3.1 Launch through Icons:
+
+> 📓 Icon apps are installed by `uwarl-robot_config` toolchain, and allow us to use the basic interface without keyboard.
+
+![deck_controller_desktop](resources/deck_controller_desktop.jpg)
+
+- :one:  > **Launch Pad** 
+- :two:  > **Rviz Viewer**
+
+### 1.3.2 Launch through terminals:
+
+#### 1.3.2.1 Launch Pad 
 
 ```bash
 $ roslaunch summit_xl_pad waterloo_steel_summit_deck.launch
 ```
 
-### 1.3.2 Launch Rviz
+#### 1.3.2.2 Launch Rviz
 
 ```bash
 $ rosrun rviz rviz
@@ -302,6 +313,7 @@ rm -rf ~/.catkin_tools
 ```
 
 - [Ref](https://github.com/catkin/catkin_tools/issues/425)
+
 
 
 

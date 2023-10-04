@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Sat 21 Jan 2023 12:54:53 EST*]
+[*Last generated: Wed  4 Oct 2023 11:52:26 EDT*]
 - [**Spec Comparison**](#Spec-Comparison)
 - [**ADLINK - MXE211**](#ADLINK-MXE211)
     - [Catkin_ws/src](#Catkin_wssrc)
@@ -39,7 +39,7 @@
 
 > :warning: As mentioned in the issue, we will be unifying the platform and upgrade to Ubuntu 18.04 + Melodic for hosting RT for WAM and SUMMIT synchronization. Jetson ORIN will be processing visions mostly
 
-<img src="resources/Waterloo_steel_arch_v2_final.jpg" alt="Hardware Architecture Diagram V2 Final"></img>
+<img src="resources/Overall_Hardware_Architecture_Rev_3-1_2023-06-01_low.jpeg" alt="Hardware Architecture Diagram V2 Final"></img>
 
 # Spec Comparison
 
@@ -894,6 +894,7 @@ Version: ROS Melodic + Ubuntu 18.04 rt
 # TP Link Router (Archer C7 v2)
 
 - Updated to 3.15.3 Build 180305 Rel.52658n (2018)
+
 
 
 

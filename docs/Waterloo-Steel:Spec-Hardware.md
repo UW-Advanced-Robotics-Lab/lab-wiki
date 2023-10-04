@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 17 Mar 2023 14:01:45 EDT*]
+[*Last generated: Wed  4 Oct 2023 11:52:26 EDT*]
 - [**1. Barrett WAM Specs:**](#1-Barrett-WAM-Specs)
   - [1.1 7DOF WAM:](#11-7DOF-WAM)
     - [1.1.1 Motors (*1):](#111-Motors-1)
@@ -20,8 +20,8 @@
       - [2.1.5.b) Discharge with Summit and WAM:](#215b-Discharge-with-Summit-and-WAM)
   - [2.2 WAM Voltage](#22-WAM-Voltage)
     - [2.2.1 WAM Voltage Safty Module](#221-WAM-Voltage-Safty-Module)
-  - [2.3 Other Components Voltage Ranges](#23-Other-Components-Voltage-Ranges)
-  - [2.4 Power Consumption Table](#23-Power-Consumption-Table)
+  - [2.3 Other Components Voltage Ranges:](#23-Other-Components-Voltage-Ranges)
+  - [2.4 Power Consumption Table](#24-Power-Consumption-Table)
   - [2.5 DC-DC 48V Regulator For WAM](#25-DC-DC-48V-Regulator-For-WAM)
 - [**3. Sensors**](#3-Sensors)
   - [3.1 L515 Sensor](#31-L515-Sensor)
@@ -29,7 +29,7 @@
 ---
 </toc>
 
-![waterloo-steel-v2-fov](resources/waterloo-steel-v2-fov.png)
+![waterloo-steel-v2-fov](resources/waterloo-steel-v2-fov.jpg)
 
 ---
 
@@ -362,6 +362,7 @@ Z Rate Random Walk:  0.00007 deg/s/sqrt(s)
 Writing Kalibr imu.yaml file.
 Make sure to update rostopic and rate.
 ```
+
 
 
 
