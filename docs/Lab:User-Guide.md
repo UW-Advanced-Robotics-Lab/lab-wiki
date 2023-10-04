@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed  4 Oct 2023 14:07:36 EDT*]
+[*Last generated: Wed  4 Oct 2023 15:34:19 EDT*]
 - [**1. Lab GitHub Usage**](#1-Lab-GitHub-Usage)
   - [1.1. Make your profile visible to public:](#11-Make-your-profile-visible-to-public)
 - [**2. Lab Maintainance**](#2-Lab-Maintainance)
@@ -53,10 +53,16 @@
 
 ### 2.1.3 How to grant Owner Settings
 
-![add_owner](resources/add_owner.png)
+![add_owner](resources/github/add_owner.png)
 
 - change role to **Owner**
   - able to manage the Lab GitHub and add people to the team
+
+
+
+
+
+
 
 
 

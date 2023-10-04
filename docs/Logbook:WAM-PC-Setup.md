@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed  4 Oct 2023 14:07:36 EDT*]
+[*Last generated: Wed  4 Oct 2023 15:34:19 EDT*]
 - [**Install Libbarrett hardware (external PC) direct support through PEAK USB CAN (PCAN)**](#Install-Libbarrett-hardware-external-PC-direct-support-through-PEAK-USB-CAN-PCAN)
 - [**CF WAM Internal PC Setup:**](#CF-WAM-Internal-PC-Setup)
   - [Re-Install CF:](#Re-Install-CF)
@@ -82,6 +82,12 @@ Only in barrett/calibration_data/wam7w: zerocal.conf.4
 Only in barrett/calibration_data/wam7w: zerocal.conf.5
 ```
 > 📢 Now, available @ https://github.com/UW-Advanced-Robotics-Lab/uwarl-libbarrett 
+
+
+
+
+
+
 
 
 

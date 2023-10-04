@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed  4 Oct 2023 14:07:36 EDT*]
+[*Last generated: Wed  4 Oct 2023 15:34:19 EDT*]
 - [**Ubuntu Setup**](#Ubuntu-Setup)
   - [General Linux Ubuntu Setup](#General-Linux-Ubuntu-Setup)
   - [ROS Kinetic Setup (for Ubuntu 16.04)](#ROS-Kinetic-Setup-for-Ubuntu-1604)
@@ -153,6 +153,12 @@ $ sudo apt install protobuf-c-compiler
 ## UDEV
 
 - http://www.clearpathrobotics.com/assets/guides/kinetic/ros/Udev%20Rules.html
+
+
+
+
+
+
 
 
 

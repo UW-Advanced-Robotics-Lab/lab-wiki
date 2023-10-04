@@ -7,7 +7,6 @@
     * [:diamond_shape_with_a_dot_inside: *Code of Conduct*](./Lab%3ACode-of-Conduct)
     * [:diamond_shape_with_a_dot_inside: *Getting Started*](./Lab%3AGetting-Started)
     * [:diamond_shape_with_a_dot_inside: *List of Projects and Papers*](./Lab%3AList-of-Projects-and-Papers)
-    * [:diamond_shape_with_a_dot_inside: *On going Projects*](./Lab%3AOn-going-Projects)
     * [:diamond_shape_with_a_dot_inside: *User Guide*](./Lab%3AUser-Guide)
 
   * :label: **[   Logbook   ]:**
@@ -23,10 +22,10 @@
     * [:diamond_shape_with_a_dot_inside: *Dev Tools*](./Tips%3ADev-Tools)
 
   * :label: **[   Waterloo Steel   ]:**
-    * [:diamond_shape_with_a_dot_inside: *Platform Development*](./Waterloo-Steel%3APlatform-Development)
-    * [:diamond_shape_with_a_dot_inside: *Platform Hardware Setup*](./Waterloo-Steel%3APlatform-Hardware-Setup)
-    * [:diamond_shape_with_a_dot_inside: *Platform Launch Instruction*](./Waterloo-Steel%3APlatform-Launch-Instruction)
-    * [:diamond_shape_with_a_dot_inside: *Platform Workstation Setup*](./Waterloo-Steel%3APlatform-Workstation-Setup)
+    * [:diamond_shape_with_a_dot_inside: *Platform Instruction*](./Waterloo-Steel%3APlatform-Instruction)
+    * [:diamond_shape_with_a_dot_inside: *Platform Launch Demos*](./Waterloo-Steel%3APlatform-Launch-Demos)
+    * [:diamond_shape_with_a_dot_inside: *Platform Setup Hardware*](./Waterloo-Steel%3APlatform-Setup-Hardware)
+    * [:diamond_shape_with_a_dot_inside: *Platform Setup Workstation*](./Waterloo-Steel%3APlatform-Setup-Workstation)
     * [:diamond_shape_with_a_dot_inside: *Spec Hardware*](./Waterloo-Steel%3ASpec-Hardware)
     * [:diamond_shape_with_a_dot_inside: *Spec Links*](./Waterloo-Steel%3ASpec-Links)
 
