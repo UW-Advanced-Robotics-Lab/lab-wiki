@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed  4 Oct 2023 13:01:00 EDT*]
+[*Last generated: Wed  4 Oct 2023 14:07:37 EDT*]
 - [**1. Waterloo Steel Robot Manual Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Manual-Launch-Instructions-construction)
   - [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC)
     - [1.1.0 Reset Workspace:](#110-Reset-Workspace)
@@ -154,13 +154,11 @@ $ roslaunch zed_wrapper zed.launch
 
 ## 1.3 Steam Deck Controller
 
-![deck](resources/deck_controller.jpg)
+![deck](resources/deck/deck_controller.jpg)
 
 ### 1.3.1 Launch through Icons:
 
-> 📓 Icon apps are installed by `uwarl-robot_config` toolchain, and allow us to use the basic interface without keyboard.
-
-![deck_controller_desktop](resources/deck_controller_desktop.jpg)
+![deck_controller_desktop](resources/deck/deck_controller_desktop.jpg)
 
 - :one:  > **Launch Pad** 
 - :two:  > **Rviz Viewer**
@@ -313,6 +311,8 @@ rm -rf ~/.catkin_tools
 ```
 
 - [Ref](https://github.com/catkin/catkin_tools/issues/425)
+
+
 
 
 

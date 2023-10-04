@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Mon 21 Aug 2023 14:05:16 EDT*]
+[*Last generated: Wed  4 Oct 2023 14:07:37 EDT*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen:](#01-Remote-Screen)
     - [0.1.1 XRDP SSH](#011-XRDP-SSH)
@@ -820,7 +820,7 @@ $ summit_systemctl [mode: reinstall, status, restart, stop, history, follow]
 
 ## 1.7 Velodyn (VLP 16)
 
-- ![Updated](resources/VLP_2022-10-19.png)
+- ![Updated](resources/Lidar/VLP_2022-10-19.png)
 
 - Updated to 3.0.41 on Oct-19,2022
 
@@ -981,7 +981,7 @@ $ summit_systemctl [mode: reinstall, status, restart, stop, history, follow]
 >
 >  - But at least you will see on your host PC:
 >
->  ![disk](resources/disk.png)
+>  ![disk](resources/jetson/disk.png)
 
 1. **Wipe The SSD**: by formatting the disk to remove old partitions
 
@@ -1039,7 +1039,7 @@ $ summit_systemctl [mode: reinstall, status, restart, stop, history, follow]
 
 4. Configure Ethernet for installing Jetson SDK:
 
-   ![SDK_config](resources/SDK_config.png)
+   ![SDK_config](resources/jetson/SDK_config.png)
 
 5. Wait for installation. And DONE :beers:
 
@@ -1843,6 +1843,7 @@ $ wget https://download.nomachine.com/download/8.3/Linux/nomachine_8.3.1_1_x86_6
 $ sudo tar zxvf nomachine_8.3.1_1_x86_64.tar.gz
 $ sudo /usr/NX/nxserver --install redhat
 ```
+
 
 
 

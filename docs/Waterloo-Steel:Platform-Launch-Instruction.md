@@ -1,9 +1,16 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed  4 Oct 2023 13:01:00 EDT*]
+[*Last generated: Wed  4 Oct 2023 14:07:38 EDT*]
 - [**1. Power On**](#1-Power-On)
+  - [1.0 External Network with Ethernet](#10-External-Network-with-Ethernet)
+    - [1.0.a [Optional] Connect Ethernet to WAN from Router LAN](#10a-Optional-Connect-Ethernet-to-WAN-from-Router-LAN)
+    - [1.0.b [Optional] Connect Ethernet to LAN to Laptop Ethernet Port](#10b-Optional-Connect-Ethernet-to-LAN-to-Laptop-Ethernet-Port)
   - [1.1 Powering on the robot](#11-Powering-on-the-robot)
+    - [1.1.1 Turn on the robot by twisting power knobs for Base](#111-Turn-on-the-robot-by-twisting-power-knobs-for-Base)
+    - [1.1.2 Turn on the robot by twisting power knobs for WAM](#112-Turn-on-the-robot-by-twisting-power-knobs-for-WAM)
+    - [1.1.3 Power on the steam deck controller, and connect to the Robot Wifi `UWARL_171102_5G`](#113-Power-on-the-steam-deck-controller-and-connect-to-the-Robot-Wifi-UWARL_171102_5G)
+    - [1.1.4 Launch the Controller on Steam Deck:](#114-Launch-the-Controller-on-Steam-Deck)
 - [**2. Power Off**](#2-Power-Off)
   - [2.1 Power off Robot Sequence ‼️](#21-Power-off-Robot-Sequence-)
 - [**3. Waterloo Steel Demo [Jack]**](#3-Waterloo-Steel-Demo-Jack)
@@ -24,16 +31,47 @@
 
 # 1. Power On
 
+## 1.0 External Network with Ethernet
+
+### 1.0.a [Optional] Connect Ethernet to WAN from Router LAN
+
+- if you want internet access (eg, update local repository), please connect to:
+  - WAN port of the robot <-----> LAN port of the Router
+
+### 1.0.b [Optional] Connect Ethernet to LAN to Laptop Ethernet Port
+
+- if you want Remote access with **AnyDesk** to the robot network,
+  - you may want your PC connecting to the Lab Wifi
+  - and connect the ethernet from robot LAN to Laptop
+
 ## 1.1 Powering on the robot
 
-1. Turn on the robot by twisting two power knobs for **Base and WAM**
-2. Power on the steam deck controller
-3. Launch the joystick controller by touching **[Launch UWARL Summit Controller]** App Icon
+### 1.1.1 Turn on the robot by twisting power knobs for Base
+
+- we should see the green button (for jetson pc) is lighting on
+- fan spinning, and everything should be powered except WAM
+
+### 1.1.2 Turn on the robot by twisting power knobs for WAM
+
+- Make sure the LED panel is powered on, and will show ERROR as the WAM has not been calibrated and launched by default
+
+### 1.1.3 Power on the steam deck controller, and connect to the Robot Wifi `UWARL_171102_5G`
+
+- We should be able to launch the controller
+
+### 1.1.4 Launch the Controller on Steam Deck:
+
+1. Launch the joystick controller by touching **[Launch UWARL Summit Controller]** App Icon
 
    - 🚨 If the controller app quits after launching,  [[A.1 Deck Controller Cannot Launch:](#A1-Deck-Controller-Cannot-Launch)]
-   - :notebook: You may launch the rviz by touching **[Launch Rviz]** App Icon
+   - **[OPTIONAL]** :notebook: You may launch the rviz by touching **[Launch Rviz]** App Icon
 
+> 📓 Icon apps are installed by `uwarl-robot_config` toolchain, and allow us to use the basic interface without keyboard.
 
+![deck_controller_desktop](resources/deck/deck_controller_desktop.jpg)
+
+- :one:  > **Launch Pad** 
+- :two:  > **Rviz Viewer**
 
 # 2. Power Off
 
@@ -121,7 +159,7 @@ $ ls ~/.ros/bagfiles/waterloo_steel_demo/session_{id}/
 
 🚨 If the controller app quit after launching, it is likely due to the following issues:
 
- 1.  The deck is not connected to summit wifi "*SUMMIT_STEEL_171102A_5G*"
+ 1.  The deck is not connected to summit wifi "*UWARL_171102A_5G*"
 
      > 🛠️ Connect to the wifi manually at the status bar
 
@@ -176,7 +214,7 @@ ping average: 1.150429ms
 
 ## B.1 Steam Deck Controller Button Layout
 
-![steam_deck_ports_controls](resources/steam_deck_ports_controls.jpg)
+![steam_deck_ports_controls](resources/deck/steam_deck_ports_controls.jpg)
 
 ### B.1.a) Move Summit:
 
@@ -196,6 +234,8 @@ ping average: 1.150429ms
 - :eight: **[Left Trackpad]**  Button Click : Arrow Key Up/Down/Left/Right
 - 9️⃣ **[Right Trackpad]** : Mouse Move +  Mouse Right Click
 - :keycap_ten: **[Steam]** : Menu Selection ---> Used to switch between Steam OS / ArchLinux Mode + Power/Restart
+
+
 
 
 

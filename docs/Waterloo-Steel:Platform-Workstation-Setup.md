@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 15 Sep 2023 10:14:52 EDT*]
+[*Last generated: Wed  4 Oct 2023 14:07:38 EDT*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote & Collaboration](#01-Remote-Collaboration)
     - [0.1.a AnyDesk : remote screen & remote VPN ssh](#01a-AnyDesk-remote-screen-remote-VPN-ssh)
@@ -546,6 +546,7 @@ $ md_toc_dir docs
 # 3. Windows
 
 [TODO]
+
 
 
 

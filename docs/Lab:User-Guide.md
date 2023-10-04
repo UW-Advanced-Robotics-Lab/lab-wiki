@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Tue 26 Sep 2023 17:45:11 EDT*]
+[*Last generated: Wed  4 Oct 2023 14:07:36 EDT*]
 - [**1. Lab GitHub Usage**](#1-Lab-GitHub-Usage)
   - [1.1. Make your profile visible to public:](#11-Make-your-profile-visible-to-public)
 - [**2. Lab Maintainance**](#2-Lab-Maintainance)
@@ -17,7 +17,7 @@
 
 ## 1.1. Make your profile visible to public:
 
-![profile-public](resources/profile-public.png)
+![profile-public](resources/github/profile-public.png)
 
 - Official Instruction Reference: https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-your-membership-in-organizations/publicizing-or-hiding-organization-membership
 
@@ -29,11 +29,11 @@
 
 ## 2.1 Managing Teams
 
-![profile-public](resources/teams.png)
+![profile-public](resources/github/teams.png)
 
 ### 2.1.1 How to add access for repository:
 
-![teams-access](resources/teams-access.png)
+![teams-access](resources/github/teams-access.png)
 
 - Default: Read
   - Read + Clone + PR + Issues
@@ -57,6 +57,7 @@
 
 - change role to **Owner**
   - able to manage the Lab GitHub and add people to the team
+
 
 
 

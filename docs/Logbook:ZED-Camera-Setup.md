@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Sat 21 Jan 2023 12:54:53 EST*]
+[*Last generated: Wed  4 Oct 2023 14:07:37 EDT*]
 - [**ZED Camera Documentation**](#ZED-Camera-Documentation)
   - [How to fix ZED Camera USB 3.0 not recognized](#How-to-fix-ZED-Camera-USB-30-not-recognized)
     - [Replace the cable:](#Replace-the-cable)
@@ -51,6 +51,7 @@ $ sudo apt install zstd
 $ sudo chmod +x ZED_SDK_Tegra_L4T35.1_v3.8.2.zstd.run
 $ ./ZED_SDK_Tegra_L4T35.1_v3.8.2.zstd.run
 ```
+
 
 
 

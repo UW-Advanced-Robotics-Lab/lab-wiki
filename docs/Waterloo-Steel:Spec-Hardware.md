@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed  4 Oct 2023 11:52:26 EDT*]
+[*Last generated: Wed  4 Oct 2023 14:07:38 EDT*]
 - [**1. Barrett WAM Specs:**](#1-Barrett-WAM-Specs)
   - [1.1 7DOF WAM:](#11-7DOF-WAM)
     - [1.1.1 Motors (*1):](#111-Motors-1)
@@ -29,7 +29,7 @@
 ---
 </toc>
 
-![waterloo-steel-v2-fov](resources/waterloo-steel-v2-fov.jpg)
+![waterloo-steel-v2-fov](resources/sim/waterloo-steel-v2-fov.jpg)
 
 ---
 
@@ -362,6 +362,7 @@ Z Rate Random Walk:  0.00007 deg/s/sqrt(s)
 Writing Kalibr imu.yaml file.
 Make sure to update rostopic and rate.
 ```
+
 
 
 

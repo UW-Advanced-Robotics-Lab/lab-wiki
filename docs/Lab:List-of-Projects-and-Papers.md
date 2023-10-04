@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Sat 21 Jan 2023 12:54:53 EST*]
+[*Last generated: Wed  4 Oct 2023 14:07:36 EDT*]
 - [**Projects:**](#Projects)
   - [[2021-April. 2022] Demo (@akeaveny @fwthree3 @JXproject) - demostration of using elevators and traversing E7 @UW](#2021-April-2022-Demo-akeaveny-fwthree3-JXproject-demostration-of-using-elevators-and-traversing-E7-UW)
   - [[Dec. 2021] Affordance Grasping (@akeaveny)](#Dec-2021-Affordance-Grasping-akeaveny)
@@ -34,6 +34,7 @@
 
 # Papers:
 [TODO]
+
 
 
 
