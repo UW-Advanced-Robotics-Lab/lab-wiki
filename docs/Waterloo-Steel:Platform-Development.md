@@ -1,8 +1,8 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed  4 Oct 2023 11:52:26 EDT*]
-- [**1. Waterloo Steel Robot Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Launch-Instructions-construction)
+[*Last generated: Wed  4 Oct 2023 13:01:00 EDT*]
+- [**1. Waterloo Steel Robot Manual Launch Instructions :construction:**](#1-Waterloo-Steel-Robot-Manual-Launch-Instructions-construction)
   - [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC)
     - [1.1.0 Reset Workspace:](#110-Reset-Workspace)
     - [1.1.1 PS Controller:](#111-PS-Controller)
@@ -32,7 +32,7 @@
 
 <img src="resources/Overall_Hardware_Architecture_Rev_3-1_2023-06-01_low.jpeg" alt="Hardware Architecture Diagram V3 Final"></img>
 
-# 1. Waterloo Steel Robot Launch Instructions :construction:
+# 1. Waterloo Steel Robot Manual Launch Instructions :construction:
 
 1. MXE 211 should auto-launch the summit-xl 
    1. If you need to check status, refer to [1.1 Adlink MXE 211 (SUMMIT + Lidar PC)](#11-Adlink-MXE-211-SUMMIT-Lidar-PC) below.
@@ -313,6 +313,7 @@ rm -rf ~/.catkin_tools
 ```
 
 - [Ref](https://github.com/catkin/catkin_tools/issues/425)
+
 
 
 
