@@ -1,13 +1,15 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Thu  1 Jun 2023 10:48:37 EDT*]
+[*Last generated: Wed  4 Oct 2023 12:55:22 EDT*]
 - [**1. Waterloo Steel Demo**](#1-Waterloo-Steel-Demo)
   - [1.1 Powering on the robot](#11-Powering-on-the-robot)
   - [1.2 Launching the Camera](#12-Launching-the-Camera)
   - [1.3 Launching WAM](#13-Launching-WAM)
   - [1.4 Launching Demo Node](#14-Launching-Demo-Node)
   - [1.5 Check Demo Rosbag Records:](#15-Check-Demo-Rosbag-Records)
+- [**2. Power Off**](#2-Power-Off)
+  - [2.1 Power off Robot Sequence ‼️](#21-Power-off-Robot-Sequence-)
 - [**A. Troubleshoot**](#A-Troubleshoot)
   - [A.1 Deck Controller Cannot Launch:](#A1-Deck-Controller-Cannot-Launch)
   - [A.2 ROS Testing](#A2-ROS-Testing)
@@ -86,7 +88,24 @@ $ rosservice call /waterloo_steel/start_demo "demo_id: 2"
 $ ls ~/.ros/bagfiles/waterloo_steel_demo/session_{id}/
 ```
 
+# 2. Power Off
 
+## 2.1 Power off Robot Sequence ‼️ 
+
+> :warning: If possible, ssh into the jetson and summit PC to shutdown the PC first
+>
+> ```bash
+> # jetson:
+> $ ssh uwarl-orin@192.168.1.10
+> # summit:
+> $ ssh ssh uwarl@192.168.1.11
+> ```
+
+1. Long Press Green Button to power off the **Jetson PC**
+2. Turn off the **WAM** power rails 
+3. Turn off the **overall power rails** 
+4. Turn off the screen of the steam deck by pressing power button briefly once, and put into charger.
+   - we dont want a reboot of steam deck
 
 # A. Troubleshoot
 
@@ -169,6 +188,7 @@ ping average: 1.150429ms
 - :eight: **[Left Trackpad]**  Button Click : Arrow Key Up/Down/Left/Right
 - 9️⃣ **[Right Trackpad]** : Mouse Move +  Mouse Right Click
 - :keycap_ten: **[Steam]** : Menu Selection ---> Used to switch between Steam OS / ArchLinux Mode + Power/Restart
+
 
 
 
