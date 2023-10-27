@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed  4 Oct 2023 15:34:20 EDT*]
+[*Last generated: Fri 27 Oct 2023 16:48:41 EDT*]
 - [**0. General:**](#0-General)
   - [0.1 Unified Development :construction:](#01-Unified-Development-construction)
   - [0.2 Usage Guide With Tool Chain and Workspace:](#02-Usage-Guide-With-Tool-Chain-and-Workspace)
@@ -36,6 +36,7 @@
   - [4.2 Deck Button Functions](#42-Deck-Button-Functions)
     - [4.2.a) Move Summit:](#42a-Move-Summit)
     - [4.2.b) Steam Arch Linux:](#42b-Steam-Arch-Linux)
+    - [4.2.c) Additional & Modification:](#42c-Additional-Modification)
   - [4.3 Control Summit Base Platform:](#43-Control-Summit-Base-Platform)
     - [4.3.1 Launching through Icons:](#431-Launching-through-Icons)
     - [4.3.2 Launch through terminals:](#432-Launch-through-terminals)
@@ -271,11 +272,13 @@ $ roslaunch waterloo_steel_supervisor multi_intel_camera.launch
 ### 4.2.a) Move Summit:
 
 - Launch the joystick controller by touching **[Launch UWARL Summit Controller]** App Icon
-
 - Button Layouts:
   - Hold :three: **[R1]**  + Move Up/Down :one: **[L3]** : Forward/Reverse
   - Hold :three: **[R1]**  + Move Left/Right :two: **[R3]** : CCW/CW
   - Hold :three: **[R1]**  + Press **(11)** **[Options]** : Omni / Skid Mode
+  - Hold :three: **[R1]**  + Press **[Y]** Speed Up ++
+  - Hold :three: **[R1]**  + Press **[A]** Speed Down --
+  - Hold :three: **[R1]**  + Press **[X/B]** :no_entry_sign: **NOT IMPLEMENTED**
 
 ### 4.2.b) Steam Arch Linux:
 
@@ -286,6 +289,11 @@ $ roslaunch waterloo_steel_supervisor multi_intel_camera.launch
 - :eight: **[Left Trackpad]**  Button Click : Arrow Key Up/Down/Left/Right
 - 9️⃣ **[Right Trackpad]** : Mouse Move +  Mouse Right Click
 - :keycap_ten: **[Steam]** : Menu Selection ---> Used to switch between Steam OS / ArchLinux Mode + Power/Restart
+
+### 4.2.c) Additional & Modification:
+
+- You may check the button **id** using the software GUI: **joystick** 
+- You may assign these button **id** to summit ws files on summit-pc: `~/UWARL_catkin_ws/waterloo_steel/waterloo_steel_interface/summit_xl_pad/config/uwarl_deck.yaml`
 
 ## 4.3 Control Summit Base Platform:
 
@@ -497,6 +505,7 @@ rm -rf ~/.catkin_tools
 # C. System Architecture:
 
 <img src="resources/Overall_Hardware_Architecture_Rev_3-1_2023-06-01_low.jpeg" alt="Hardware Architecture Diagram V3 Final"></img>
+
 
 
 
