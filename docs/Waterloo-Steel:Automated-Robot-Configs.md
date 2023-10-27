@@ -1,47 +1,46 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed 27 Sep 2023 02:15:06 PM EDT*]
-- [Table of Contents](#table-of-contents)
-- [1. A brief about `uwarl-robot_configs`](#1-a-brief-about-uwarl-robot_configs)
-  - [1.1 How to Setup Workstation:](#11-how-to-setup-workstation)
-    - [1.1.1 How to register your PC in common:](#111-how-to-register-your-pc-in-common)
-  - [1.2 How to Setup Platform Hardware:](#12-how-to-setup-platform-hardware)
-  - [1.3 How to Use Platform Toolchain and Maintain Workspace:](#13-how-to-use-platform-toolchain-and-maintain-workspace)
-  - [1.4 How to Launch the Robot:](#14-how-to-launch-the-robot)
-  - [1.5 How to Modify and Commit to Config Toolchains:](#15-how-to-modify-and-commit-to-config-toolchains)
-- [2. ⭐ Unified Development :construction:  \[Local PC / Summit / WAM\] (Melodic/Noetic):](#2--unified-development-construction--local-pc--summit--wam-melodicnoetic)
-  - [2.1 How to commit:](#21-how-to-commit)
-  - [2.2 How to Add a new modules under workspace/src:](#22-how-to-add-a-new-modules-under-workspacesrc)
-  - [2.3 \[The Branching Strategy\] How to branch for modifications:](#23-the-branching-strategy-how-to-branch-for-modifications)
-  - [2.4 Rebasing Branches:](#24-rebasing-branches)
-  - [2.5 Merging Your Branch:](#25-merging-your-branch)
-- [3. ROS UWARL\_catkin\_ws Usage Guide:](#3-ros-uwarl_catkin_ws-usage-guide)
-  - [3.1 Modifications:](#31-modifications)
-  - [3.2 Commit and Push:](#32-commit-and-push)
-  - [3.3 Pull latest repo:](#33-pull-latest-repo)
-  - [3.4 Restart over the catkin workspace:](#34-restart-over-the-catkin-workspace)
-  - [3.5 Shortcuts:](#35-shortcuts)
-    - [3.5.1 Short for ROS workspace:](#351-short-for-ros-workspace)
-    - [3.5.2 Short for OS Env.:](#352-short-for-os-env)
-    - [3.5.3 Short for UWARL\_catkin\_ws/src Commit:](#353-short-for-uwarl_catkin_wssrc-commit)
-    - [3.5.4 Short for Robot Config Toolchain:](#354-short-for-robot-config-toolchain)
-    - [3.5.5 Shorts for Git (Pretty)](#355-shorts-for-git-pretty)
-    - [3.5.6 Short Generation Tool for Markdown .md files:](#356-short-generation-tool-for-markdown-md-files)
-    - [3.5.7 Short for Tmux Multi-pane Session:](#357-short-for-tmux-multi-pane-session)
+[*Last generated: Fri 27 Oct 2023 17:05:36 EDT*]
+- [**1. A brief about `uwarl-robot_configs`**](#1-A-brief-about-uwarl-robot_configs)
+  - [1.1 How to Setup Workstation:](#11-How-to-Setup-Workstation)
+    - [1.1.1 How to register your PC in common:](#111-How-to-register-your-PC-in-common)
+  - [1.2 How to Setup Platform Hardware:](#12-How-to-Setup-Platform-Hardware)
+  - [1.3 How to Use Platform Toolchain and Maintain Workspace:](#13-How-to-Use-Platform-Toolchain-and-Maintain-Workspace)
+  - [1.4 How to Launch the Robot:](#14-How-to-Launch-the-Robot)
+  - [1.5 How to Modify and Commit to Config Toolchains:](#15-How-to-Modify-and-Commit-to-Config-Toolchains)
+- [**2. ⭐ Unified Development :construction:  (Local PC / Summit / WAM) (Melodic/Noetic):**](#2-Unified-Development-construction-Local-PC-Summit-WAM-MelodicNoetic)
+  - [2.1 How to commit:](#21-How-to-commit)
+  - [2.2 How to Add a new modules under workspace/src:](#22-How-to-Add-a-new-modules-under-workspacesrc)
+  - [2.3 (The Branching Strategy) How to branch for modifications:](#23-The-Branching-Strategy-How-to-branch-for-modifications)
+  - [2.4 Rebasing Branches:](#24-Rebasing-Branches)
+  - [2.5 Merging Your Branch:](#25-Merging-Your-Branch)
+- [**3. ROS UWARL_catkin_ws Usage Guide:**](#3-ROS-UWARL_catkin_ws-Usage-Guide)
+  - [3.1 Modifications:](#31-Modifications)
+  - [3.2 Commit and Push:](#32-Commit-and-Push)
+  - [3.3 Pull latest repo:](#33-Pull-latest-repo)
+  - [3.4 Restart over the catkin workspace:](#34-Restart-over-the-catkin-workspace)
+  - [3.5 Shortcuts:](#35-Shortcuts)
+    - [3.5.1 Short for ROS workspace:](#351-Short-for-ROS-workspace)
+    - [3.5.2 Short for OS Env.:](#352-Short-for-OS-Env)
+    - [3.5.3 Short for UWARL_catkin_ws/src Commit:](#353-Short-for-UWARL_catkin_wssrc-Commit)
+    - [3.5.4 Short for Robot Config Toolchain:](#354-Short-for-Robot-Config-Toolchain)
+    - [3.5.5 Shorts for Git (Pretty)](#355-Shorts-for-Git-Pretty)
+    - [3.5.6 Short Generation Tool for Markdown .md files:](#356-Short-Generation-Tool-for-Markdown-md-files)
+    - [3.5.7 Short for Tmux Multi-pane Session:](#357-Short-for-Tmux-Multi-pane-Session)
       - [3.5.7.a) tmux configuration file:](#357a-tmux-configuration-file)
-    - [3.5.8 SUMMIT Systemctl Service:](#358-summit-systemctl-service)
-    - [3.5.9 JETSON Service:](#359-jetson-service)
-    - [3.5.10 Debug and Profiling in ROS](#3510-debug-and-profiling-in-ros)
-    - [3.5.11 ROS Console Logging Level (An easy way):](#3511-ros-console-logging-level-an-easy-way)
-- [4. Tools:](#4-tools)
-  - [4.1 Remote Desktop Auto-Sleep and Auto-Wake Scheduling:](#41-remote-desktop-auto-sleep-and-auto-wake-scheduling)
-  - [4.2 Remote Desktop without physical monitor (Headless Monitor):](#42-remote-desktop-without-physical-monitor-headless-monitor)
-- [A. Appendix:](#a-appendix)
-  - [A.1 File Tree:](#a1-file-tree)
-  - [A.2 ZSHRC Terminal Output After Installing:](#a2-zshrc-terminal-output-after-installing)
-  - [A.3 Environment Configurations:](#a3-environment-configurations)
-    - [A.3.1 summitxl\_params.env](#a31-summitxl_paramsenv)
+    - [3.5.8 SUMMIT Systemctl Service:](#358-SUMMIT-Systemctl-Service)
+    - [3.5.9 JETSON Service:](#359-JETSON-Service)
+    - [3.5.10 Debug and Profiling in ROS](#3510-Debug-and-Profiling-in-ROS)
+    - [3.5.11 ROS Console Logging Level (An easy way):](#3511-ROS-Console-Logging-Level-An-easy-way)
+- [**4. Tools:**](#4-Tools)
+  - [4.1 Remote Desktop Auto-Sleep and Auto-Wake Scheduling:](#41-Remote-Desktop-Auto-Sleep-and-Auto-Wake-Scheduling)
+  - [4.2 Remote Desktop without physical monitor (Headless Monitor):](#42-Remote-Desktop-without-physical-monitor-Headless-Monitor)
+- [**A. Appendix:**](#A-Appendix)
+  - [A.1 File Tree:](#A1-File-Tree)
+  - [A.2 ZSHRC Terminal Output After Installing:](#A2-ZSHRC-Terminal-Output-After-Installing)
+  - [A.3 Environment Configurations:](#A3-Environment-Configurations)
+    - [A.3.1 summitxl_params.env](#A31-summitxl_paramsenv)
 
 ---
 </toc>
@@ -88,8 +87,7 @@ Please go to:  [> Link to Wiki Page: Platform Launch Instruction <](https://gith
    $ git push -u origin universal/ros1/data-analysis/session-wed-2023_register_my_pc
    ```
 2. Make a PR (Pull Requests) on GitHub UI to merge-in your changes
----
-# 2. ⭐ Unified Development :construction:  [Local PC / Summit / WAM] (Melodic/Noetic):
+# 2. ⭐ Unified Development :construction:  (Local PC / Summit / WAM) (Melodic/Noetic):
 
 > 🔥 (hot-takes) on **[Hardware v2]** : A unified multi-platform configuration
 >
@@ -190,7 +188,7 @@ Please go to:  [> Link to Wiki Page: Platform Launch Instruction <](https://gith
    $ build_ws
    ```
 
-## 2.3 [The Branching Strategy] How to branch for modifications:
+## 2.3 (The Branching Strategy) How to branch for modifications:
 1. [Optional] Make sure the current 'workspace' and 'config' is clean, no local modifications:
    ```bash
    $ check_ws_status
@@ -533,10 +531,10 @@ restart_udev
    ```bash
       # normal program run:
       $ rosrun vins vins_node $cam_config_file_path
-
+   
       # run with valgrind:
       $ rosrun_valgrind vins vins_node $cam_config_file_path
-
+   
       # -> check error causing memory dump:
       $ cat $HOME/valgrind_log.txt
       ##### OUTPUT:
@@ -668,6 +666,7 @@ Robot Configuration Description:
  
      - ROBOT_HAS_ARM indicates if the robot has an arm (*true/false*
 ```
+
 
 
 
