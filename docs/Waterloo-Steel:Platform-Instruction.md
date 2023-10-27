@@ -140,8 +140,6 @@ ssh robot@192.168.1.40
 
 - Make sure the LED panel is powered on, and will show ERROR as the WAM has not been calibrated and launched by default
 
-
-
 ## 1.3 Use Steam Deck Controller:
 
 ### 1.3.1 Power on the steam deck controller
@@ -155,6 +153,12 @@ ssh robot@192.168.1.40
 - We should now be able to launch the controller
 
 ### 1.3.3 Launch Controller Apps 
+
+> [!IMPORTANT] 
+> ⚠️ Before launching, press and release the **[Summit Base E-Stop]** to ensure the summit base is **NOT** in safety mode. 
+>
+> - Otherwise, try to ssh into summit PC, and `$ summit_systemctl status` to check system status
+>   - See details @ https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/wiki/Waterloo-Steel%3APlatform-Setup-Hardware#142-Setup-Auto-launch-at-the-boot
 
 1. Launch the joystick controller by touching **[Launch UWARL Summit Controller]** App Icon
    - 🚨 If the controller app quits after launching,  [[A.1 Deck Controller Cannot Launch:](#A1-Deck-Controller-Cannot-Launch)]
