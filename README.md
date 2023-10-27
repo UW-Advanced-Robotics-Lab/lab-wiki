@@ -16,9 +16,9 @@
 
 ---
 </toc>
-<a href="https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/wiki" target="_blank"><img src="https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/blob/main/docs/resources/button.png" alt="Click Here to Access Lab Wiki Page and Guide"/></a>
 
-
+| <a href="https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/wiki" target="_blank"><img src="./docs/resources/button.png" alt="Click Here to Access Lab Wiki Page and Guide"/></a> | [![Docs --> Wiki Sync (Latest)](https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/actions/workflows/wiki-docs-sync.yml/badge.svg?branch=main)](https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/actions/workflows/wiki-docs-sync.yml) |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 
 # 1. Instructions on Wiki Page
 

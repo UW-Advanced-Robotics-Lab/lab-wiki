@@ -10,6 +10,8 @@ Outline and overview of works contributed by all members and alumnis from the **
 
 ## Wiki - Content:
 
+[![Docs --> Wiki Sync (Latest)](https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/actions/workflows/wiki-docs-sync.yml/badge.svg?branch=main)](https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/actions/workflows/wiki-docs-sync.yml)
+
   * [:diamond_shape_with_a_dot_inside: *Home*](./Home)
 
   * :label: **[   Lab   ]:** <--- Lab related information
