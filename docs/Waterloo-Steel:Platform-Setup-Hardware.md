@@ -1,16 +1,16 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed  1 Nov 2023 18:54:32 EDT*]
+[*Last generated: Wed  1 Nov 2023 19:25:55 EDT*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen:](#01-Remote-Screen)
     - [0.1.1 XRDP SSH](#011-XRDP-SSH)
     - [0.1.2 :no_entry_sign: VNC](#012-no_entry_sign-VNC)
     - [0.1.3 :star: NO MACHINE (preferred, without monitor attached)](#013-star-NO-MACHINE-preferred-without-monitor-attached)
-      - [0.1.3.* ⭐ Headless Nomachine using X virtual frame buffer](#013-Headless-Nomachine-using-X-virtual-frame-buffer)
-      - [0.1.3.a **[Jetson Orin]** ARMv8 aarch64:](#013a-Jetson-Orin-ARMv8-aarch64)
-      - [0.1.3.b **[Adlink Summit PC]**](#013b-Adlink-Summit-PC)
-      - [0.1.3.c **[Mac/WIN] PC:**](#013c-MacWIN-PC)
+      - [0.1.3.a ⭐ Headless Nomachine using X virtual frame buffer](#013a-Headless-Nomachine-using-X-virtual-frame-buffer)
+      - [0.1.3.b **[Jetson Orin]** ARMv8 aarch64:](#013b-Jetson-Orin-ARMv8-aarch64)
+      - [0.1.3.c **[Adlink Summit PC]**](#013c-Adlink-Summit-PC)
+      - [0.1.3.d **[Mac/WIN] PC:**](#013d-MacWIN-PC)
     - [0.1.4 Remote Desktop Auto-Sleep and Auto-Wake Scheduling:](#014-Remote-Desktop-Auto-Sleep-and-Auto-Wake-Scheduling)
     - [0.1.5 Remote Desktop Recalculate and Set Auto-Wake upon shutdown:](#015-Remote-Desktop-Recalculate-and-Set-Auto-Wake-upon-shutdown)
   - [0.2 SSH Keys and Github](#02-SSH-Keys-and-Github)
@@ -193,7 +193,7 @@ $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
 
 - NO Machine: https://downloads.nomachine.com
 
-#### 0.1.3.* ⭐ Headless Nomachine using X virtual frame buffer
+#### 0.1.3.a ⭐ Headless Nomachine using X virtual frame buffer
 
 > 📓 For headless monitor, with nomachine, you do not need some customization, see [>Connecting to Linux headless machines with NoMachine<](https://kb.nomachine.com/AR03P00973)
 
@@ -226,9 +226,7 @@ $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
 > ```
 
 
-
-
-#### 0.1.3.a **[Jetson Orin]** ARMv8 aarch64:
+#### 0.1.3.b **[Jetson Orin]** ARMv8 aarch64:
 
 ```bash
 # dummy display driver {needed for display acc}:
@@ -264,7 +262,7 @@ $ sudo dpkg -i nomachine_8.4.2_1_arm64.deb
 
 - Other notes: https://kb.nomachine.com/AR02R01074
 
-#### 0.1.3.b **[Adlink Summit PC]**
+#### 0.1.3.c **[Adlink Summit PC]**
 
 ```bash
 # NO Machine URDC:
@@ -274,7 +272,7 @@ $ wget https://download.nomachine.com/download/8.5/Linux/nomachine_8.5.3_1_amd64
 $ sudo dpkg -i nomachine_8.5.3_1_amd64.deb
 ```
 
-#### 0.1.3.c **[Mac/WIN] PC:**
+#### 0.1.3.d **[Mac/WIN] PC:**
 
 - Download NoMachine and open it, it will show any NoMachine available in the WLAN network
 - For headless monitor configuration, copy it from the config (with lots settings on resolution):
@@ -1878,6 +1876,7 @@ $ wget https://download.nomachine.com/download/8.3/Linux/nomachine_8.3.1_1_x86_6
 $ sudo tar zxvf nomachine_8.3.1_1_x86_64.tar.gz
 $ sudo /usr/NX/nxserver --install redhat
 ```
+
 
 
 

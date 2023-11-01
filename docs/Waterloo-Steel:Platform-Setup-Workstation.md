@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed  1 Nov 2023 18:54:32 EDT*]
+[*Last generated: Wed  1 Nov 2023 19:25:55 EDT*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote & Collaboration](#01-Remote-Collaboration)
     - [0.1.a AnyDesk : remote screen & remote VPN ssh](#01a-AnyDesk-remote-screen-remote-VPN-ssh)
@@ -127,41 +127,7 @@ $ sudo systemctl status ssh
     $ arch
     ```
 
-- Easy Mode:
-  
-  > 📓 For headless monitor, with nomachine, you may choose not to setup custom virtual monitor, or DO.
-  >
-  >  See details in  [>Connecting to Linux headless machines with NoMachine<](https://kb.nomachine.com/AR03P00973)
-  
-  > **3) Use a X virtual framebuffer**
-  >
-  > You can use any of the solutions above or stop the X server manually, in order to make NoMachine use its own display service:
-  >
-  > Use the proper command to stop the X server according to your display manager, for example:
-  >
-  > ```bash
-  > sudo systemctl stop lightdm
-  > ```
-  >
-  > or: `sudo systemctl stop gdm`
-  >
-  > or: `sudo systemctl stop sddm` etc ...
-  >
-  > or, if you don't know what it is, use the "display-manager" alias:
-  >
-  > ```bash
-  > sudo systemctl stop display-manager
-  > ## Permanently:
-  > sudo systemctl disable display-manager
-  > ```
-  >
-  > and restart the NoMachine server:
-  >
-  > ```bash
-  > sudo /etc/NX/nxserver --restart
-  > ```
-  
-  > 📣 You will see all available local NoMachine through the APP, and allow us to remote screen from **Mac, WIN, Ipad, and Ubuntu.**
+- > 📣 You will see all available local NoMachine through the APP, and allow us to remote screen from **Mac, WIN, Ipad, and Ubuntu.**
 
 #### 1.2.2.d)* (optional) Remote Desktop Auto-Sleep and Auto-Wake Scheduling:
 
@@ -578,6 +544,8 @@ $ md_toc_dir docs
 # 3. Windows
 
 [TODO]
+
+
 
 
 

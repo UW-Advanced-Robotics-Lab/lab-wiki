@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 27 Oct 2023 17:05:36 EDT*]
+[*Last generated: Wed  1 Nov 2023 19:25:54 EDT*]
 - [**1. A brief about `uwarl-robot_configs`**](#1-A-brief-about-uwarl-robot_configs)
   - [1.1 How to Setup Workstation:](#11-How-to-Setup-Workstation)
     - [1.1.1 How to register your PC in common:](#111-How-to-register-your-PC-in-common)
@@ -9,10 +9,10 @@
   - [1.3 How to Use Platform Toolchain and Maintain Workspace:](#13-How-to-Use-Platform-Toolchain-and-Maintain-Workspace)
   - [1.4 How to Launch the Robot:](#14-How-to-Launch-the-Robot)
   - [1.5 How to Modify and Commit to Config Toolchains:](#15-How-to-Modify-and-Commit-to-Config-Toolchains)
-- [**2. ⭐ Unified Development :construction:  (Local PC / Summit / WAM) (Melodic/Noetic):**](#2-Unified-Development-construction-Local-PC-Summit-WAM-MelodicNoetic)
+- [**2. ⭐ Unified Development :construction:  [Local PC / Summit / WAM] (Melodic/Noetic):**](#2-Unified-Development-construction-Local-PC-Summit-WAM-MelodicNoetic)
   - [2.1 How to commit:](#21-How-to-commit)
   - [2.2 How to Add a new modules under workspace/src:](#22-How-to-Add-a-new-modules-under-workspacesrc)
-  - [2.3 (The Branching Strategy) How to branch for modifications:](#23-The-Branching-Strategy-How-to-branch-for-modifications)
+  - [2.3 [The Branching Strategy] How to branch for modifications:](#23-The-Branching-Strategy-How-to-branch-for-modifications)
   - [2.4 Rebasing Branches:](#24-Rebasing-Branches)
   - [2.5 Merging Your Branch:](#25-Merging-Your-Branch)
 - [**3. ROS UWARL_catkin_ws Usage Guide:**](#3-ROS-UWARL_catkin_ws-Usage-Guide)
@@ -36,6 +36,9 @@
 - [**4. Tools:**](#4-Tools)
   - [4.1 Remote Desktop Auto-Sleep and Auto-Wake Scheduling:](#41-Remote-Desktop-Auto-Sleep-and-Auto-Wake-Scheduling)
   - [4.2 Remote Desktop without physical monitor (Headless Monitor):](#42-Remote-Desktop-without-physical-monitor-Headless-Monitor)
+    - [4.2.a X server dummy display config:](#42a-X-server-dummy-display-config)
+    - [4.2.b Fully Headless (NoMachine):](#42b-Fully-Headless-NoMachine)
+    - [4.2.b Temporary Headless (NoMachine):](#42b-Temporary-Headless-NoMachine)
 - [**A. Appendix:**](#A-Appendix)
   - [A.1 File Tree:](#A1-File-Tree)
   - [A.2 ZSHRC Terminal Output After Installing:](#A2-ZSHRC-Terminal-Output-After-Installing)
@@ -87,7 +90,8 @@ Please go to:  [> Link to Wiki Page: Platform Launch Instruction <](https://gith
    $ git push -u origin universal/ros1/data-analysis/session-wed-2023_register_my_pc
    ```
 2. Make a PR (Pull Requests) on GitHub UI to merge-in your changes
-# 2. ⭐ Unified Development :construction:  (Local PC / Summit / WAM) (Melodic/Noetic):
+---
+# 2. ⭐ Unified Development :construction:  [Local PC / Summit / WAM] (Melodic/Noetic):
 
 > 🔥 (hot-takes) on **[Hardware v2]** : A unified multi-platform configuration
 >
@@ -123,7 +127,7 @@ Please go to:  [> Link to Wiki Page: Platform Launch Instruction <](https://gith
    # build ws from anywhere
    $ build_ws
    # source ws from anywhere
-   $ src_ws
+   $ source_ws
    ```
 
 5. (*) For hardware platform setup, please refer to [ [Waterloo-Steel:Platform-Setup.md](./Waterloo-Steel:Platform-Setup.md) ]
@@ -188,7 +192,7 @@ Please go to:  [> Link to Wiki Page: Platform Launch Instruction <](https://gith
    $ build_ws
    ```
 
-## 2.3 (The Branching Strategy) How to branch for modifications:
+## 2.3 [The Branching Strategy] How to branch for modifications:
 1. [Optional] Make sure the current 'workspace' and 'config' is clean, no local modifications:
    ```bash
    $ check_ws_status
@@ -582,9 +586,20 @@ $ sudo crontab -e
 ```
 
 ## 4.2 Remote Desktop without physical monitor (Headless Monitor):
+### 4.2.a X server dummy display config:
 ```bash
-$ sudo apt-get install xserver-xorg-video-dummy -y 
+$ sudo apt-get install xserver-xorg-video-dummy -y  # best for jetson / desktops
 $ sudo cp ~/uwarl-robot_configs/desktop/etc/X11/xorg.conf /etc/X11/xorg.conf
+```
+### 4.2.b Fully Headless (NoMachine):
+```bash
+$ sudo systemctl disable display-manager # [to save computer resources, some applications may require display, then you should not disable it ] : suitable for summit
+$ sudo /etc/NX/nxserver --restart
+```
+### 4.2.b Temporary Headless (NoMachine):
+```bash
+$ stop_display    # stop display-manager [to save computer resources, some applications may require display, then you should not disable it ] : suitable for jetson when needed
+$ start_display   # start display-manager
 ```
 
 # A. Appendix:
@@ -596,8 +611,8 @@ $ sudo cp ~/uwarl-robot_configs/desktop/etc/X11/xorg.conf /etc/X11/xorg.conf
 .
 .
 ├── docs                                              # [documents]
-│   └── media                                              # : media folders
-│       └── zshrc_terminal_output_dec_01_2022.png
+│   └── media                                              # : media folders
+│       └── zshrc_terminal_output_dec_01_2022.png
 ├── README.md                                              # : instructions
 ├── scripts                                           # [bash scripts]
 │   ├── auto-config_UWARL_catkin_ws.zsh                    # : auto-install `UWARL_catkin_ws`
@@ -666,6 +681,7 @@ Robot Configuration Description:
  
      - ROBOT_HAS_ARM indicates if the robot has an arm (*true/false*
 ```
+
 
 
 
