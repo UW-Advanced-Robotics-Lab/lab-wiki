@@ -215,6 +215,8 @@ $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
 >
 > ```bash
 > sudo systemctl stop display-manager
+> ## Permanently:
+> sudo systemctl disable display-manager
 > ```
 >
 > and restart the NoMachine server:
@@ -222,6 +224,8 @@ $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
 > ```bash
 > sudo /etc/NX/nxserver --restart
 > ```
+
+
 
 
 #### 0.1.3.a **[Jetson Orin]** ARMv8 aarch64:
