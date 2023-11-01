@@ -1,12 +1,13 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed  4 Oct 2023 15:34:20 EDT*]
+[*Last generated: Wed  1 Nov 2023 18:54:32 EDT*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote Screen:](#01-Remote-Screen)
     - [0.1.1 XRDP SSH](#011-XRDP-SSH)
     - [0.1.2 :no_entry_sign: VNC](#012-no_entry_sign-VNC)
     - [0.1.3 :star: NO MACHINE (preferred, without monitor attached)](#013-star-NO-MACHINE-preferred-without-monitor-attached)
+      - [0.1.3.* ⭐ Headless Nomachine using X virtual frame buffer](#013-Headless-Nomachine-using-X-virtual-frame-buffer)
       - [0.1.3.a **[Jetson Orin]** ARMv8 aarch64:](#013a-Jetson-Orin-ARMv8-aarch64)
       - [0.1.3.b **[Adlink Summit PC]**](#013b-Adlink-Summit-PC)
       - [0.1.3.c **[Mac/WIN] PC:**](#013c-MacWIN-PC)
@@ -191,6 +192,36 @@ $ ./uwarl-robot_configs/scripts/auto-install_xrdp_screen.sh
   - > :notes: Since Jetson has GPU and is the main computing unit with visions, some modules require a display installed when testing and running rviz within the network. Now, it is possible with NO Machine. 
 
 - NO Machine: https://downloads.nomachine.com
+
+#### 0.1.3.* ⭐ Headless Nomachine using X virtual frame buffer
+
+> 📓 For headless monitor, with nomachine, you do not need some customization, see [>Connecting to Linux headless machines with NoMachine<](https://kb.nomachine.com/AR03P00973)
+
+> **3) Use a X virtual framebuffer**
+>
+> You can use any of the solutions above or stop the X server manually, in order to make NoMachine use its own display service:
+>
+> Use the proper command to stop the X server according to your display manager, for example:
+>
+> ```bash
+> sudo systemctl stop lightdm
+> ```
+>
+> or: `sudo systemctl stop gdm`
+>
+> or: `sudo systemctl stop sddm` etc ...
+>
+> or, if you don't know what it is, use the "display-manager" alias:
+>
+> ```bash
+> sudo systemctl stop display-manager
+> ```
+>
+> and restart the NoMachine server:
+>
+> ```bash
+> sudo /etc/NX/nxserver --restart
+> ```
 
 
 #### 0.1.3.a **[Jetson Orin]** ARMv8 aarch64:
@@ -1843,6 +1874,7 @@ $ wget https://download.nomachine.com/download/8.3/Linux/nomachine_8.3.1_1_x86_6
 $ sudo tar zxvf nomachine_8.3.1_1_x86_64.tar.gz
 $ sudo /usr/NX/nxserver --install redhat
 ```
+
 
 
 

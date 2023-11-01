@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed  4 Oct 2023 15:34:21 EDT*]
+[*Last generated: Wed  1 Nov 2023 18:54:32 EDT*]
 - [**0. Common**](#0-Common)
   - [0.1 Remote & Collaboration](#01-Remote-Collaboration)
     - [0.1.a AnyDesk : remote screen & remote VPN ssh](#01a-AnyDesk-remote-screen-remote-VPN-ssh)
@@ -15,7 +15,7 @@
     - [1.2.1 Basic Tools:](#121-Basic-Tools)
       - [1.2.1.a) Net-tools:](#121a-Net-tools)
       - [1.2.1.b) Open-SSH](#121b-Open-SSH)
-      - [1.2.1.c)* (Optional) NoMachine (see hardware-setup guide common):](#121c-Optional-NoMachine-see-hardware-setup-guide-common)
+      - [1.2.1.c)* (Optional) NoMachine (see more in Platform-Setup-Hardware):](#121c-Optional-NoMachine-see-more-in-Platform-Setup-Hardware)
       - [1.2.2.d)* (optional) Remote Desktop Auto-Sleep and Auto-Wake Scheduling:](#122d-optional-Remote-Desktop-Auto-Sleep-and-Auto-Wake-Scheduling)
     - [1.2.2 Optional Advanced Tools:](#122-Optional-Advanced-Tools)
       - [1.2.2.a) Zenith](#122a-Zenith)
@@ -117,7 +117,7 @@ $ sudo systemctl status ssh
   $ ip a 
   ```
 
-#### 1.2.1.c)* (Optional) NoMachine (see hardware-setup guide common):
+#### 1.2.1.c)* (Optional) NoMachine (see more in Platform-Setup-Hardware):
 
 - NO Machine: https://downloads.nomachine.com
 
@@ -127,7 +127,33 @@ $ sudo systemctl status ssh
     $ arch
     ```
 
-- See detailed setup **without monitor** in **[[Waterloo-Steel/Platform-Hardware-Setup.md]](https://github.com/UW-Advanced-Robotics-Lab/lab-wiki/wiki/Waterloo-Steel%3APlatform-Hardware-Setup#013-star-NO-MACHINE-preferred-without-monitor-attached)** 
+- > 📓 For headless monitor, with nomachine, you do not need some customization, see [>Connecting to Linux headless machines with NoMachine<](https://kb.nomachine.com/AR03P00973)
+  >
+  > **3) Use a X virtual framebuffer**
+  >
+  > You can use any of the solutions above or stop the X server manually, in order to make NoMachine use its own display service:
+  >
+  > Use the proper command to stop the X server according to your display manager, for example:
+  >
+  > ```
+  > sudo systemctl stop lightdm
+  > ```
+  >
+  > or: `sudo systemctl stop gdm`
+  >
+  > or: `sudo systemctl stop sddm` etc ...
+  >
+  > or, if you don't know what it is, use the "display-manager" alias:
+  >
+  > ```
+  > sudo systemctl stop display-manager
+  > ```
+  >
+  > and restart the NoMachine server:
+  >
+  > ```
+  > sudo /etc/NX/nxserver --restart
+  > ```
 
   > 📣 You will see all available local NoMachine through the APP, and allow us to remote screen from **Mac, WIN, Ipad, and Ubuntu.**
 
@@ -546,6 +572,7 @@ $ md_toc_dir docs
 # 3. Windows
 
 [TODO]
+
 
 
 
