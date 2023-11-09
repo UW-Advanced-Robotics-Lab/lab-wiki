@@ -322,6 +322,73 @@ $ rosrun rviz rviz
 
 
 
+# 5. AMCL Mapping Instruction
+
+> [!IMPORTANT] 
+>
+> 1. Before launching, make sure the robot is aligned with an edge of the wall in the center of the room for best result
+> 2. Make sure in slow speed when creating the map
+
+## 5.1 Creating AMCL Map:
+
+```bash
+$ ssh uwarl@192.168.1.11
+```
+
+### 5.1.1 Disable Navigation Package
+
+```bash
+## comment out navigation for summit
+$ sudo vim ~/UWARL_catkin_ws/src/uwarl-summit_xl_robot/waterloo_steel_summit_bringup/launch/waterloo_steel_summit.launch
+## As below:
+# <!-- include file="$(find summit_xl_navigation)/launch/summit_xls_navigation.launch" >
+#   <arg name="id_robot"
+#   value="$(arg id_robot)"/>
+# </include -->
+## restart summit roscore:
+$ summit_systemctl restart
+## to see if the summit core launched successfully, see journal logs as:
+$ summit_systemctl follow
+```
+
+### 5.1.2 Launch SLAM Gmapping:
+
+```bash
+## slam mapping:
+$ cd ~/UWARL_catkin_ws/src/uwarl-summit_xl_robot/waterloo_steel_summit_bringup
+$ roslaunch slam_gmapping.launch
+```
+
+### 5.1.3 Now Mapping on Rviz:
+
+![mapping_rviz](resources/deck/mapping_rviz.jpg)
+
+- Now, you may leash the robot slowly across the room from edge to edge.
+
+### 5.1.4 Save the Map:
+
+```bash
+$ cd ~/UWARL_catkin_ws/src/uwarl-summit_xl_common/summit_xl_localization/maps/{Building-floor-folder}
+## Before kill slam_gmapping.launch, save the final map as:
+$ rosrun map_server map_saver -f {map_name_date}
+
+## Example: 
+$ cd ~/UWARL_catkin_ws/src/uwarl-summit_xl_common/summit_xl_localization/maps/UW_E7_1ST
+$ rosrun map_server map_saver -f map_robothub_2023-11-08
+```
+
+## 5.2 Loading the New Map 
+
+```bash
+$ cp ~/UWARL_catkin_ws/src/uwarl-summit_xl_common/summit_xl_localization/maps/UW_E7_1ST/map_robothub_2023-11-08.pgm ~/UWARL_catkin_ws/src/uwarl-summit_xl_common/summit_xl_localization/maps/map_in_use/map.pgm 
+$ cp ~/UWARL_catkin_ws/src/uwarl-summit_xl_common/summit_xl_localization/maps/UW_E7_1ST/map_robothub_2023-11-08.yaml ~/UWARL_catkin_ws/src/uwarl-summit_xl_common/summit_xl_localization/maps/map_in_use/map.yaml 
+## Modify Map In Use:
+$ vim ~/UWARL_catkin_ws/src/uwarl-summit_xl_common/summit_xl_localization/maps/map_in_use/map.yaml 
+## so that it is targeting map.pgm
+```
+
+> ⚠️ I think this can be automated in robot env, or config tools. Someone makes it :P -- Jack
+
 ---
 
 # Appendix A - Utilities
