@@ -364,8 +364,11 @@ $ roslaunch slam_gmapping.launch
 ![mapping_rviz](resources/deck/mapping_rviz.jpg)
 
 - Now, you may leash the robot slowly across the room from edge to edge.
-- Make sure to keep a distance of at least 0.5 meter between the robot and the objects you want to capture. Objects whithin this distance will not be captured.
-- Make sure your legs are not captured as an object. Therefore, stay in the blind spot of the robot, or keep walking around.
+
+> [!IMPORTANT] 
+>
+> 1. Keep a distance of at least 0.5 meters between the robot and the objects you want to capture. Objects within this distance will not be captured.
+> 2. Make sure your legs are not captured as an object. Therefore, stay in the blind spot of the robot or keep walking around.
 
 ### 5.1.4 Save the Map:
 
