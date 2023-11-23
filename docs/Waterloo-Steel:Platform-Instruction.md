@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Fri 27 Oct 2023 16:48:41 EDT*]
+[*Last generated: Wed 22 Nov 2023 19:34:09 EST*]
 - [**0. General:**](#0-General)
   - [0.1 Unified Development :construction:](#01-Unified-Development-construction)
   - [0.2 Usage Guide With Tool Chain and Workspace:](#02-Usage-Guide-With-Tool-Chain-and-Workspace)
@@ -42,6 +42,13 @@
     - [4.3.2 Launch through terminals:](#432-Launch-through-terminals)
       - [1.3.2.1 Launch Pad](#1321-Launch-Pad)
       - [1.3.2.2 Launch Rviz](#1322-Launch-Rviz)
+- [**5. AMCL Mapping Instruction**](#5-AMCL-Mapping-Instruction)
+  - [5.1 Creating AMCL Map:](#51-Creating-AMCL-Map)
+    - [5.1.1 Disable Navigation Package](#511-Disable-Navigation-Package)
+    - [5.1.2 Launch SLAM Gmapping:](#512-Launch-SLAM-Gmapping)
+    - [5.1.3 Now Mapping on Rviz:](#513-Now-Mapping-on-Rviz)
+    - [5.1.4 Save the Map:](#514-Save-the-Map)
+  - [5.2 Loading the New Map](#52-Loading-the-New-Map)
 - [**Appendix A - Utilities**](#Appendix-A-Utilities)
   - [A.1 xacro and launching](#A1-xacro-and-launching)
   - [A.2 ROS](#A2-ROS)
@@ -356,7 +363,7 @@ $ summit_systemctl follow
 ```bash
 ## slam mapping:
 $ cd ~/UWARL_catkin_ws/src/uwarl-summit_xl_robot/waterloo_steel_summit_bringup
-$ roslaunch slam_gmapping.launch
+$ roslaunch summit_xl_localization slam_gmapping.launch
 ```
 
 ### 5.1.3 Now Mapping on Rviz:
@@ -577,6 +584,7 @@ rm -rf ~/.catkin_tools
 # C. System Architecture:
 
 <img src="resources/Overall_Hardware_Architecture_Rev_3-1_2023-06-01_low.jpeg" alt="Hardware Architecture Diagram V3 Final"></img>
+
 
 
 
