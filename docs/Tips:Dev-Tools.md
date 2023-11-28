@@ -1,25 +1,31 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Wed  4 Oct 2023 15:34:20 EDT*]
-- [**Git:**](#Git)
-  - [A better Git Graph:](#A-better-Git-Graph)
-- [**Linux:**](#Linux)
-  - [Docker:](#Docker)
-  - [Environment container comparison:](#Environment-container-comparison)
-- [**VM:**](#VM)
-  - [Setup SSH in VM:](#Setup-SSH-in-VM)
+[*Last generated: Tue 28 Nov 2023 14:54:11 EST*]
+- [**1. Git:**](#1-Git)
+  - [1.1 A better Git Graph:](#11-A-better-Git-Graph)
+- [**2. Linux:**](#2-Linux)
+  - [2.1 Frequently Used:](#21-Frequently-Used)
+  - [2.2 Docker:](#22-Docker)
+  - [2.3 Environment container comparison:](#23-Environment-container-comparison)
+  - [2.4 Network:](#24-Network)
+    - [2.4.1 File Server - Samba](#241-File-Server-Samba)
+      - [2.4.1.a Add network share folder](#241a-Add-network-share-folder)
+      - [2.4.1.b Set User and password](#241b-Set-User-and-password)
+    - [2.4.2 Network Firewalls:](#242-Network-Firewalls)
 
 ---
 </toc>
 
 
 
-# Git:
+# 1. Git:
 
 - For introduction, please read [[Documentation/Coding-Guidelines.md]](./Documentation:Coding-Guidelines.md)
 
-## A better Git Graph:
+## 1.1 A better Git Graph:
+
+- Now comes free with `uwarl_robot-config` , via `$ git_log`
 
 ```bash
 $ git config --global alias.lg "log --graph --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --decorate=full"
@@ -31,14 +37,16 @@ $ git lg
 $ git lg -p
 ```
 
-# Linux:
+# 2. Linux:
+
+## 2.1 Frequently Used:
 
 1. `$ uname -r`: OS check 
 2. `$ cat /prov/version_signature`: identify kernel
 3. `$ arp -a` : Scan Local Network Devices and IPs
 4. `$ tree -L 1`: list hierarchy of directory in depth=1
 
-## Docker:
+## 2.2 Docker:
 
 - containerizing application with all dependencies without users to manually setup the environment
 - available in all OS
@@ -46,7 +54,7 @@ $ git lg -p
 
 - DOC: https://docs.docker.com/engine/
 
-## Environment container comparison:
+## 2.3 Environment container comparison:
 
 | Tool Name | Intro | Pro | Con|
 |:-:|:-:|:-:|:-:|
@@ -58,12 +66,66 @@ $ git lg -p
 
 > :notebook: [Isolation Level]: pyenv < virtualenv <= Anaconda < Docker < Vagrant 
 
-# VM:
+## 2.4 Network:
 
-## Setup SSH in VM:
+### 2.4.1 File Server - Samba
 
-https://rocky-chen.medium.com/setup-ssh-connection-to-your-ubuntu-vm-of-virtualbox-macos-eed4691fe08
+#### 2.4.1.a Add network share folder
 
+- Add folders to network share:
+
+```bash
+$. sudo vim /etc/samba/smb.conf
+
+## edit with:
+[sambashare]
+   comment = Samba on ubuntu
+   path = /home/jx/samba_share
+   read only = no
+   browsable = yes
+   guest ok = no
+
+[vinsanalysis]
+   comment = vins analysis results
+   path = /home/jx/UWARL_catkin_ws/src/vins-research-pkg/research-project/output/vins_analysis
+   read only = no
+   browsable = yes
+   guest ok = no
+```
+
+- restart service:
+
+```bash
+$ sudo systemctl restart smbd.service
+```
+
+#### 2.4.1.b Set User and password
+
+```bash
+$ sudo smbpasswd -a jx
+```
+
+
+
+### 2.4.2 Network Firewalls:
+
+- check your network security:
+
+```bash
+$ sudo ufw status numbered  
+
+### OUTPUT:
+Status: active
+
+     To                         Action      From
+     --                         ------      ----
+[ 1] 3389                       ALLOW IN    Anywhere
+[ 2] 22                         ALLOW IN    Anywhere
+[ 3] Samba                      ALLOW IN    Anywhere
+...
+```
+
+- This is important to protect your Linux Desktop from malicious attack
 
 
 
