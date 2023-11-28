@@ -1,7 +1,7 @@
 <toc>
 
 # Table of Contents
-[*Last generated: Tue 28 Nov 2023 14:54:11 EST*]
+[*Last generated: Tue 28 Nov 2023 14:57:32 EST*]
 - [**1. Git:**](#1-Git)
   - [1.1 A better Git Graph:](#11-A-better-Git-Graph)
 - [**2. Linux:**](#2-Linux)
@@ -13,6 +13,7 @@
       - [2.4.1.a Add network share folder](#241a-Add-network-share-folder)
       - [2.4.1.b Set User and password](#241b-Set-User-and-password)
     - [2.4.2 Network Firewalls:](#242-Network-Firewalls)
+    - [2.4.3 Wake-On-LAN:](#243-Wake-On-LAN)
 
 ---
 </toc>
@@ -127,6 +128,13 @@ Status: active
 
 - This is important to protect your Linux Desktop from malicious attack
 
+
+
+### 2.4.3 Wake-On-LAN:
+
+- Activate your PC to enable wake-on-lan feature
+- Use `ifconfig` to find your network IP at ethernet port and its assigned MAC address
+- evoke to wake from other PC: `$ wakeonlan -i 192.x.x.x xx:xx:xx:xx:xx:xx`
 
 
 
