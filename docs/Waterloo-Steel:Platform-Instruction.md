@@ -137,8 +137,8 @@ ssh robot@192.168.1.40
 
 ### 1.2.1 Turn on the robot (Main Power Switch)
 
+- first make sure the E-stop for Base is engaged
 - by twisting power knobs for Base
-
 - we should see the green button (for jetson pc) is lighting on
 - fan spinning, and everything should be powered except WAM
 
