@@ -70,6 +70,9 @@ M5 | 0.00001685 |9.48  |0.001584
 M6 | 0.00001745 |9.48  |0.001641 
 M7 | 0.00000142 |14.93 |0.000318
 
+### 1.1.4 Puck communication (*7)
+Frequency: 500 Hz (2 ms)
+Nescessary in-case one attempts to perform PID gain tuning.
 
 ## 1.2 Barrett Torque Sensor (*2):
 | Property | Value |
@@ -140,7 +143,7 @@ M7 | 0.00000142 |14.93 |0.000318
 
 *6. [WAM Inertial Spec](https://web.barrett.com/support/WAM_Documentation/WAM_InertialSpecifications_AC-02.pdf)
 
-
+*7. [WAM Puck communication](https://support.barrett.com/wiki/WAM/DetailedSystemOperation#SoftwareArchitecture)
 
 # 2. Power Table
 
