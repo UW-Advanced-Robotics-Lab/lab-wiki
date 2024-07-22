@@ -49,6 +49,9 @@
     - Chrome Reference Plug-In (free): [Zotero-Chrome](https://chrome.google.com/webstore/detail/zotero-connector/ekhagklcjbdpajgpjgmbionohlpdbjgc?hl=en) ---> automatically download, OCR and stub bib reference to a paper / pdf 
     - [Zotero-Better-Bibtex](https://retorque.re/zotero-better-bibtex/) ---> auto generate bibtex from a category to a local specified `.bib` file 
 - Plug-in to make better notes in Zotero: https://github.com/windingwind/zotero-better-notes/blob/master/UserGuideCN.md
+- IPE: https://github.com/otfried/ipe for latex Draw
+
+    >  LatexDraw is a bit sad to use, and I was recommended to use IPE
 
 ### Work-Flow:
 1. Create Overleaf Project for Online collaboration
@@ -77,13 +80,19 @@
 1. [NEURIPS ANTHOLOGY VISUALIZATION](https://neuripsav.vizhub.ai): Here, you got clustered ML papers on Neuralips
 2. [Distill](https://distill.pub): Public Articles on understanding algorithms and ML models with visual aids
 
+## MPC:
+
+- MPT3 Matlab toolbox: https://www.mpt3.org
+- Faster Non-linear Solver: https://www.gurobi.com/solutions/gurobi-optimizer/
+
+
+
 ## Topical:
+
 ### :label: Visions
 1. [Camera and Lenses and Artifacts with visual aids](https://ciechanow.ski/cameras-and-lenses/) #intro
 
 ---
-
-
 
 
 
