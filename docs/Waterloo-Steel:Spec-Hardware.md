@@ -25,6 +25,8 @@
   - [2.5 DC-DC 48V Regulator For WAM](#25-DC-DC-48V-Regulator-For-WAM)
 - [**3. Sensors**](#3-Sensors)
   - [3.1 L515 Sensor](#31-L515-Sensor)
+- [**4. Cables**](#4-Cables)
+  - [4.1 CAN Cable](#41-CAN-Cable)
 
 ---
 </toc>
@@ -363,19 +365,13 @@ Writing Kalibr imu.yaml file.
 Make sure to update rostopic and rate.
 ```
 
+# 4. Cables
 
+## 4.1 CAN Cable
 
-
-
-
-
-
-
-
-
-
-
-
+![CAN_Cable](resources/CAN/bps3_24-07-47-19.jpg)
+![CAN_Cable](resources/CAN/CAN_cable.jpg)
+- When tested for connectivity, pin 4 and pin 8 on the CAN connector are connected to pin 1 and pin 2 on the 5-pin connector.
 
 
 
