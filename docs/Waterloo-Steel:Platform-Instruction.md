@@ -31,24 +31,26 @@
 - [**3. Jetson Orin (WAM + Vision PC)**](#3-Jetson-Orin-WAM-Vision-PC)
   - [3.1 WAM Node:](#31-WAM-Node)
   - [3.2 Multiple Intel Cameras:](#32-Multiple-Intel-Cameras)
-- [**4. Steam Deck Controller**](#4-Steam-Deck-Controller)
-  - [4.1 Deck Button Layout](#41-Deck-Button-Layout)
-  - [4.2 Deck Button Functions](#42-Deck-Button-Functions)
-    - [4.2.a) Move Summit:](#42a-Move-Summit)
-    - [4.2.b) Steam Arch Linux:](#42b-Steam-Arch-Linux)
-    - [4.2.c) Additional & Modification:](#42c-Additional-Modification)
-  - [4.3 Control Summit Base Platform:](#43-Control-Summit-Base-Platform)
-    - [4.3.1 Launching through Icons:](#431-Launching-through-Icons)
-    - [4.3.2 Launch through terminals:](#432-Launch-through-terminals)
-      - [1.3.2.1 Launch Pad](#1321-Launch-Pad)
-      - [1.3.2.2 Launch Rviz](#1322-Launch-Rviz)
-- [**5. AMCL Mapping Instruction**](#5-AMCL-Mapping-Instruction)
-  - [5.1 Creating AMCL Map:](#51-Creating-AMCL-Map)
-    - [5.1.1 Disable Navigation Package](#511-Disable-Navigation-Package)
-    - [5.1.2 Launch SLAM Gmapping:](#512-Launch-SLAM-Gmapping)
-    - [5.1.3 Now Mapping on Rviz:](#513-Now-Mapping-on-Rviz)
-    - [5.1.4 Save the Map:](#514-Save-the-Map)
-  - [5.2 Loading the New Map](#52-Loading-the-New-Map)
+- [**4. Internal WAM PC**](#4-Internal-WAM-PC)
+  - [4.1 WAM Node:](#41-WAM-Node)
+- [**5. Steam Deck Controller**](#5-Steam-Deck-Controller)
+  - [5.1 Deck Button Layout](#51-Deck-Button-Layout)
+  - [5.2 Deck Button Functions](#52-Deck-Button-Functions)
+    - [5.2.a) Move Summit:](#52a-Move-Summit)
+    - [5.2.b) Steam Arch Linux:](#52b-Steam-Arch-Linux)
+    - [5.2.c) Additional & Modification:](#52c-Additional-Modification)
+  - [5.3 Control Summit Base Platform:](#53-Control-Summit-Base-Platform)
+    - [5.3.1 Launching through Icons:](#531-Launching-through-Icons)
+    - [5.3.2 Launch through terminals:](#532-Launch-through-terminals)
+      - [5.3.2.1 Launch Pad](#5321-Launch-Pad)
+      - [5.3.2.2 Launch Rviz](#5322-Launch-Rviz)
+- [**6. AMCL Mapping Instruction**](#6-AMCL-Mapping-Instruction)
+  - [6.1 Creating AMCL Map:](#61-Creating-AMCL-Map)
+    - [6.1.1 Disable Navigation Package](#611-Disable-Navigation-Package)
+    - [6.1.2 Launch SLAM Gmapping:](#612-Launch-SLAM-Gmapping)
+    - [6.1.3 Now Mapping on Rviz:](#613-Now-Mapping-on-Rviz)
+    - [6.1.4 Save the Map:](#614-Save-the-Map)
+  - [6.2 Loading the New Map](#62-Loading-the-New-Map)
 - [**Appendix A - Utilities**](#Appendix-A-Utilities)
   - [A.1 xacro and launching](#A1-xacro-and-launching)
   - [A.2 ROS](#A2-ROS)
@@ -266,17 +268,20 @@ $ ssh uwarl-orin@192.168.1.10
 $ roslaunch waterloo_steel_supervisor multi_intel_camera.launch
 ```
 
+# 4. Internal WAM PC
+In order to connect over the Inernal WAM PC (to check if the WAM, under Real-time operation, is performing correctly), download the [wamdiscover.py](https://web.barrett.com/support/WAM_Installer/wamdiscover.py) from the Barrett file [repository](https://web.barrett.com/support/). This will give you the current WAM-IP and allow you to connect to it directly.
 
+Useful info on setting up programs to use the libbarrette library can be found[here](https://github.com/UW-Advanced-Robotics-Lab/uwarl-libbarrett).
 
-# 4. Steam Deck Controller
+# 5. Steam Deck Controller
 
-## 4.1 Deck Button Layout
+## 5.1 Deck Button Layout
 
 ![steam_deck_ports_controls](resources/deck/steam_deck_ports_controls.jpg)
 
-## 4.2 Deck Button Functions
+## 5.2 Deck Button Functions
 
-### 4.2.a) Move Summit:
+### 5.2.a) Move Summit:
 
 - Launch the joystick controller by touching **[Launch UWARL Summit Controller]** App Icon
 - Button Layouts:
@@ -287,7 +292,7 @@ $ roslaunch waterloo_steel_supervisor multi_intel_camera.launch
   - Hold :three: **[R1]**  + Press **[A]** Speed Down --
   - Hold :three: **[R1]**  + Press **[X/B]** :no_entry_sign: **NOT IMPLEMENTED**
 
-### 4.2.b) Steam Arch Linux:
+### 5.2.b) Steam Arch Linux:
 
 - :four: **[R4]** : Scroll Up
 - :five: **[R5]** : Scroll Down
@@ -297,31 +302,31 @@ $ roslaunch waterloo_steel_supervisor multi_intel_camera.launch
 - 9️⃣ **[Right Trackpad]** : Mouse Move +  Mouse Right Click
 - :keycap_ten: **[Steam]** : Menu Selection ---> Used to switch between Steam OS / ArchLinux Mode + Power/Restart
 
-### 4.2.c) Additional & Modification:
+### 5.2.c) Additional & Modification:
 
 - You may check the button **id** using the software GUI: **joystick** 
 - You may assign these button **id** to summit ws files on summit-pc: `~/UWARL_catkin_ws/waterloo_steel/waterloo_steel_interface/summit_xl_pad/config/uwarl_deck.yaml`
 
-## 4.3 Control Summit Base Platform:
+## 5.3 Control Summit Base Platform:
 
 ![deck_controller_desktop](resources/deck/deck_controller_desktop.jpg)
 
-### 4.3.1 Launching through Icons:
+### 5.3.1 Launching through Icons:
 
 - :one:  > **Launch Pad** 
 - :two:  > **Rviz Viewer**
 
 
 
-### 4.3.2 Launch through terminals:
+### 5.3.2 Launch through terminals:
 
-#### 1.3.2.1 Launch Pad 
+#### 5.3.2.1 Launch Pad 
 
 ```bash
 $ roslaunch summit_xl_pad waterloo_steel_summit_deck.launch
 ```
 
-#### 1.3.2.2 Launch Rviz
+#### 5.3.2.2 Launch Rviz
 
 ```bash
 $ rosrun rviz rviz
@@ -329,20 +334,20 @@ $ rosrun rviz rviz
 
 
 
-# 5. AMCL Mapping Instruction
+# 6. AMCL Mapping Instruction
 
 > [!IMPORTANT] 
 >
 > 1. Before launching, make sure the robot is aligned with an edge of the wall in the center of the room for best result
 > 2. Make sure in slow speed when creating the map
 
-## 5.1 Creating AMCL Map:
+## 6.1 Creating AMCL Map:
 
 ```bash
 $ ssh uwarl@192.168.1.11
 ```
 
-### 5.1.1 Disable Navigation Package
+### 6.1.1 Disable Navigation Package
 
 ```bash
 ## comment out navigation for summit
@@ -358,7 +363,7 @@ $ summit_systemctl restart
 $ summit_systemctl follow
 ```
 
-### 5.1.2 Launch SLAM Gmapping:
+### 6.1.2 Launch SLAM Gmapping:
 
 ```bash
 ## slam mapping:
@@ -366,7 +371,7 @@ $ cd ~/UWARL_catkin_ws/src/uwarl-summit_xl_robot/waterloo_steel_summit_bringup
 $ roslaunch summit_xl_localization slam_gmapping.launch
 ```
 
-### 5.1.3 Now Mapping on Rviz:
+### 6.1.3 Now Mapping on Rviz:
 
 ![mapping_rviz](resources/deck/mapping_rviz.jpg)
 
@@ -377,7 +382,7 @@ $ roslaunch summit_xl_localization slam_gmapping.launch
 > 1. Keep a distance of at least 0.5 meters between the robot and the objects you want to capture. Objects within this distance will not be captured.
 > 2. Make sure your legs are not captured as an object. Therefore, stay in the blind spot of the robot or keep walking around.
 
-### 5.1.4 Save the Map:
+### 6.1.4 Save the Map:
 
 ```bash
 $ cd ~/UWARL_catkin_ws/src/uwarl-summit_xl_common/summit_xl_localization/maps/{Building-floor-folder}
@@ -389,7 +394,7 @@ $ cd ~/UWARL_catkin_ws/src/uwarl-summit_xl_common/summit_xl_localization/maps/UW
 $ rosrun map_server map_saver -f map_robothub_2023-11-08
 ```
 
-## 5.2 Loading the New Map 
+## 6.2 Loading the New Map 
 
 ```bash
 $ cp ~/UWARL_catkin_ws/src/uwarl-summit_xl_common/summit_xl_localization/maps/UW_E7_1ST/map_robothub_2023-11-08.pgm ~/UWARL_catkin_ws/src/uwarl-summit_xl_common/summit_xl_localization/maps/map_in_use/map.pgm 
