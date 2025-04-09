@@ -48,6 +48,7 @@
 - Reference Manager (free-local-plan): [Zotero](https://www.zotero.org) 
     - Chrome Reference Plug-In (free): [Zotero-Chrome](https://chrome.google.com/webstore/detail/zotero-connector/ekhagklcjbdpajgpjgmbionohlpdbjgc?hl=en) ---> automatically download, OCR and stub bib reference to a paper / pdf 
     - [Zotero-Better-Bibtex](https://retorque.re/zotero-better-bibtex/) ---> auto generate bibtex from a category to a local specified `.bib` file 
+    - Setting Up a Zotero Institutional Account for Unlimited Storage: [Uwaterloo Library Guide](https://subjectguides.uwaterloo.ca/zotero)
 - Plug-in to make better notes in Zotero: https://github.com/windingwind/zotero-better-notes/blob/master/UserGuideCN.md
 - IPE: https://github.com/otfried/ipe for latex Draw
 
